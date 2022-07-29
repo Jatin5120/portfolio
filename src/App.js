@@ -121,7 +121,7 @@ const App = () => {
   });
 
   const changingHanburgState = () => {
-    setHanburgStateCheck((prevHanburgStateCheck) => !prevHanburgStateCheck);
+    setHanburgStateCheck(!hanburgStateCheck);
   };
 
   const changingActiveState = (myString) => {

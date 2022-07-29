@@ -66,16 +66,23 @@ const TagNames = styledComponents.div`
     margin-top: 2.7em;
     font-size: ${fontSizeSub2};
     font-family: ${fontFamilySub2};
+    // border:2px solid white;
 @media(max-width:${screen.mobile}px){
         font-family:${TextTheme.caption.fontFamily};
         font-size:${TextTheme.caption.fontSize};
+        display:block;
     }  
 `;
 const SingleTag = styledComponents.div`
-    background: #FFA000;
+    background: ${AppColors.primary300};
     border-radius: 10px;
     padding: .5em 1.5em;
     margin-right: 1.5em;
+    // border:2px solid black;
+     @media(max-width:${screen.mobile}px){
+        margin: 0 0 1em 0;
+    }
+   
 `;
 
 const Expand = styledComponents.div`
@@ -94,7 +101,7 @@ const Counter = styledComponents.div`
     text-align:center;
     line-height:24px;
     padding:.5em .5em;
-     margin-top:2em;
+     margin:2em 0 0 1em;
 `;
 
 const TagsOuter = styledComponents.div`

@@ -33,14 +33,9 @@ const ProjectSection = ({ projects }) => {
         </BottomSection>
       </ProjectInner>
       <ButtonSection>
-        <Button>
-          <Link
-            to="projects"
-            style={{ textDecoration: "none", color: "white" }}
-          >
-            See All
-          </Link>
-        </Button>
+        <Link to="projects" style={{ textDecoration: "none", color: "white" }}>
+          <Button>See All</Button>
+        </Link>
       </ButtonSection>
     </Project>
   );

@@ -24,7 +24,9 @@ const NavDataSkeleton = (props, ref) => {
           change();
           changingActive(Strings.home);
           method(homeRef.current);
-          setHanburgStateCheck();
+          if (window.innerWidth < 700) {
+            setHanburgStateCheck();
+          }
         }}
       >
         <NavAnchor active={active}>{Strings.home}</NavAnchor>
@@ -37,7 +39,9 @@ const NavDataSkeleton = (props, ref) => {
           change();
           changingActive(Strings.about);
           method(aboutRef.current);
-          setHanburgStateCheck();
+          if (window.innerWidth < 700) {
+            setHanburgStateCheck();
+          }
         }}
       >
         <NavAnchor active={active}>{Strings.about}</NavAnchor>
@@ -50,7 +54,9 @@ const NavDataSkeleton = (props, ref) => {
           change();
           changingActive(Strings.projects);
           method(projectRef.current);
-          setHanburgStateCheck();
+          if (window.innerWidth < 700) {
+            setHanburgStateCheck();
+          }
         }}
       >
         <NavAnchor active={active}>{Strings.projects}</NavAnchor>
@@ -62,7 +68,9 @@ const NavDataSkeleton = (props, ref) => {
           change();
           changingActive(Strings.contact);
           method(contactRef.current);
-          setHanburgStateCheck();
+          if (window.innerWidth < 700) {
+            setHanburgStateCheck();
+          }
         }}
       >
         <NavAnchor active={active}>{Strings.contact}</NavAnchor>
