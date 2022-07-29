@@ -72,7 +72,7 @@ const App = () => {
   useEffect(async () => {
     setProjects(await projectData({ collection: "dashboard", doc: "data" }));
     setSocials(await getColl("socials"));
-    setContact(await getColl("contact"));
+    setContact(await getColl("contacts"));
     setAbout(await getDoc({ collection: "dashboard", doc: "data" }));
   }, []);
 
