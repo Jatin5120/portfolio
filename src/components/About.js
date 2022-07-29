@@ -17,13 +17,7 @@ import {
   RightSectionStyle,
 } from "./leftSectionStyle";
 
-const AboutComp = () => {
-  const [about, error, isAboutLoading] = useGetDoc("dashboard", "data");
-  console.log(about, "aboutSection");
-  if (isAboutLoading) {
-    return <>wait</>;
-  }
-
+const AboutComp = ({ about }) => {
   return (
     <About>
       <AboutInner>

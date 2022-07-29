@@ -1,6 +1,7 @@
 import React from "react";
 import styledComponents from "styled-components";
 import { AppColors, TextTheme } from "../constant/constant";
+import { screen } from "../constant/stringConstants";
 
 const { fontFamily: fontFamilyH6, fontSize: fontSizeH6 } = TextTheme.heading6;
 const {
@@ -37,6 +38,10 @@ const Titles = styledComponents.div`
   
     font-size: ${fontSizeH6};
     font-family: ${fontFamilyH6};
+
+    @media(max-width:${screen.mobile}px){
+        font-size:${TextTheme.body2.fontSize};
+    }
     
 `;
 
@@ -61,13 +66,13 @@ const TagNames = styledComponents.div`
     margin-top: 2.7em;
     font-size: ${fontSizeSub2};
     font-family: ${fontFamilySub2};
-@media(max-width:600px){
+@media(max-width:${screen.mobile}px){
         font-family:${TextTheme.caption.fontFamily};
         font-size:${TextTheme.caption.fontSize};
     }  
 `;
 const SingleTag = styledComponents.div`
-    background-color: ${({ colors }) => colors};
+    background: #FFA000;
     border-radius: 10px;
     padding: .5em 1.5em;
     margin-right: 1.5em;
@@ -78,6 +83,7 @@ const Expand = styledComponents.div`
     text-align: right;
     font-size: ${fontSizeSub2};
     font-family: ${fontFamilySub2};
+   padding-top:1em;
 `;
 
 const Counter = styledComponents.div`

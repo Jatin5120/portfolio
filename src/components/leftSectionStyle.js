@@ -2,6 +2,7 @@ import React from "react";
 import styledComponents from "styled-components";
 import { keyframes } from "styled-components";
 import { AppColors, TextTheme } from "../constant/constant";
+import { screen } from "../constant/stringConstants";
 
 const singleDataAnimation = keyframes`
     0% {opacity:0%;transform: translateY(20px);}
@@ -20,7 +21,7 @@ const LeftSectionStyle = styledComponents.div`
    margin:auto;
  height:80vh;
 //  border:2px solid red;
-  @media(max-width:400px){
+  @media(max-width:${screen.mobile}px){
      padding:0; 
    
     }
@@ -31,14 +32,14 @@ const LeftSectionData = styledComponents.div`
     margin:auto;
     width:50%;
     // border:2px solid green;
-   @media(max-width:400px){
+  @media(max-width:${screen.mobile}px){
         width:100%;
        
     }
 `;
 const RightSectionStyle = styledComponents.div`
     width:50%;
-  @media(max-width:400px){
+@media(max-width:${screen.mobile}px){
      display:none;   
     }
 `;
@@ -97,7 +98,7 @@ letter-Spacing:${TextTheme.heading5.letterSpacing};
 text-align:${TextTheme.heading5.textAlign};
 opacity:0;
 animation:${singleDataAnimation} 2s ease forwards;
- @media(max-width:400px){
+@media(max-width:${screen.mobile}px){
         
      font-size:${TextTheme.body1.fontSize};
     }
@@ -116,7 +117,7 @@ text-align:${TextTheme.display.textAlign};
 animation-name:${singleDataAnimation};
 opacity:0;
 animation:${singleDataAnimation} 2s ease .7s forwards;
-@media(max-width:400px){
+@media(max-width:${screen.mobile}px){
     font-size:${TextTheme.heading1.fontSize};
    }
 `;
@@ -134,7 +135,7 @@ text-align:${TextTheme.body1.textAlign};
 animation-name:${singleDataAnimation};
 animation:${singleDataAnimation} 2s ease 1s forwards;
 opacity:0;
-@media(max-width:400px){
+@media(max-width:${screen.mobile}px){
      letter-Spacing:0.4em;
         
      font-size:${TextTheme.caption.fontSize};

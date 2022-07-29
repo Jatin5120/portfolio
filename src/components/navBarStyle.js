@@ -5,6 +5,7 @@ import {
   Strings,
   NumericConstant,
 } from "../constant/constant";
+import { screen } from "../constant/stringConstants";
 
 const { fontFamily, fontSize } = TextTheme.subtitle1;
 
@@ -107,10 +108,9 @@ const NavListHanburg = styledComponents.ul`
     @media(max-width:900px){
       position:fixed;
       top:7%;
-      right:4%;
-      border:1px solid white;
-      display:${({ state }) => (state == true ? "block" : "none")}
-      
+      right:39%;
+      display:${({ state }) => (state == true ? "block" : "none")};
+      background:${AppColors.background500};
     }
 `;
 

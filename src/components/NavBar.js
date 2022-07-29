@@ -18,6 +18,10 @@ const NavBar = (props, ref) => {
   const { homeRef, aboutRef, projectRef, experienceRef, contactRef } = ref;
   const [anime, setAnime] = useState(null);
 
+  useEffect(() => {
+    clickableState();
+  }, [stateCheck]);
+
   const { RiveComponent, rive } = useRive({
     src: Menu,
     animations: anime,
@@ -25,7 +29,7 @@ const NavBar = (props, ref) => {
   });
 
   const clickableState = () => {
-    if (stateCheck) {
+    if (!stateCheck) {
       setAnime("close");
     } else {
       setAnime("open");
@@ -39,7 +43,6 @@ const NavBar = (props, ref) => {
       <Hamburg>
         <RiveComponent
           onClick={() => {
-            clickableState();
             setHanburgStateCheck();
           }}
           style={{

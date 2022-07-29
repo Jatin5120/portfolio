@@ -1,6 +1,7 @@
 import StyledComponents from "styled-components";
 import AppColors from "../constant/colors";
 import TextTheme from "../constant/theme";
+import { screen } from "../constant/stringConstants";
 
 export const Form = StyledComponents.form`
     color:${AppColors.secondary500};
@@ -29,7 +30,7 @@ export const TextInput = StyledComponents.input`
     padding:.5em;
     border-radius: 8px;
     height: 48px;
-     @media(max-width:400px){
+    @media(max-width:${screen.mobile}px){
         font-size:.7rem;
     }
     `;
@@ -44,13 +45,13 @@ export const MessageInput = StyledComponents.textarea`
     border-radius: 8px;
     min-height: 96px;
     resize:none;
-     @media(max-width:400px){
+    @media(max-width:${screen.mobile}px){
      font-size:.7rem;   
     }
 
     &::placeholder{
         font-family:${TextTheme.heading6.fontFamily};
-         @media(max-width:400px){
+         @media(max-width:${screen.mobile}px){
         font-size:.7rem;
     }
     }
@@ -66,7 +67,7 @@ export const ServiceHeading = StyledComponents.div`
 
 export const ServiceOutline = StyledComponents.div`
     padding:.5em 0;
-    @media(max-width:400px){
+    @media(max-width:${screen.mobile}px){
         display:block;
     }
 `;
@@ -84,7 +85,7 @@ export const ServiceLabels = StyledComponents.label`
 `;
 
 export const CheckInput = StyledComponents.input`
-    // @media(max-width:400px){
+    // @media(max-width:${screen.mobile}px){
     //     display:block;
     // }
 `;
@@ -101,7 +102,7 @@ export const Submit = StyledComponents.input`
     &:hover{
         cursor:pointer;
     }
-     @media(max-width:800px){
+     @media(max-width:${screen.mobile}px){
      font-size:${TextTheme.body1.fontSize};   
     }
 `;

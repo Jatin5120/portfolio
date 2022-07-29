@@ -29,7 +29,12 @@ import NavDataMobile from "./components/navDataMobile";
 import ContactSection from "./components/contactSection";
 import ProjectSection from "./components/projectSection";
 import Messages from "./store/messageData";
-import { projectData, projectData as projects } from "./store/data";
+import {
+  getColl,
+  getDoc,
+  projectData,
+  projectData as projects,
+} from "./store/data";
 import { Routes, Route } from "react-router-dom";
 export const myContext = React.createContext();
 export const navState = React.createContext();
@@ -58,6 +63,18 @@ const App = () => {
 
   const doc = "2rcG50J8OuZURthc28a0";
   const collection = "projects";
+
+  const [projects, setProjects] = useState(null);
+  const [about, setAbout] = useState(null);
+  const [contact, setContact] = useState(null);
+  const [socials, setSocials] = useState(null);
+
+  useEffect(async () => {
+    setProjects(await projectData({ collection: "dashboard", doc: "data" }));
+    setSocials(await getColl("socials"));
+    setContact(await getColl("contact"));
+    setAbout(await getDoc({ collection: "dashboard", doc: "data" }));
+  }, []);
 
   //custom
   // const [data, setData] = useGetDoc(collection, doc);
@@ -116,16 +133,14 @@ const App = () => {
       ref.scrollIntoView({
         behavior: "smooth",
       });
-
-      console.log("njkk");
     }
   };
 
   const changingMethod = () => {
-    setClickChange((prevClickChange) => !prevClickChange);
+    setClickChange(!clickChange);
   };
 
-  if (!check) {
+  if (!projects || !contact || !socials || !about) {
     return <RiveComponent style={{ height: "100vh", width: "100" }} />;
   }
 
@@ -149,6 +164,8 @@ const App = () => {
         change={changingMethod}
         stateCheck={hanburgStateCheck}
         setHanburgStateCheck={changingHanburgState}
+        active={active}
+        changingActive={changingActiveState}
       />
       <div ref={homeRef}>
         <HomeSection>
@@ -156,13 +173,13 @@ const App = () => {
         </HomeSection>
       </div>
       <div className="hello" ref={aboutRef}>
-        <AboutComp />
+        <AboutComp about={about} />
       </div>
       <div ref={projectRef}>
-        <ProjectSection projects={post.projects} />
+        <ProjectSection projects={projects} />
       </div>
       <div ref={contactRef}>
-        <ContactSection />
+        <ContactSection contact={contact} socials={socials} />
       </div>
     </>
   );

@@ -5,7 +5,14 @@ import { Strings } from "../constant/stringConstants";
 const NavDataSkeleton = (props, ref) => {
   let activeSection = Strings.home;
 
-  const { method, change, active, changingActive } = props;
+  const {
+    method,
+    change,
+    active,
+    changingActive,
+    stateCheck,
+    setHanburgStateCheck,
+  } = props;
   const { homeRef, aboutRef, projectRef, experienceRef, contactRef } = ref;
 
   return (
@@ -17,6 +24,7 @@ const NavDataSkeleton = (props, ref) => {
           change();
           changingActive(Strings.home);
           method(homeRef.current);
+          setHanburgStateCheck();
         }}
       >
         <NavAnchor active={active}>{Strings.home}</NavAnchor>
@@ -29,6 +37,7 @@ const NavDataSkeleton = (props, ref) => {
           change();
           changingActive(Strings.about);
           method(aboutRef.current);
+          setHanburgStateCheck();
         }}
       >
         <NavAnchor active={active}>{Strings.about}</NavAnchor>
@@ -41,6 +50,7 @@ const NavDataSkeleton = (props, ref) => {
           change();
           changingActive(Strings.projects);
           method(projectRef.current);
+          setHanburgStateCheck();
         }}
       >
         <NavAnchor active={active}>{Strings.projects}</NavAnchor>
@@ -52,6 +62,7 @@ const NavDataSkeleton = (props, ref) => {
           change();
           changingActive(Strings.contact);
           method(contactRef.current);
+          setHanburgStateCheck();
         }}
       >
         <NavAnchor active={active}>{Strings.contact}</NavAnchor>

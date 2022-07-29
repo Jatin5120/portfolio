@@ -1,7 +1,7 @@
 //getCollection
 import firebase from "./firebase";
 
-const getColl = async (collection) => {
+export const getColl = async (collection) => {
   const ref = firebase.firestore().collection(collection);
   const res = await ref.get();
   const data = [];
@@ -14,7 +14,7 @@ const getColl = async (collection) => {
 
 //getDoc
 
-const getDoc = async ({ collection, doc }) => {
+export const getDoc = async ({ collection, doc }) => {
   const ref = firebase
     .firestore()
     .collection(collection)

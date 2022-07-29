@@ -1,6 +1,7 @@
 import StyledComponents from "styled-components";
 import TextTheme from "../constant/theme";
 import AppColors from "../constant/colors";
+import { screen } from "../constant/stringConstants";
 
 export const About = StyledComponents.div`
     color:${AppColors.white};
@@ -8,7 +9,7 @@ export const About = StyledComponents.div`
 //    border:2px solid red;
    max-width:1700px;
    margin:auto;
-    @media(max-width:400px){
+    @media(max-width:${screen.mobile}px){
      padding:0;   
     }
    `;
@@ -27,7 +28,7 @@ export const TopSection = StyledComponents.div`
     text-align:center;
     margin:auto;
     margin-bottom:1.5em;
-     @media(max-width:400px){
+     @media(max-width:${screen.mobile}px){
      max-width:100%;   
     }
  
@@ -37,7 +38,7 @@ export const BottomSection = StyledComponents.div`
  
     display:flex;
     justify-content:space-between;
-    @media(max-width:1100px){
+    @media(max-width:${screen.mobile}px){
         display:block;
        
     }
@@ -68,7 +69,7 @@ export const BottomRight = StyledComponents.div`
     font-size:${TextTheme.heading6.fontSize};
     font-weight:${TextTheme.heading6.fontWeight};
     }
-     @media(max-width:400px){
+     @media(max-width:${screen.mobile}px){
      max-width:100%;
    padding-top:2em;
     }

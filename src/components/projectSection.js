@@ -14,17 +14,7 @@ import { Link } from "react-router-dom";
 import { Button } from "./Button";
 import { ButtonSection } from "./projectPageStyle";
 
-const ProjectSection = () => {
-  const [projects, setProjects] = useState(null);
-
-  useEffect(async () => {
-    setProjects(await projectData({ collection: "dashboard", doc: "data" }));
-  }, []);
-
-  if (!projects) {
-    return <div>wait</div>;
-  }
-
+const ProjectSection = ({ projects }) => {
   return (
     <Project>
       <ProjectInner>

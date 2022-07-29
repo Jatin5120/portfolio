@@ -22,4 +22,8 @@ const navHeadings = [
   Strings.contact,
 ];
 
-export { Strings, Api, navHeadings };
+const screen = {
+  mobile: 800,
+};
+
+export { Strings, Api, navHeadings, screen };

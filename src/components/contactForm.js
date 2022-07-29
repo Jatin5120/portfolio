@@ -22,10 +22,10 @@ const ContactForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [mail, setMail] = useState("");
-  const [phone, setPhone] = useState(null);
-  const [otherService, setOtherService] = useState(null);
+  const [phone, setPhone] = useState();
+  const [otherService, setOtherService] = useState();
   const [message, setMessage] = useState("");
-  const [radio, setRadio] = useState(null);
+  const [radio, setRadio] = useState();
 
   const currentData = {
     firstName: firstName,

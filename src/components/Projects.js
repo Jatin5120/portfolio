@@ -41,7 +41,11 @@ const ProjectsCard = ({ name, tags, icon }) => {
             <TagNames>
               {tags.map((i, index) => {
                 if (index < 2) {
-                  return <SingleTag color={i.color}>{i.label}</SingleTag>;
+                  return (
+                    <SingleTag key={index} color={i.color}>
+                      {i.label}
+                    </SingleTag>
+                  );
                 }
               })}
             </TagNames>

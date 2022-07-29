@@ -6,17 +6,17 @@ const ButtonStyle = styledComponents.button`
   position: relative;
   font-size:${TextTheme.heading6.fontSize};
   text-decoration: none;
-  z-index: 1;
+  z-index: -1;
   border-radius:10px;
   height: 48px;
   width:250px;
   padding:.5em .7em;
   // min-height:3em;
   borer: 0;
-  @media(max-width:400px){
+  @media(max-width:500px){
     width:100px;
     font-size:${TextTheme.body2.fontSize};
-     height:30px;
+     
      padding:.3em .6em;    
     }
   &:hover {

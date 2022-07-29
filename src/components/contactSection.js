@@ -25,16 +25,7 @@ import AppColors from "../constant/colors";
 import ContactForm from "./contactForm";
 import useGetCollection from "../customHooks/useGetCollection";
 
-const ContactSection = () => {
-  const [socials, socialsError, isSocialsLoading] = useGetCollection("socials");
-  const [contact, contactsError, isContactsLoading] = useGetCollection(
-    "contacts"
-  );
-
-  if (!contact || !socials) {
-    return <div>wait</div>;
-  }
-
+const ContactSection = ({ contact, socials }) => {
   return (
     <>
       <ContactOuter>
@@ -70,8 +61,8 @@ const ContactSection = () => {
                 </Contacts>
                 <LeftMessage>{Strings.contactMessage}</LeftMessage>
                 <LeftIcons>
-                  {socials.map((i) => (
-                    <a href={i.link}>
+                  {socials.map((i, index) => (
+                    <a key={index} href={i.link}>
                       <FontAwesomeIcon
                         icon={i.icon}
                         color={AppColors.white}

@@ -38,8 +38,8 @@ const LeftSection = () => {
       <LeftSectionData>
         <BioOuter>
           <LinksStyle>
-            {socials.map((x) => (
-              <IconDisplay x={x} />
+            {socials.map((x, index) => (
+              <IconDisplay key={index} x={x} />
             ))}
           </LinksStyle>
 
