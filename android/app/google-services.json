@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "333046234443",
+    "project_id": "portfolio-5120",
+    "storage_bucket": "portfolio-5120.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333046234443:android:8144535cefe96aae57bcce",
+        "android_client_info": {
+          "package_name": "com.jatin5120.portfolio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrUz5bpynprmb6AZBhIfVaDbvF0Gojczc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
