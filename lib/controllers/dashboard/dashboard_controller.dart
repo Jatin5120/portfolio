@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
 import 'package:portfolio/widgets/widgets.dart';
 import 'package:rive/rive.dart';
@@ -18,6 +20,12 @@ class DashboardController extends GetxController {
   void onInit() {
     super.onInit();
     changeDashState(DashState.idle);
+  }
+
+  void precache(BuildContext context) {
+    precacheImage(const AssetImage(AssetConstants.cartoonDp), context);
+    precacheImage(const AssetImage(AssetConstants.cartoonFull), context);
+    precacheImage(const AssetImage(AssetConstants.contact), context);
   }
 
   void lookUpOnHover(bool isHovering) {

@@ -9,7 +9,7 @@ class _LandingViewDesktopLarge extends StatelessWidget {
       width: double.maxFinite,
       height: Get.height - Dimens.navbarHeight,
       child: Padding(
-        padding: ResponsiveState.desktop.padding,
+        padding: ResponsiveState.desktopLarge.pagePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

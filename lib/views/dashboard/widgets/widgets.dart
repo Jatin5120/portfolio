@@ -1,3 +1,4 @@
+export 'about_image_row.dart';
 export 'buttons/buttons.dart';
-export 'nav_bar/nav_bar.dart';
-export 'nav_link.dart';
+export 'my_photo.dart';
+export 'quote.dart';

@@ -9,7 +9,7 @@ class _LandingViewTablet extends StatelessWidget {
       width: double.maxFinite,
       height: Get.height - Dimens.navbarHeight,
       child: Padding(
-        padding: ResponsiveState.tablet.padding,
+        padding: ResponsiveState.tablet.pagePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

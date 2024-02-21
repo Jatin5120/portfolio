@@ -59,7 +59,12 @@ extension ResponsiveExtension on ResponsiveState {
     }
   }
 
-  EdgeInsets get padding => EdgeInsets.symmetric(
+  EdgeInsets get pagePadding => EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: 24,
+      );
+
+  EdgeInsets get navbarPadding => EdgeInsets.symmetric(
         horizontal: horizontalPadding,
         vertical: 10,
       );

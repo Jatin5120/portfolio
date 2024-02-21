@@ -6,7 +6,7 @@ class _NavbarTablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: ResponsiveState.tablet.padding,
+      padding: ResponsiveState.tablet.navbarPadding,
       child: const Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [

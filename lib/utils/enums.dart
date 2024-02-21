@@ -49,3 +49,13 @@ enum DashState {
   lookUp,
   slowDance;
 }
+
+enum SkillItem {
+  flutter('Flutter'),
+  dart('Dart'),
+  firebase('Firebase'),
+  nodeJs('NodeJS');
+
+  const SkillItem(this.label);
+  final String label;
+}

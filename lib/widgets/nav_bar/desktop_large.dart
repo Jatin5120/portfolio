@@ -1,21 +1,24 @@
 part of 'nav_bar.dart';
 
-class _NavbarDesktop extends StatelessWidget {
-  const _NavbarDesktop();
+class _NavbarDesktopLarge extends StatelessWidget {
+  const _NavbarDesktopLarge();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: ResponsiveState.desktop.padding,
+      padding: ResponsiveState.desktopLarge.navbarPadding,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Flexible(
-            flex: 8,
+            flex: 10,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const AppLogo(),
+                const Flexible(
+                  flex: 2,
+                  child: AppLogo(),
+                ),
                 Dimens.boxWidth16,
                 const Flexible(
                   flex: 4,
@@ -24,7 +27,7 @@ class _NavbarDesktop extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(),
+          const Spacer(flex: 4),
           const Flexible(
             flex: 3,
             child: GetInTouchButton(),

@@ -10,4 +10,7 @@ class StringConstants {
 
   static const String heroDescription =
       'I bring over 4 years of experience in mobile and web app development, elevating digital possibilities with Flutter\'s enchanting code. With a passion for innovation, my journey focuses on creating seamless, user-centric experiences using Flutter, Dart, and Firebase.';
+
+  static const String aboutMe =
+      "I bring over 4 years of experience in mobile and web app development, elevating digital possibilities with Flutter's enchanting code. With a passion for innovation, my journey focuses on creating seamless, user-centric experiences using Flutter, Dart, and Firebase.\n\nI am a passionate Flutter developer with experience in building beautiful and functional mobile applications. My expertise includes UI design, app development, and working with Dart programming language. I have worked on various projects and love creating engaging user experiences. Let's connect and discuss your next project!";
 }
