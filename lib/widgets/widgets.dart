@@ -4,6 +4,8 @@ export 'button.dart';
 export 'dash_animation.dart';
 export 'icon.dart';
 export 'loader.dart';
+export 'nav_bar/nav_bar.dart';
+export 'nav_link.dart';
 export 'responsive_wrapper.dart';
 export 'social.dart';
 export 'tap_handler.dart';

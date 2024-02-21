@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/views/dashboard/dashboard.dart';
+import 'package:portfolio/widgets/widgets.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
@@ -17,6 +18,7 @@ class DashboardView extends StatelessWidget {
           child: Column(
             children: [
               LandingView(),
+              AboutView(),
             ],
           ),
         ),
