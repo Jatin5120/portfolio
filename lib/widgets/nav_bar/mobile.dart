@@ -6,7 +6,7 @@ class _NavbarMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: ResponsiveState.mobile.padding,
+      padding: ResponsiveState.mobile.navbarPadding,
       child: const Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

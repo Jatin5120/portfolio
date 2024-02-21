@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
+import 'package:portfolio/views/views.dart';
 import 'package:portfolio/widgets/widgets.dart';
 
 part 'desktop.dart';
@@ -14,11 +15,20 @@ class AboutView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ResponsiveWrapper(
-      mobile: _AboutViewMobile(),
-      tablet: _AboutViewTablet(),
-      desktop: _AboutViewDesktop(),
-      desktopLarge: _AboutViewDesktopLarge(),
+    return Stack(
+      children: [
+        Positioned(
+          top: AppConstants.aboutMeDividerSpace,
+          width: Get.width,
+          child: const Divider(color: AppColors.primary),
+        ),
+        const ResponsiveWrapper(
+          mobile: _AboutViewMobile(),
+          tablet: _AboutViewTablet(),
+          desktop: _AboutViewDesktop(),
+          desktopLarge: _AboutViewDesktopLarge(),
+        ),
+      ],
     );
   }
 }

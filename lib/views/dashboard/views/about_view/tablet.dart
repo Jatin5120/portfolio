@@ -9,7 +9,7 @@ class _AboutViewTablet extends StatelessWidget {
       width: double.maxFinite,
       height: Get.height - Dimens.navbarHeight,
       child: Padding(
-        padding: ResponsiveState.tablet.padding,
+        padding: ResponsiveState.tablet.pagePadding,
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [],

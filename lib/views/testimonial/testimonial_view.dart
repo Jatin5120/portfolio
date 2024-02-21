@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/res/res.dart';
+import 'package:portfolio/widgets/widgets.dart';
 
 class TestimonialView extends StatelessWidget {
   const TestimonialView({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class TestimonialView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('Testimonial'),
+        child: AppText('Testimonial'),
       ),
     );
   }

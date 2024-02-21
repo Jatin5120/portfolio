@@ -6,7 +6,7 @@ class _NavbarDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: ResponsiveState.desktop.padding,
+      padding: ResponsiveState.desktop.navbarPadding,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [

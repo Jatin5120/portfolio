@@ -9,7 +9,7 @@ class _AboutViewMobile extends StatelessWidget {
       width: double.maxFinite,
       height: Get.height - Dimens.navbarHeight,
       child: Padding(
-        padding: ResponsiveState.mobile.padding,
+        padding: ResponsiveState.mobile.pagePadding,
         child: const Column(
           children: [],
         ),

@@ -9,7 +9,7 @@ class _LandingViewMobile extends StatelessWidget {
       width: double.maxFinite,
       height: Get.height - Dimens.navbarHeight,
       child: Padding(
-        padding: ResponsiveState.mobile.padding,
+        padding: ResponsiveState.mobile.pagePadding,
         child: Column(
           children: [
             Expanded(
