@@ -26,14 +26,14 @@ class _AboutViewMobile extends StatelessWidget {
                       children: [
                         AppText(
                           'Who am I?',
-                          style: context.textTheme.headlineMedium?.withTitleColor,
+                          style: context.textTheme.headlineSmall?.withTitleColor,
                         ),
                         Dimens.boxHeight8,
                         const SkillRow(),
                         Dimens.boxHeight16,
                         AppText(
                           StringConstants.aboutMe,
-                          style: context.textTheme.titleMedium?.withBodyColor,
+                          style: context.textTheme.titleSmall?.withBodyColor,
                         ),
                       ],
                     ),

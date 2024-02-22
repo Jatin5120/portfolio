@@ -16,17 +16,13 @@ class SocialRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: center ? MainAxisAlignment.center : MainAxisAlignment.start,
-      children: [
-        ...List.generate(
-          SocialItem.values.length,
-          (index) => $Social(
-            SocialItem.values[index],
-            showName: showName,
-          ),
-        ).toList(),
-      ],
+    return Wrap(
+      direction: Axis.horizontal,
+      children: SocialItem.values
+          .map(
+            (e) => $Social(e, showName: showName),
+          )
+          .toList(),
     );
   }
 }

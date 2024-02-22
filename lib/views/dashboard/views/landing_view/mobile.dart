@@ -14,28 +14,31 @@ class _LandingViewMobile extends StatelessWidget {
           children: [
             Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const DashAnimation(),
+                  const Center(child: DashAnimation()),
                   AppText(
                     'Hey, I\'m',
-                    style: context.textTheme.titleLarge?.withBodyColor,
+                    style: context.textTheme.titleMedium?.withBodyColor,
                   ),
-                  AppText(
-                    'Jatin',
-                    style: GoogleFonts.getTextTheme(
-                      'Montserrat',
-                    ).displayLarge?.withTitleColor.copyWith(
-                          fontSize: 144,
-                          fontWeight: FontWeight.bold,
-                          height: 1,
-                          letterSpacing: 0,
-                        ),
+                  FittedBox(
+                    child: AppText(
+                      'Jatin',
+                      style: GoogleFonts.getTextTheme(
+                        'Montserrat',
+                      ).displayLarge?.withTitleColor.copyWith(
+                            fontSize: 80,
+                            fontWeight: FontWeight.bold,
+                            height: 1,
+                            letterSpacing: 0,
+                          ),
+                    ),
                   ),
                   Dimens.boxHeight10,
                   AppText(
                     StringConstants.heroDescription,
-                    style: context.textTheme.bodyLarge?.withBodyColor,
+                    style: context.textTheme.bodyMedium?.withBodyColor,
                   ),
                   const SizedBox(height: 32),
                   const HireMeButton(),
