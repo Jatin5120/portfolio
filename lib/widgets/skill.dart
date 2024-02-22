@@ -9,19 +9,11 @@ class SkillRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: SkillItem.values.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 10),
-        itemBuilder: (_, index) => UnconstrainedBox(
-          child: $Skill(
-            SkillItem.values[index].label,
-          ),
-        ),
-      ),
+    return Wrap(
+      direction: Axis.horizontal,
+      spacing: 10,
+      runSpacing: 10,
+      children: SkillItem.values.map((e) => $Skill(e.label)).toList(),
     );
   }
 }

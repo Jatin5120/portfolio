@@ -10,8 +10,48 @@ class _AboutViewMobile extends StatelessWidget {
       height: Get.height - Dimens.navbarHeight,
       child: Padding(
         padding: ResponsiveState.mobile.pagePadding,
-        child: const Column(
-          children: [],
+        child: Column(
+          children: [
+            const AboutImageRow(small: true, isMobile: true),
+            Dimens.boxHeight32,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        AppText(
+                          'Who am I?',
+                          style: context.textTheme.headlineMedium?.withTitleColor,
+                        ),
+                        Dimens.boxHeight8,
+                        const SkillRow(),
+                        Dimens.boxHeight16,
+                        AppText(
+                          StringConstants.aboutMe,
+                          style: context.textTheme.titleMedium?.withBodyColor,
+                        ),
+                      ],
+                    ),
+                  ),
+                  AppButton(
+                    label: 'LinkedIn',
+                    onTap: () {},
+                  ),
+                  const SizedBox(height: 16),
+                  AppButton.outlined(
+                    label: 'Github',
+                    onTap: () {},
+                  ),
+                  Dimens.boxHeight50,
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

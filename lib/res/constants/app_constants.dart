@@ -1,5 +1,3 @@
-import 'package:portfolio/res/res.dart';
-
 /// `AppConstants` is a singleton class with all static variables.
 ///
 /// It contains all constants that are to be used within the project
@@ -23,7 +21,9 @@ class AppConstants {
   static const String instagramUrl = 'https://www.instagram.com/jatin5120_';
   static const String githubUrl = 'https://www.github.com/jatin5120';
 
-  static double get aboutMeDividerSpace => Dimens.oneHundredTwenty;
-  static double get profileImageSize => Dimens.twoHundred;
-  static double get aboutMeImageSpace => (aboutMeDividerSpace - profileImageSize * 0.5) * 0.5;
+  static double get aboutMeDividerSpace => 150;
+
+  static double profileImageSize(small) => small ? 175 : 200;
+
+  static double aboutMeImageSpace(bool small) => (aboutMeDividerSpace - profileImageSize(small) * 0.5) * 0.5;
 }

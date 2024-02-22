@@ -56,13 +56,13 @@ class _LandingViewTablet extends StatelessWidget {
                     style: context.textTheme.bodyLarge?.withBodyColor,
                   ),
                   Dimens.boxHeight32,
-                  Row(
+                  const Row(
                     children: [
-                      const Flexible(
+                      Flexible(
                         child: MyWorkButton(),
                       ),
-                      Dimens.boxWidth16,
-                      const Flexible(
+                      SizedBox(width: 16),
+                      Flexible(
                         child: HireMeButton(),
                       ),
                     ],

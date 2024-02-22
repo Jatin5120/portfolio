@@ -14,14 +14,14 @@ class _AboutViewDesktop extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const AboutImageRow(),
-            Dimens.boxHeight16,
+            Dimens.boxHeight32,
             Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -32,12 +32,12 @@ class _AboutViewDesktop extends StatelessWidget {
                         ),
                         Dimens.boxHeight8,
                         const SkillRow(),
-                        Dimens.boxHeight8,
+                        Dimens.boxHeight16,
                         AppText(
                           StringConstants.aboutMe,
                           style: context.textTheme.titleLarge?.withBodyColor,
                         ),
-                        const Spacer(),
+                        const Spacer(flex: 2),
                         Row(
                           children: [
                             Flexible(
@@ -53,15 +53,15 @@ class _AboutViewDesktop extends StatelessWidget {
                                 onTap: () {},
                               ),
                             ),
-                            const Spacer(),
                           ],
                         ),
-                        Dimens.boxHeight20,
+                        const Spacer(),
                       ],
                     ),
                   ),
                   Dimens.boxWidth32,
                   Expanded(
+                    flex: 2,
                     child: Image.asset(
                       AssetConstants.cartoonFull,
                     ),

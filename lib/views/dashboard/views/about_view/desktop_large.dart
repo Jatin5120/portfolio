@@ -14,7 +14,7 @@ class _AboutViewDesktopLarge extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const AboutImageRow(),
-            Dimens.boxHeight16,
+            Dimens.boxHeight32,
             Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,16 +32,15 @@ class _AboutViewDesktopLarge extends StatelessWidget {
                         ),
                         Dimens.boxHeight8,
                         const SkillRow(),
-                        Dimens.boxHeight8,
+                        Dimens.boxHeight16,
                         AppText(
                           StringConstants.aboutMe,
                           style: context.textTheme.titleLarge?.withBodyColor,
                         ),
-                        const Spacer(),
+                        const Spacer(flex: 2),
                         Row(
                           children: [
                             Flexible(
-                              flex: 2,
                               child: AppButton.outlined(
                                 label: 'Github',
                                 onTap: () {},
@@ -49,16 +48,15 @@ class _AboutViewDesktopLarge extends StatelessWidget {
                             ),
                             Dimens.boxWidth16,
                             Flexible(
-                              flex: 2,
                               child: AppButton(
                                 label: 'LinkedIn',
                                 onTap: () {},
                               ),
                             ),
-                            const Spacer(flex: 3),
+                            const Spacer(),
                           ],
                         ),
-                        Dimens.boxHeight20,
+                        const Spacer(),
                       ],
                     ),
                   ),

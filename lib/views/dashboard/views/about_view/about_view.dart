@@ -20,7 +20,11 @@ class AboutView extends StatelessWidget {
         Positioned(
           top: AppConstants.aboutMeDividerSpace,
           width: Get.width,
-          child: const Divider(color: AppColors.primary),
+          child: const Divider(
+            color: AppColors.primary,
+            height: 1,
+            thickness: 1,
+          ),
         ),
         const ResponsiveWrapper(
           mobile: _AboutViewMobile(),
