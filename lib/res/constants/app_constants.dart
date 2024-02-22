@@ -21,7 +21,7 @@ class AppConstants {
   static const String instagramUrl = 'https://www.instagram.com/jatin5120_';
   static const String githubUrl = 'https://www.github.com/jatin5120';
 
-  static double get aboutMeDividerSpace => 150;
+  static double get aboutMeDividerSpace => 140;
 
   static double profileImageSize(small) => small ? 175 : 200;
 
