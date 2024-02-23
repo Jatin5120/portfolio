@@ -12,9 +12,9 @@ class AssetConstants {
 
   static const String dashAnimation = 'assets/animations/dash.riv';
 
-  static const String cartoonDp = 'assets/images/cartoon_dp.png';
-  static const String cartoonFull = 'assets/images/cartoon_full.png';
-  static const String contact = 'assets/images/contact.png';
+  static const String cartoonDp = 'assets/images/cartoon_dp.webp';
+  static const String cartoonFull = 'assets/images/cartoon_full.webp';
+  static const String contact = 'assets/images/contact.webp';
 
   static const String arrowRight = 'assets/icons/arrow_right.svg';
   static const String github = 'assets/icons/github.svg';
