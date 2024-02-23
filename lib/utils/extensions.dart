@@ -44,6 +44,15 @@ extension DoubleExtension on double {
   }
 }
 
+extension ContextExtension on BuildContext {
+  ResponsiveState get responsiveState {
+    final size = MediaQuery.of(this).size;
+    return size.width.responsiveState;
+  }
+
+  Size get referenceSize => responsiveState.referenceSize;
+}
+
 extension ResponsiveExtension on ResponsiveState {
   double get horizontalPadding {
     switch (this) {
@@ -68,6 +77,15 @@ extension ResponsiveExtension on ResponsiveState {
         horizontal: horizontalPadding,
         vertical: 10,
       );
+
+  Size get referenceSize {
+    return switch (this) {
+      ResponsiveState.mobile => const Size(360, 800),
+      ResponsiveState.tablet => const Size(1024, 1366),
+      ResponsiveState.desktop => const Size(1366, 768),
+      ResponsiveState.desktopLarge => const Size(1920, 1200),
+    };
+  }
 }
 
 extension MaterialStateExtension on Set<MaterialState> {
