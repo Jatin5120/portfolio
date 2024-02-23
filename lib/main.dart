@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
 
-void main() async {
-  await _setup();
+void main() {
+  _setup();
   usePathUrlStrategy();
   runApp(const MyApp());
 }
 
-Future<void> _setup() async {
+void _setup() {
   WidgetsFlutterBinding.ensureInitialized();
 }
 
