@@ -13,4 +13,16 @@ class StringConstants {
 
   static const String aboutMe =
       "I am a passionate Flutter developer with experience in building beautiful and functional mobile applications. My expertise includes UI design, app development, and working with Dart programming language. I have worked on various projects and love creating engaging user experiences. Let's connect and discuss your next project!";
+
+  static const String contactMe = 'Contact me';
+
+  static const String quickLinks = 'Quick links to get in touch with me';
+
+  static const String emailTitle = 'Feel free to email me at';
+  static const String whatsappTitle = 'Let\'s chat over WhatsApp';
+  static const String linkedinTitle = 'Reachout to me on LinkedIn';
+
+  static const String emailContent = 'contact.dev.jatin';
+  static const String whatsappContent = '+91 62834 01360';
+  static const String linkedinContent = 'Jatin5120';
 }

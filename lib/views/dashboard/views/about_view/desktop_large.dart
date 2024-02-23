@@ -38,22 +38,16 @@ class _AboutViewDesktopLarge extends StatelessWidget {
                           style: context.textTheme.titleLarge?.withBodyColor,
                         ),
                         const Spacer(flex: 2),
-                        Row(
+                        const Row(
                           children: [
                             Flexible(
-                              child: AppButton.outlined(
-                                label: 'Github',
-                                onTap: () {},
-                              ),
+                              child: GithubButton(),
                             ),
-                            Dimens.boxWidth16,
+                            SizedBox(width: 16),
                             Flexible(
-                              child: AppButton(
-                                label: 'LinkedIn',
-                                onTap: () {},
-                              ),
+                              child: LinkedinButton(),
                             ),
-                            const Spacer(),
+                            Spacer(),
                           ],
                         ),
                         const Spacer(),

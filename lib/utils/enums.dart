@@ -59,3 +59,26 @@ enum SkillItem {
   const SkillItem(this.label);
   final String label;
 }
+
+enum ContactItem {
+  email(
+    StringConstants.emailTitle,
+    StringConstants.emailContent,
+    AppConstants.emailUrl,
+  ),
+  whatsapp(
+    StringConstants.whatsappTitle,
+    StringConstants.whatsappContent,
+    AppConstants.whatsappUrl,
+  ),
+  linkedin(
+    StringConstants.linkedinTitle,
+    StringConstants.linkedinContent,
+    AppConstants.linkedinUrl,
+  );
+
+  const ContactItem(this.title, this.content, this.url);
+  final String title;
+  final String content;
+  final String url;
+}

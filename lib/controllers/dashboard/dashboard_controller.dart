@@ -55,4 +55,12 @@ class DashboardController extends GetxController {
   void changeDashState(DashState state) {
     riveController = SimpleAnimation(state.name);
   }
+
+  void onSocialTap(SocialItem item) {
+    Utility.launchURL(item.url);
+  }
+
+  void onContactTap(ContactItem item) {
+    Utility.launchURL(item.url);
+  }
 }

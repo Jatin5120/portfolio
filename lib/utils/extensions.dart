@@ -87,3 +87,18 @@ extension StyleExtension on TextStyle {
     );
   }
 }
+
+extension IterableExtension on Iterable<Widget> {
+  Iterable<Widget> separated(Widget separator) {
+    var output = <Widget>[];
+    for (var i = 0; i < (length * 2 - 1); i++) {
+      final insert = i % 2 == 0;
+      if (insert) {
+        output.add(elementAt(i ~/ 2));
+      } else {
+        output.add(separator);
+      }
+    }
+    return output;
+  }
+}

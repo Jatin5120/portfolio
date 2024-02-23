@@ -14,24 +14,26 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GetBuilder<DashboardController>(
-      id: updateId,
-      initState: (_) {
-        Get.find<DashboardController>().precache(context);
-      },
-      builder: (context) {
-        return const Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(Dimens.navbarHeight),
-            child: NavBar(),
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                LandingView(),
-                AboutView(),
-              ],
+        id: updateId,
+        initState: (_) {
+          Get.find<DashboardController>().precache(context);
+        },
+        builder: (context) {
+          return const Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(Dimens.navbarHeight),
+              child: NavBar(),
             ),
-          ),
-        );
-      });
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  LandingView(),
+                  AboutView(),
+                  ContactView(),
+                ],
+              ),
+            ),
+          );
+        },
+      );
 }

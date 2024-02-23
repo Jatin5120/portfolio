@@ -55,20 +55,14 @@ class _AboutViewTablet extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Row(
+                  const Row(
                     children: [
                       Flexible(
-                        child: AppButton.outlined(
-                          label: 'Github',
-                          onTap: () {},
-                        ),
+                        child: GithubButton(),
                       ),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16),
                       Flexible(
-                        child: AppButton(
-                          label: 'LinkedIn',
-                          onTap: () {},
-                        ),
+                        child: LinkedinButton(),
                       ),
                     ],
                   ),
