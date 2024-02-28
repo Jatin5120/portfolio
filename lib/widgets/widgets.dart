@@ -3,6 +3,7 @@ export 'app_text.dart';
 export 'button.dart';
 export 'dash_animation.dart';
 export 'icon.dart';
+export 'input_field.dart';
 export 'loader.dart';
 export 'nav_bar/nav_bar.dart';
 export 'nav_link.dart';

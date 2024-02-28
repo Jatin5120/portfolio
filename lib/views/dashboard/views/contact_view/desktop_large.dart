@@ -25,12 +25,19 @@ class _ContactViewDesktopLarge extends StatelessWidget {
             const SizedBox(height: 24),
             Row(
               children: ContactItem.values
-                  .map((e) => Expanded(child: ContactCard(e)))
+                  .map((e) => Expanded(
+                        child: ContactCard(
+                          e,
+                          state: ResponsiveState.desktopLarge,
+                        ),
+                      ))
                   .separated(
                     const SizedBox(width: 16),
                   )
                   .toList(),
             ),
+            const Spacer(),
+            const ContactForm(state: ResponsiveState.desktopLarge),
             const Spacer(),
             const SocialRow(center: true, showName: true),
           ],

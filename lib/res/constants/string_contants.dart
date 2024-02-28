@@ -20,7 +20,7 @@ class StringConstants {
 
   static const String emailTitle = 'Feel free to email me at';
   static const String whatsappTitle = 'Let\'s chat over WhatsApp';
-  static const String linkedinTitle = 'Reachout to me on LinkedIn';
+  static const String linkedinTitle = 'Connect on LinkedIn';
 
   static const String emailContent = 'contact.dev.jatin';
   static const String whatsappContent = '+91 62834 01360';

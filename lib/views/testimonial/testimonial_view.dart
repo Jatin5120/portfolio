@@ -3,7 +3,7 @@ import 'package:portfolio/res/res.dart';
 import 'package:portfolio/widgets/widgets.dart';
 
 class TestimonialView extends StatelessWidget {
-  const TestimonialView({Key? key}) : super(key: key);
+  const TestimonialView({super.key});
 
   static const String route = AppRoutes.testimonial;
 

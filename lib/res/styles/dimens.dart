@@ -59,7 +59,7 @@ class Dimens {
   static Widget get boxHeight5 => SizedBox(height: five);
   static Widget get boxHeight8 => SizedBox(height: eight);
   static Widget get boxHeight10 => SizedBox(height: ten);
-
+  static Widget get boxHeight12 => SizedBox(height: twelve);
   static Widget get boxHeight16 => SizedBox(height: sixteen);
   static Widget get boxHeight20 => SizedBox(height: twenty);
   static Widget get boxHeight24 => SizedBox(height: twentyFour);
@@ -84,6 +84,7 @@ class Dimens {
   static EdgeInsets get edgeInsets10 => EdgeInsets.all(ten);
   static EdgeInsets get edgeInsets12 => EdgeInsets.all(twelve);
   static EdgeInsets get edgeInsets16 => EdgeInsets.all(sixteen);
+  static EdgeInsets get edgeInsets24 => EdgeInsets.all(twentyFour);
 
   static EdgeInsets get edgeInsetsL2 => EdgeInsets.only(left: two);
 

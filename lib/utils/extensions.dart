@@ -68,6 +68,10 @@ extension ResponsiveExtension on ResponsiveState {
     }
   }
 
+  bool get isDesktop => this == ResponsiveState.desktop || this == ResponsiveState.desktopLarge;
+
+  bool get isMobile => this == ResponsiveState.mobile;
+
   EdgeInsets get pagePadding => EdgeInsets.symmetric(
         horizontal: horizontalPadding,
         vertical: 24,
