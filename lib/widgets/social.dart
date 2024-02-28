@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/controllers/controllers.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
 import 'package:portfolio/widgets/widgets.dart';
@@ -43,18 +44,19 @@ class $Social extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: TapHandler(
         showSplash: false,
-        onTap: () => Utility.launchURL(item.url),
+        onTap: () => Get.find<DashboardController>().onSocialTap(item),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             AppIcon(item.icon),
             if (showName) ...[
               Dimens.boxWidth8,
               AppText(
                 item.label,
-                style: context.textTheme.bodyLarge,
+                isSelectable: false,
+                style: context.textTheme.bodyLarge?.withTitleColor,
               ),
             ],
           ],

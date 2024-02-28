@@ -18,12 +18,11 @@ void _setup() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       useInheritedMediaQuery: true,
-      designSize: const Size(1920, 1200),
+      designSize: context.referenceSize,
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) => child!,

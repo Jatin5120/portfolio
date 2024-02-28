@@ -24,7 +24,7 @@ class NavLinkRow extends StatelessWidget {
           (index) => NavLink(
             NavItem.visible[index],
           ),
-        ).toList(),
+        ),
       ],
     );
   }

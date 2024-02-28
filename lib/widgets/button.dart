@@ -95,7 +95,7 @@ class _Primary extends StatelessWidget {
           backgroundColor: MaterialStateColor.resolveWith(
             (states) {
               if (states.isDisabled) {
-                return AppColors.primary.shade100;
+                return AppColors.cardDark;
               }
               return AppColors.primary;
             },

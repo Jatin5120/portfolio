@@ -38,15 +38,9 @@ class _AboutViewMobile extends StatelessWidget {
                       ],
                     ),
                   ),
-                  AppButton(
-                    label: 'LinkedIn',
-                    onTap: () {},
-                  ),
+                  const GithubButton(),
                   const SizedBox(height: 16),
-                  AppButton.outlined(
-                    label: 'Github',
-                    onTap: () {},
-                  ),
+                  const LinkedinButton(),
                   Dimens.boxHeight50,
                 ],
               ),
