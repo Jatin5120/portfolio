@@ -94,6 +94,10 @@ extension ResponsiveExtension on ResponsiveState {
 
 extension MaterialStateExtension on Set<MaterialState> {
   bool get isDisabled => any((e) => [MaterialState.disabled].contains(e));
+
+  bool get isClicked => any((e) => [MaterialState.pressed, MaterialState.selected].contains(e));
+
+  bool get isHovered => any((e) => [MaterialState.hovered].contains(e));
 }
 
 extension StyleExtension on TextStyle {

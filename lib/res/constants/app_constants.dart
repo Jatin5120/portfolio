@@ -20,6 +20,7 @@ class AppConstants {
   static const String twitterUrl = 'https://www.twitter.com/jatin5120';
   static const String instagramUrl = 'https://www.instagram.com/jatin5120_';
   static const String githubUrl = 'https://www.github.com/jatin5120';
+  static const String mediumUrl = 'https://jatin5120.medium.com';
   static const String emailUrl = 'mailto:contact.dev.jatin@gmail.com';
 
   static double get aboutMeDividerSpace => 140;

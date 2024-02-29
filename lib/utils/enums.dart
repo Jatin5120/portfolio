@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:portfolio/res/res.dart';
 
 enum MessageType {
@@ -32,16 +33,53 @@ enum NavItem {
 }
 
 enum SocialItem {
-  whatsapp('Whatsapp', AssetConstants.whatsapp, AppConstants.whatsappUrl),
-  linkedin('LinkedIn', AssetConstants.linkedin, AppConstants.linkedinUrl),
-  twitter('X (Twitter)', AssetConstants.twitter, AppConstants.twitterUrl),
-  instagram('Instagram', AssetConstants.instagram, AppConstants.instagramUrl),
-  github('GitHub', AssetConstants.github, AppConstants.githubUrl);
+  whatsapp(
+    'Whatsapp',
+    AssetConstants.whatsapp,
+    AppConstants.whatsappUrl,
+    AppColors.whatsapp,
+  ),
+  linkedin(
+    'LinkedIn',
+    AssetConstants.linkedin,
+    AppConstants.linkedinUrl,
+    AppColors.linkedin,
+  ),
+  twitter(
+    'X (Twitter)',
+    AssetConstants.twitter,
+    AppConstants.twitterUrl,
+    AppColors.twitter,
+  ),
+  instagram(
+    'Instagram',
+    AssetConstants.instagram,
+    AppConstants.instagramUrl,
+    AppColors.instagram,
+  ),
+  github(
+    'GitHub',
+    AssetConstants.github,
+    AppConstants.githubUrl,
+    AppColors.github,
+  ),
+  medium(
+    'Medium',
+    AssetConstants.medium,
+    AppConstants.mediumUrl,
+    AppColors.medium,
+  );
 
-  const SocialItem(this.label, this.icon, this.url);
+  const SocialItem(
+    this.label,
+    this.icon,
+    this.url,
+    this.color,
+  );
   final String label;
   final String icon;
   final String url;
+  final Color color;
 }
 
 enum DashState {

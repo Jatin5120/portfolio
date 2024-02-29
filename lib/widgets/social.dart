@@ -41,26 +41,40 @@ class $Social extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
-      child: TapHandler(
-        showSplash: false,
-        onTap: () => Get.find<DashboardController>().onSocialTap(item),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            AppIcon(item.icon),
-            if (showName) ...[
-              Dimens.boxWidth8,
-              AppText(
-                item.label,
-                isSelectable: false,
-                style: context.textTheme.bodyLarge?.withTitleColor,
-              ),
-            ],
-          ],
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+      child: ObxValue<RxBool>(
+        (isHovering) => TapHandler(
+          showSplash: false,
+          onTap: () => Get.find<DashboardController>().onSocialTap(item),
+          onHover: (value) {
+            isHovering.value = value;
+          },
+          child: AnimatedContainer(
+            duration: AppConstants.animationDuration,
+            decoration: BoxDecoration(
+              color: isHovering.value ? item.color : null,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                AppIcon(item.icon),
+                if (showName) ...[
+                  Dimens.boxWidth8,
+                  AppText(
+                    item.label,
+                    isSelectable: false,
+                    style: context.textTheme.bodyLarge?.withTitleColor,
+                  ),
+                ],
+              ],
+            ),
+          ),
         ),
+        false.obs,
       ),
     );
   }
