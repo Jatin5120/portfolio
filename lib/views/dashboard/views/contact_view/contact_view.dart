@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/controllers/controllers.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
 import 'package:portfolio/views/views.dart';
@@ -16,11 +17,12 @@ class ContactView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ResponsiveWrapper(
-      mobile: _ContactViewMobile(),
-      tablet: _ContactViewTablet(),
-      desktop: _ContactViewDesktop(),
-      desktopLarge: _ContactViewDesktopLarge(),
+    return ResponsiveWrapper(
+      key: Get.find<DashboardController>().contactKey,
+      mobile: const _ContactViewMobile(),
+      tablet: const _ContactViewTablet(),
+      desktop: const _ContactViewDesktop(),
+      desktopLarge: const _ContactViewDesktopLarge(),
     );
   }
 }

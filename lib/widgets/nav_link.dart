@@ -53,9 +53,7 @@ class NavLink extends StatelessWidget {
               onHover: (value) {
                 controller.hoveredNavItem = value ? item : null;
               },
-              onTap: () {
-                controller.selectedNavItem = item;
-              },
+              onTap: () => controller.scrollToSection(item),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,6 +67,7 @@ class NavLink extends StatelessWidget {
                     isSelectable: false,
                   ),
                   Dimens.boxHeight4,
+                  if (isHovering) const SizedBox(height: 2),
                   AnimatedContainer(
                     duration: AppConstants.animationDuration,
                     height: isHovering ? 2 : 4,
