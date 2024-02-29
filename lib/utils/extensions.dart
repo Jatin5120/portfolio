@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/controllers/controllers.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
@@ -126,5 +127,21 @@ extension IterableExtension on Iterable<Widget> {
       }
     }
     return output;
+  }
+}
+
+extension NavigationExtension on NavItem {
+  GlobalKey get sectionKey {
+    final controller = Get.find<DashboardController>();
+    switch (this) {
+      case NavItem.hero:
+        return controller.landingKey;
+      case NavItem.work:
+        return controller.aboutKey;
+      case NavItem.about:
+        return controller.aboutKey;
+      case NavItem.contact:
+        return controller.contactKey;
+    }
   }
 }

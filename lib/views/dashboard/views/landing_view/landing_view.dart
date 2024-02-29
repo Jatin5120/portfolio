@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio/controllers/controllers.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
 import 'package:portfolio/views/views.dart';
@@ -16,11 +17,12 @@ class LandingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ResponsiveWrapper(
-      mobile: _LandingViewMobile(),
-      tablet: _LandingViewTablet(),
-      desktop: _LandingViewDesktop(),
-      desktopLarge: _LandingViewDesktopLarge(),
+    return ResponsiveWrapper(
+      key: Get.find<DashboardController>().landingKey,
+      mobile: const _LandingViewMobile(),
+      tablet: const _LandingViewTablet(),
+      desktop: const _LandingViewDesktop(),
+      desktopLarge: const _LandingViewDesktopLarge(),
     );
   }
 }

@@ -6,6 +6,10 @@ import 'package:portfolio/widgets/widgets.dart';
 import 'package:rive/rive.dart';
 
 class DashboardController extends GetxController {
+  final landingKey = GlobalKey();
+  final aboutKey = GlobalKey();
+  final contactKey = GlobalKey();
+
   final Rx<NavItem> _selectedNavItem = NavItem.hero.obs;
   NavItem get selectedNavItem => _selectedNavItem.value;
   set selectedNavItem(NavItem value) => _selectedNavItem.value = value;
@@ -48,9 +52,25 @@ class DashboardController extends GetxController {
 
   void onHireMe() {}
 
-  void onGetInTouch() {}
+  void onGetInTouch() {
+    scrollToSection(NavItem.contact);
+  }
 
-  void onMyWork() {}
+  void onMyWork() {
+    scrollToSection(NavItem.work);
+  }
+
+  void scrollToSection(NavItem item) {
+    if (item.sectionKey.currentContext == null) {
+      return;
+    }
+    selectedNavItem = item;
+    Scrollable.ensureVisible(
+      item.sectionKey.currentContext!,
+      duration: AppConstants.scrollDuration,
+      curve: Curves.easeInOutCubic,
+    );
+  }
 
   void changeDashState(DashState state) {
     riveController = SimpleAnimation(state.name);

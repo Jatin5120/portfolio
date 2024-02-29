@@ -10,6 +10,8 @@ class AppConstants {
 
   static const Duration animationDuration = Duration(milliseconds: 150);
 
+  static const Duration scrollDuration = Duration(milliseconds: 750);
+
   static const double desktopLargeBreakPoint = 1920;
   static const double desktopBreakPoint = 1366;
   static const double tabletBreakPoint = 1024;

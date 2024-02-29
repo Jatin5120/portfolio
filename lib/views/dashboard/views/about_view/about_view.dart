@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/controllers/controllers.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
 import 'package:portfolio/views/views.dart';
@@ -26,11 +27,12 @@ class AboutView extends StatelessWidget {
             thickness: 1,
           ),
         ),
-        const ResponsiveWrapper(
-          mobile: _AboutViewMobile(),
-          tablet: _AboutViewTablet(),
-          desktop: _AboutViewDesktop(),
-          desktopLarge: _AboutViewDesktopLarge(),
+        ResponsiveWrapper(
+          key: Get.find<DashboardController>().aboutKey,
+          mobile: const _AboutViewMobile(),
+          tablet: const _AboutViewTablet(),
+          desktop: const _AboutViewDesktop(),
+          desktopLarge: const _AboutViewDesktopLarge(),
         ),
       ],
     );
