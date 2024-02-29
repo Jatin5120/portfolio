@@ -5,7 +5,12 @@ import 'package:portfolio/utils/utils.dart';
 import 'package:portfolio/widgets/widgets.dart';
 
 class SkillRow extends StatelessWidget {
-  const SkillRow({super.key});
+  const SkillRow({
+    super.key,
+    this.isMobile = false,
+  });
+
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,12 @@ class SkillRow extends StatelessWidget {
       direction: Axis.horizontal,
       spacing: 10,
       runSpacing: 10,
-      children: SkillItem.values.map((e) => $Skill(e.label)).toList(),
+      children: SkillItem.values
+          .map((e) => $Skill(
+                e.label,
+                isMobile: isMobile,
+              ))
+          .toList(),
     );
   }
 }
@@ -22,9 +32,11 @@ class $Skill extends StatelessWidget {
   const $Skill(
     this.label, {
     super.key,
+    this.isMobile = false,
   });
 
   final String label;
+  final bool isMobile;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +52,7 @@ class $Skill extends StatelessWidget {
         ),
         child: AppText(
           label,
-          style: context.textTheme.bodyLarge?.withTitleColor,
+          style: (isMobile ? context.textTheme.bodyMedium : context.textTheme.bodyLarge)?.withTitleColor,
         ),
       ),
     );

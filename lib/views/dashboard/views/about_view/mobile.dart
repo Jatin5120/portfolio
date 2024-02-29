@@ -5,45 +5,42 @@ class _AboutViewMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
-      height: Get.height - Dimens.navbarHeight,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: Get.width,
+        minHeight: Get.height - Dimens.navbarHeight,
+      ),
       child: Padding(
         padding: ResponsiveState.mobile.pagePadding,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const AboutImageRow(small: true, isMobile: true),
-            Dimens.boxHeight32,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        AppText(
-                          'Who am I?',
-                          style: context.textTheme.headlineSmall?.withTitleColor,
-                        ),
-                        Dimens.boxHeight8,
-                        const SkillRow(),
-                        Dimens.boxHeight16,
-                        AppText(
-                          StringConstants.aboutMe,
-                          style: context.textTheme.titleSmall?.withBodyColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const GithubButton(),
-                  const SizedBox(height: 16),
-                  const LinkedinButton(),
-                  Dimens.boxHeight50,
-                ],
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                AppText(
+                  'Who am I?',
+                  style: context.textTheme.headlineSmall?.withTitleColor,
+                ),
+                Dimens.boxHeight8,
+                const SkillRow(isMobile: true),
+                Dimens.boxHeight16,
+                AppText(
+                  StringConstants.aboutMe,
+                  style: context.textTheme.titleSmall?.withBodyColor,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                const SizedBox(height: 24),
+                const GithubButton(),
+                const SizedBox(height: 16),
+                const LinkedinButton(),
+                Dimens.boxHeight50,
+              ],
             ),
           ],
         ),

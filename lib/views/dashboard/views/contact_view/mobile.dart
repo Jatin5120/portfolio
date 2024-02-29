@@ -5,9 +5,11 @@ class _ContactViewMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
-      height: Get.height - Dimens.navbarHeight,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: Get.width,
+        minHeight: Get.height - Dimens.navbarHeight,
+      ),
       child: Padding(
         padding: ResponsiveState.mobile.pagePadding,
         child: Column(
@@ -29,10 +31,9 @@ class _ContactViewMobile extends StatelessWidget {
                       state: ResponsiveState.mobile,
                     ))
                 .separated(const SizedBox(height: 8)),
+            const SizedBox(height: 24),
+            const ContactForm(state: ResponsiveState.mobile),
             const SizedBox(height: 16),
-            const Expanded(
-              child: ContactForm(state: ResponsiveState.mobile),
-            ),
             const SocialRow(center: true, showName: true),
           ],
         ),
