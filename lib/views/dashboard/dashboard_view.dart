@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/controllers/controllers.dart';
 import 'package:portfolio/res/res.dart';
+import 'package:portfolio/utils/utils.dart';
 import 'package:portfolio/views/dashboard/dashboard.dart';
 import 'package:portfolio/widgets/widgets.dart';
 
@@ -16,6 +17,7 @@ class DashboardView extends StatelessWidget {
   Widget build(BuildContext context) => GetBuilder<DashboardController>(
         id: updateId,
         initState: (_) {
+          Utility.setWebTitle('Jatin | Flutter Developer');
           Get.find<DashboardController>().precache(context);
         },
         builder: (context) {

@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         onTap: Utility.hideKeyboard,
         child: GetMaterialApp(
+          title: 'Jatin | Flutter Developer',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
