@@ -7,8 +7,8 @@ class _ContactViewMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxWidth: Get.width,
-        minHeight: Get.height - Dimens.navbarHeight,
+        maxWidth: context.width,
+        minHeight: context.height - Dimens.navbarHeight,
       ),
       child: Padding(
         padding: ResponsiveState.mobile.pagePadding,
@@ -23,6 +23,7 @@ class _ContactViewMobile extends StatelessWidget {
             AppText(
               StringConstants.quickLinks,
               style: context.textTheme.titleLarge?.withBodyColor,
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             ...ContactItem.values
@@ -31,10 +32,20 @@ class _ContactViewMobile extends StatelessWidget {
                       state: ResponsiveState.mobile,
                     ))
                 .separated(const SizedBox(height: 8)),
+            const SizedBox(height: 16),
+            AppText(
+              StringConstants.technicalQuery,
+              style: context.textTheme.titleLarge?.withBodyColor,
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 24),
             const ContactForm(state: ResponsiveState.mobile),
             const SizedBox(height: 16),
-            const SocialRow(center: true, showName: true),
+            const SocialRow(
+              center: true,
+              showName: true,
+              isMobile: true,
+            ),
           ],
         ),
       ),

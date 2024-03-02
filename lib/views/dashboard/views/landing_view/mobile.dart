@@ -7,8 +7,8 @@ class _LandingViewMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(
-        maxWidth: Get.width,
-        minHeight: Get.height - Dimens.navbarHeight,
+        maxWidth: context.width,
+        minHeight: context.height - Dimens.navbarHeight,
       ),
       child: Padding(
         padding: ResponsiveState.mobile.pagePadding,

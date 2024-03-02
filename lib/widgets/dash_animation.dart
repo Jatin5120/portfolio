@@ -18,8 +18,8 @@ class DashAnimation extends StatelessWidget {
       id: updateId,
       builder: (controller) => ConstrainedBox(
         constraints: BoxConstraints(
-          maxHeight: min(Get.width, Get.height) * 0.4,
-          minHeight: min(Get.width, Get.height) * 0.2,
+          maxHeight: min(context.width, context.height) * 0.4,
+          minHeight: min(context.width, context.height) * 0.2,
         ),
         child: RiveAnimation.asset(
           AssetConstants.dashAnimation,

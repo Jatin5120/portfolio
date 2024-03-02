@@ -7,7 +7,7 @@ class _ContactViewDesktopLarge extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
-      height: Get.height - Dimens.navbarHeight,
+      height: context.height - Dimens.navbarHeight,
       child: Padding(
         padding: ResponsiveState.desktopLarge.pagePadding,
         child: Column(
@@ -35,6 +35,11 @@ class _ContactViewDesktopLarge extends StatelessWidget {
                     const SizedBox(width: 16),
                   )
                   .toList(),
+            ),
+            const SizedBox(height: 24),
+            AppText(
+              StringConstants.technicalQuery,
+              style: context.textTheme.titleLarge?.withBodyColor,
             ),
             const Spacer(),
             const ContactForm(state: ResponsiveState.desktopLarge),

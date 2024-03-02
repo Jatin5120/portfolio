@@ -17,7 +17,7 @@ class ContactForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: state == ResponsiveState.desktopLarge ? EdgeInsets.symmetric(horizontal: Get.width * 0.05) : EdgeInsets.zero,
+      padding: state == ResponsiveState.desktopLarge ? EdgeInsets.symmetric(horizontal: context.width * 0.05) : EdgeInsets.zero,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

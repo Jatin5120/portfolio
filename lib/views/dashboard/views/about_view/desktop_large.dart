@@ -7,7 +7,7 @@ class _AboutViewDesktopLarge extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
-      height: Get.height - Dimens.navbarHeight,
+      height: context.height - Dimens.navbarHeight,
       child: Padding(
         padding: ResponsiveState.desktopLarge.pagePadding,
         child: Column(

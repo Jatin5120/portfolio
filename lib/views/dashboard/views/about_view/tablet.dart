@@ -5,9 +5,12 @@ class _AboutViewTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
-      height: Get.height - Dimens.navbarHeight,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: context.width,
+        minHeight: context.height - Dimens.navbarHeight,
+        maxHeight: max(750, context.height - Dimens.navbarHeight),
+      ),
       child: Padding(
         padding: ResponsiveState.tablet.pagePadding,
         child: Column(
@@ -15,61 +18,53 @@ class _AboutViewTablet extends StatelessWidget {
           children: [
             const AboutImageRow(small: true),
             Dimens.boxHeight32,
-            Expanded(
-              child: Column(
+            Flexible(
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Flexible(
-                    child: Row(
+                  Expanded(
+                    flex: 3,
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              AppText(
-                                'Who am I?',
-                                style: context.textTheme.headlineMedium?.withTitleColor,
-                              ),
-                              Dimens.boxHeight8,
-                              const SkillRow(),
-                              Dimens.boxHeight16,
-                              AppText(
-                                StringConstants.aboutMe,
-                                style: context.textTheme.titleMedium?.withBodyColor,
-                              ),
-                            ],
-                          ),
+                        AppText(
+                          'Who am I?',
+                          style: context.textTheme.headlineMedium?.withTitleColor,
                         ),
-                        Dimens.boxWidth32,
-                        Expanded(
-                          flex: 2,
-                          child: Image.asset(
-                            AssetConstants.cartoonFull,
-                          ),
+                        Dimens.boxHeight8,
+                        const SkillRow(),
+                        Dimens.boxHeight16,
+                        AppText(
+                          StringConstants.aboutMe,
+                          style: context.textTheme.titleMedium?.withBodyColor,
                         ),
                       ],
                     ),
                   ),
-                  const Row(
-                    children: [
-                      Flexible(
-                        child: GithubButton(),
-                      ),
-                      SizedBox(width: 16),
-                      Flexible(
-                        child: LinkedinButton(),
-                      ),
-                    ],
+                  Dimens.boxWidth32,
+                  Expanded(
+                    flex: 2,
+                    child: Image.asset(
+                      AssetConstants.cartoonFull,
+                    ),
                   ),
-                  Dimens.boxHeight50,
                 ],
               ),
             ),
+            const Row(
+              children: [
+                Flexible(
+                  child: GithubButton(),
+                ),
+                SizedBox(width: 16),
+                Flexible(
+                  child: LinkedinButton(),
+                ),
+              ],
+            ),
+            Dimens.boxHeight20,
           ],
         ),
       ),

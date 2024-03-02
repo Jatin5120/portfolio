@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/controllers/controllers.dart';
@@ -20,7 +22,7 @@ class AboutView extends StatelessWidget {
       children: [
         Positioned(
           top: AppConstants.aboutMeDividerSpace,
-          width: Get.width,
+          width: context.width,
           child: const Divider(
             color: AppColors.primary,
             height: 1,
