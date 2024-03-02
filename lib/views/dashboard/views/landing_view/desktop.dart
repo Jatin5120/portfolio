@@ -7,7 +7,7 @@ class _LandingViewDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
-      height: Get.height - Dimens.navbarHeight,
+      height: context.height - Dimens.navbarHeight,
       child: Padding(
         padding: ResponsiveState.desktop.pagePadding,
         child: Column(

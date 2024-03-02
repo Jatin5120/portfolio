@@ -5,9 +5,12 @@ class _LandingViewTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
-      height: Get.height - Dimens.navbarHeight,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: context.width,
+        minHeight: context.height - Dimens.navbarHeight,
+        maxHeight: max(700, context.height - Dimens.navbarHeight),
+      ),
       child: Padding(
         padding: ResponsiveState.tablet.pagePadding,
         child: Column(

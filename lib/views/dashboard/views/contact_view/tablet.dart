@@ -5,9 +5,11 @@ class _ContactViewTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
-      height: Get.height - Dimens.navbarHeight,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: context.width,
+        minHeight: context.height - Dimens.navbarHeight,
+      ),
       child: Padding(
         padding: ResponsiveState.tablet.pagePadding,
         child: Column(
@@ -21,6 +23,7 @@ class _ContactViewTablet extends StatelessWidget {
             AppText(
               StringConstants.quickLinks,
               style: context.textTheme.titleLarge?.withBodyColor,
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
             ...ContactItem.values
@@ -29,10 +32,15 @@ class _ContactViewTablet extends StatelessWidget {
                       state: ResponsiveState.tablet,
                     ))
                 .separated(Dimens.boxHeight12),
-            Dimens.boxHeight16,
-            const Expanded(
-              child: ContactForm(state: ResponsiveState.tablet),
+            const SizedBox(height: 24),
+            AppText(
+              StringConstants.technicalQuery,
+              style: context.textTheme.titleLarge?.withBodyColor,
+              textAlign: TextAlign.center,
             ),
+            const SizedBox(height: 24),
+            const ContactForm(state: ResponsiveState.tablet),
+            const SizedBox(height: 16),
             const SocialRow(center: true, showName: true),
           ],
         ),

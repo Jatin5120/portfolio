@@ -55,7 +55,7 @@ class ContactCard extends StatelessWidget {
           padding: state.isMobile ? Dimens.edgeInsets8 : Dimens.edgeInsets24,
           width: double.maxFinite,
           decoration: ShapeDecoration(
-            color: isHovering.value ? AppColors.primary.shade700 : context.theme.cardTheme.color,
+            color: isHovering.value ? AppColors.primary : context.theme.cardTheme.color,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(state.isMobile ? Dimens.twelve : Dimens.twentyFour),
             ),

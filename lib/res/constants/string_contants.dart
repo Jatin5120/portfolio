@@ -18,6 +18,8 @@ class StringConstants {
 
   static const String quickLinks = 'Quick links to get in touch with me';
 
+  static const String technicalQuery = 'Do you have a technical or development question? Simply leave a message.';
+
   static const String emailTitle = 'Feel free to email me at';
   static const String whatsappTitle = 'Let\'s chat over WhatsApp';
   static const String linkedinTitle = 'Connect on LinkedIn';
