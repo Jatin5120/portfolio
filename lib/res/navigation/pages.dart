@@ -8,12 +8,14 @@ class AppPages {
 
   static const String initial = AppRoutes.dashboard;
 
+  static GetPage get dashboard => GetPage<DashboardView>(
+        name: DashboardView.route,
+        page: DashboardView.new,
+        binding: DashboardBinding(),
+      );
+
   static List<GetPage> pages = [
-    GetPage<DashboardView>(
-      name: DashboardView.route,
-      page: DashboardView.new,
-      binding: DashboardBinding(),
-    ),
+    dashboard,
     GetPage<TestimonialView>(
       name: TestimonialView.route,
       page: TestimonialView.new,
