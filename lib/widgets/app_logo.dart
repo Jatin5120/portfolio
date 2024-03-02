@@ -16,7 +16,7 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TapHandler(
-      onTap: () => Get.find<DashboardController>().scrollToSection(NavItem.hero),
+      onTap: () => Get.find<DashboardController>().onNavClicked(NavItem.hero),
       showSplash: false,
       child: SvgPicture.asset(
         _short ? AssetConstants.logoShort : AssetConstants.logoDark,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/res/res.dart';
@@ -53,11 +55,22 @@ class DashboardController extends GetxController {
   void onHireMe() {}
 
   void onGetInTouch() {
-    scrollToSection(NavItem.contact);
+    onNavClicked(NavItem.contact);
   }
 
   void onMyWork() {
-    scrollToSection(NavItem.work);
+    onNavClicked(NavItem.work);
+  }
+
+  void onNavClicked(NavItem item) {
+    if (Get.currentRoute != AppRoutes.dashboard) {
+      unawaited(Get.toNamed(AppRoutes.dashboard));
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        scrollToSection(item);
+      });
+    } else {
+      scrollToSection(item);
+    }
   }
 
   void scrollToSection(NavItem item) {

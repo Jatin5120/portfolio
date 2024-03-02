@@ -16,9 +16,13 @@ class StringConstants {
 
   static const String contactMe = 'Contact me';
 
+  static const String testimonials = 'Client Stories';
+
   static const String quickLinks = 'Quick links to get in touch with me';
 
   static const String technicalQuery = 'Do you have a technical or development question? Simply leave a message.';
+
+  static const String addYourTestimonial = 'Share your experience and inspire others on our testimonial page.';
 
   static const String emailTitle = 'Feel free to email me at';
   static const String whatsappTitle = 'Let\'s chat over WhatsApp';
