@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
           themeMode: ThemeMode.dark,
           initialRoute: AppPages.initial,
           getPages: AppPages.pages,
+          unknownRoute: AppPages.dashboard,
         ),
       ),
     );
