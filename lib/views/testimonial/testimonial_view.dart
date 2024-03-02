@@ -16,6 +16,9 @@ class TestimonialView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<TestimonialController>(
       id: updateId,
+      initState: (_) {
+        Utility.setWebTitle('Testimonial - Jatin | Flutter Developer');
+      },
       builder: (controller) {
         return Scaffold(
           appBar: const PreferredSize(

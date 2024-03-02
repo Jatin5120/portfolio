@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
@@ -28,6 +29,15 @@ class Utility {
         AppLog.error('Could not open $path\n$e', st);
       }
     }
+  }
+
+  static void setWebTitle(String title) {
+    SystemChrome.setApplicationSwitcherDescription(
+      ApplicationSwitcherDescription(
+        label: title,
+        primaryColor: 0xFFFFFFFF,
+      ),
+    );
   }
 
   /// Show a message to the user.
