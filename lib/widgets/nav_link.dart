@@ -53,7 +53,7 @@ class NavLink extends StatelessWidget {
               onHover: (value) {
                 controller.hoveredNavItem = value ? item : null;
               },
-              onTap: () => controller.scrollToSection(item),
+              onTap: () => controller.onNavClicked(item),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,

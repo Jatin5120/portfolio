@@ -12,14 +12,13 @@ class AppPages {
     GetPage<DashboardView>(
       name: DashboardView.route,
       page: DashboardView.new,
-      bindings: [
-        DashboardBinding(),
-      ],
+      binding: DashboardBinding(),
     ),
     GetPage<TestimonialView>(
       name: TestimonialView.route,
       page: TestimonialView.new,
       bindings: [
+        DashboardBinding(),
         TestimonialBinding(),
       ],
     ),
