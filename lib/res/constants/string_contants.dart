@@ -16,6 +16,8 @@ class StringConstants {
 
   static const String contactMe = 'Contact me';
 
+  static const String projects = 'Projects';
+
   static const String testimonials = 'Client Stories';
 
   static const String quickLinks = 'Quick links to get in touch with me';

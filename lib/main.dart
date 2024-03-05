@@ -1,18 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/firebase_options.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
 
-void main() {
-  _setup();
+void main() async {
   usePathUrlStrategy();
+  await _setup();
   runApp(const MyApp());
 }
 
-void _setup() {
+Future<void> _setup() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 }
 
 class MyApp extends StatelessWidget {

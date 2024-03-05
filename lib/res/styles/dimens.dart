@@ -64,6 +64,7 @@ class Dimens {
   static Widget get boxHeight20 => SizedBox(height: twenty);
   static Widget get boxHeight24 => SizedBox(height: twentyFour);
   static Widget get boxHeight32 => SizedBox(height: thirtyTwo);
+  static Widget get boxHeight40 => SizedBox(height: forty);
   static Widget get boxHeight50 => SizedBox(height: fifty);
 
   static Widget get boxWidth2 => SizedBox(width: two);

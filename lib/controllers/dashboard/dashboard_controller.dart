@@ -2,13 +2,20 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/models/models.dart';
 import 'package:portfolio/res/res.dart';
+import 'package:portfolio/services/services.dart';
 import 'package:portfolio/utils/utils.dart';
+import 'package:portfolio/views/dashboard/views/views.dart';
 import 'package:portfolio/widgets/widgets.dart';
 import 'package:rive/rive.dart';
 
 class DashboardController extends GetxController {
+  DashboardController(this._service);
+  final DashboardService _service;
+
   final landingKey = GlobalKey();
+  final projectsKey = GlobalKey();
   final aboutKey = GlobalKey();
   final contactKey = GlobalKey();
 
@@ -22,10 +29,13 @@ class DashboardController extends GetxController {
 
   late RiveAnimationController riveController;
 
+  List<ProjectsModel> projects = [];
+
   @override
   void onInit() {
     super.onInit();
     changeDashState(DashState.idle);
+    getProjects();
   }
 
   void precache(BuildContext context) {
@@ -95,5 +105,10 @@ class DashboardController extends GetxController {
 
   void onContactTap(ContactItem item) {
     Utility.launchURL(item.url);
+  }
+
+  void getProjects() async {
+    projects = await _service.getProjects();
+    update([ProjectsView.updateId]);
   }
 }

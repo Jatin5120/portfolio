@@ -137,7 +137,7 @@ extension NavigationExtension on NavItem {
       case NavItem.hero:
         return controller.landingKey;
       case NavItem.work:
-        return controller.aboutKey;
+        return controller.projectsKey;
       case NavItem.about:
         return controller.aboutKey;
       case NavItem.contact:

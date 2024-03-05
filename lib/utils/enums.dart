@@ -120,3 +120,20 @@ enum ContactItem {
   final String content;
   final String url;
 }
+
+enum LinkType {
+  playstore(1),
+  appstore(2),
+  web(3);
+
+  factory LinkType.fromValue(int data) =>
+      <int, LinkType>{
+        LinkType.playstore.value: LinkType.playstore,
+        LinkType.appstore.value: LinkType.appstore,
+        LinkType.web.value: LinkType.web,
+      }[data] ??
+      LinkType.web;
+
+  const LinkType(this.value);
+  final int value;
+}
