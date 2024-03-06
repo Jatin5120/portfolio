@@ -5,18 +5,43 @@ class _ProjectsViewTablet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: context.width,
-        minHeight: context.height - Dimens.navbarHeight,
-        maxHeight: max(700, context.height - Dimens.navbarHeight),
-      ),
-      child: Padding(
-        padding: ResponsiveState.tablet.pagePadding,
-        child: const Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [],
-        ),
+    return Padding(
+      padding: context.responsiveState.pagePadding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          AppText(
+            StringConstants.projects,
+            style: context.textTheme.headlineLarge?.withTitleColor,
+          ),
+          Dimens.boxHeight24,
+          GetBuilder<DashboardController>(
+            id: ProjectsView.updateId,
+            builder: (controller) {
+              if (controller.projects.isEmpty) {
+                return const LoadingProjects();
+              }
+              return GridView.builder(
+                itemCount: controller.projects.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 400,
+                  childAspectRatio: 1.4,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                ),
+                itemBuilder: (_, index) {
+                  final project = controller.projects[index % controller.projects.length];
+                  return ProjectCard(
+                    project,
+                    state: context.responsiveState,
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
     );
   }

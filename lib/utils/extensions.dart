@@ -9,6 +9,15 @@ import 'package:portfolio/utils/utils.dart';
 
 extension NullString on String? {
   bool get isNullOrEmpty => this == null || this!.trim().isEmpty;
+
+  Color? get color {
+    if (this == null || this!.trim().isEmpty) return null;
+
+    final hex = this!.replaceAll('#', '');
+    if (hex.length != 6) return null;
+
+    return Color(int.parse(hex, radix: 16));
+  }
 }
 
 extension ResponseExtension on ResponseModel {

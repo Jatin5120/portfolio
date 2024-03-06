@@ -16,23 +16,28 @@ class ProjectsModel {
     return ProjectsModel(
       name: map['name'] as String,
       description: map['description'] as String,
-      technologies: (map['technologies'] as List<dynamic>).cast<String>(),
-      images: (map['images'] as List<dynamic>).cast<String>(),
-      links: (map['links'] as List<dynamic>).cast<Map<String, dynamic>>().map(LinksModel.fromMap).toList(),
+      technologies: (map['technologies'] as List<dynamic>)
+          .map(
+            (e) => TechnologyModel.fromMap({'reference': e}),
+          )
+          .toList(),
+      images: (map['images'] as List<dynamic>? ?? []).cast<String>(),
+      links: (map['links'] as List<dynamic>? ?? []).cast<Map<String, dynamic>>().map(LinksModel.fromMap).toList(),
     );
   }
 
   factory ProjectsModel.fromJson(String source) => ProjectsModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
   final String name;
   final String description;
-  final List<String> technologies;
+  final List<TechnologyModel> technologies;
   final List<String> images;
   final List<LinksModel> links;
 
   ProjectsModel copyWith({
     String? name,
     String? description,
-    List<String>? technologies,
+    List<TechnologyModel>? technologies,
     List<String>? images,
     List<LinksModel>? links,
   }) {

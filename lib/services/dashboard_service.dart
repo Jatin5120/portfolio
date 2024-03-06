@@ -10,9 +10,23 @@ class DashboardService {
 
   Future<List<ProjectsModel>> getProjects() async {
     try {
-      final projects = await _firestore.collection(AppCollections.projects).get();
+      final projects = await _firestore.collection(AppCollections.projects).orderBy('order').get();
 
-      return projects.docs.map((e) => ProjectsModel.fromMap(e.data())).toList();
+      final list = projects.docs.map((e) {
+        return ProjectsModel.fromMap(e.data());
+      }).toList();
+      for (final project in list) {
+        final techs = await Future.wait(project.technologies.map((e) => e.reference.get()));
+        for (var i = 0; i < techs.length; i++) {
+          final tech = techs[i];
+          var data = <String, dynamic>{
+            'reference': tech.reference,
+            ...tech.data() as Map,
+          };
+          project.technologies[i] = TechnologyModel.fromMap(data);
+        }
+      }
+      return list;
     } catch (e, st) {
       AppLog.error(e, st);
       return [];

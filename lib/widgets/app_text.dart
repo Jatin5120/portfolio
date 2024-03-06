@@ -13,6 +13,7 @@ class AppText extends StatelessWidget {
     this.isSelectable = true,
     this.softWrap,
     this.overflow,
+    this.maxLines,
   });
 
   final String data;
@@ -21,6 +22,7 @@ class AppText extends StatelessWidget {
   final TextAlign? textAlign;
   final bool? softWrap;
   final TextOverflow? overflow;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) => isSelectable
@@ -30,6 +32,8 @@ class AppText extends StatelessWidget {
           textAlign: textAlign,
           semanticsLabel: data,
           selectionControls: kIsWeb ? DesktopTextSelectionControls() : MaterialTextSelectionControls(),
+          scrollPhysics: const NeverScrollableScrollPhysics(),
+          maxLines: maxLines,
         )
       : Text(
           data,
@@ -38,6 +42,7 @@ class AppText extends StatelessWidget {
           semanticsLabel: data,
           softWrap: softWrap,
           overflow: overflow,
+          maxLines: maxLines,
         );
 }
 

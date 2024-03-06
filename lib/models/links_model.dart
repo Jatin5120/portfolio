@@ -16,6 +16,7 @@ class LinksModel {
   }
 
   factory LinksModel.fromJson(String source) => LinksModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
   final LinkType type;
   final String url;
 
