@@ -38,6 +38,24 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+ 
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js" defer></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: 'AIzaSyACSp3Mn-WjCe7Hdm9UcjmR4gSh0_Nfp3U',
+      appId: '1:333046234443:web:d8b31257881a21d657bcce',
+      messagingSenderId: '333046234443',
+      projectId: 'portfolio-5120',
+      authDomain: 'portfolio-5120.firebaseapp.com',
+      storageBucket: 'portfolio-5120.appspot.com',
+      measurementId: 'G-F8VEL6MSY2',
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
   
   <style id="splash-screen-style">
     html {

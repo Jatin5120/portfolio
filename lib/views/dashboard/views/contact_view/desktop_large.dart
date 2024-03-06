@@ -5,9 +5,11 @@ class _ContactViewDesktopLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
-      height: context.height - Dimens.navbarHeight,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: context.width,
+        minHeight: context.height - Dimens.navbarHeight,
+      ),
       child: Padding(
         padding: ResponsiveState.desktopLarge.pagePadding,
         child: Column(
@@ -22,7 +24,7 @@ class _ContactViewDesktopLarge extends StatelessWidget {
               StringConstants.quickLinks,
               style: context.textTheme.titleLarge?.withBodyColor,
             ),
-            const SizedBox(height: 24),
+            Dimens.boxHeight24,
             Row(
               children: ContactItem.values
                   .map((e) => Expanded(
@@ -36,14 +38,14 @@ class _ContactViewDesktopLarge extends StatelessWidget {
                   )
                   .toList(),
             ),
-            const SizedBox(height: 24),
+            Dimens.boxHeight24,
             AppText(
               StringConstants.technicalQuery,
               style: context.textTheme.titleLarge?.withBodyColor,
             ),
-            const Spacer(),
+            Dimens.boxHeight24,
             const ContactForm(state: ResponsiveState.desktopLarge),
-            const Spacer(),
+            Dimens.boxHeight40,
             const SocialRow(center: true, showName: true),
           ],
         ),
