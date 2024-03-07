@@ -52,7 +52,13 @@ class AppTheme {
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: const BorderSide(
-        color: AppColors.primary,
+        color: AppColors.error,
+      ),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: const BorderSide(
+        color: AppColors.error,
       ),
     ),
   );

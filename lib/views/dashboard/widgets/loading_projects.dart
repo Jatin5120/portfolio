@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/widgets/widgets.dart';
 
 class LoadingProjects extends StatelessWidget {
   const LoadingProjects({super.key});
@@ -9,7 +10,9 @@ class LoadingProjects extends StatelessWidget {
     return SizedBox(
       width: double.maxFinite,
       height: context.height * 0.8,
-      child: const Center(child: Text('No projecrs')),
+      child: const Center(
+        child: AppLoader(message: 'Loading Projects'),
+      ),
     );
   }
 }

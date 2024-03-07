@@ -32,11 +32,6 @@ class _NavbarDesktopLarge extends StatelessWidget {
             flex: 3,
             child: GetInTouchButton(),
           ),
-          Dimens.boxWidth16,
-          const Flexible(
-            flex: 3,
-            child: HireMeButton(),
-          ),
         ],
       ),
     );

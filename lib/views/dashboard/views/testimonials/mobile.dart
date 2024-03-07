@@ -37,6 +37,7 @@ class _TestimonialsMobile extends StatelessWidget {
               child: InfiniteCarousel.builder(
                 itemCount: controller.testimonials.length,
                 itemExtent: context.testimonialExtent,
+                velocityFactor: 0.6,
                 center: true,
                 axisDirection: Axis.horizontal,
                 loop: true,

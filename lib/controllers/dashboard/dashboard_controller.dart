@@ -20,6 +20,13 @@ class DashboardController extends GetxController {
   final testimonialsKey = GlobalKey();
   final contactKey = GlobalKey();
 
+  final contactFormKey = GlobalKey<FormState>();
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final subjectController = TextEditingController();
+  final messageController = TextEditingController();
+
   final Rx<NavItem> _selectedNavItem = NavItem.hero.obs;
   NavItem get selectedNavItem => _selectedNavItem.value;
   set selectedNavItem(NavItem value) => _selectedNavItem.value = value;
@@ -66,7 +73,9 @@ class DashboardController extends GetxController {
     update([DashAnimation.updateId]);
   }
 
-  void onHireMe() {}
+  void onHireMe() {
+    onNavClicked(NavItem.contact);
+  }
 
   void onGetInTouch() {
     onNavClicked(NavItem.contact);
@@ -119,5 +128,27 @@ class DashboardController extends GetxController {
   void getTestimonials() async {
     testimonials = await _service.getTestimonials();
     update([Testimonials.updateId]);
+  }
+
+  void submitContactRequest() async {
+    if (!contactFormKey.currentState!.validate()) {
+      return;
+    }
+    Utility.showLoader();
+    final contact = ContactModel(
+      name: nameController.text.trim(),
+      email: emailController.text.trim(),
+      subject: subjectController.text.trim(),
+      message: messageController.text.trim(),
+    );
+    final requested = await _service.requestContact(contact);
+    Utility.hideLoader();
+    if (requested) {
+      contactFormKey.currentState!.reset();
+      nameController.clear();
+      emailController.clear();
+      subjectController.clear();
+      messageController.clear();
+    }
   }
 }

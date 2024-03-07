@@ -137,3 +137,17 @@ enum LinkType {
   const LinkType(this.value);
   final int value;
 }
+
+enum TestimonialStatus {
+  pending,
+  approved,
+  rejected;
+
+  factory TestimonialStatus.fromName(String data) =>
+      <String, TestimonialStatus>{
+        TestimonialStatus.pending.name: TestimonialStatus.pending,
+        TestimonialStatus.approved.name: TestimonialStatus.approved,
+        TestimonialStatus.rejected.name: TestimonialStatus.rejected,
+      }[data] ??
+      TestimonialStatus.pending;
+}

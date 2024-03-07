@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
+import 'package:portfolio/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Utility {
@@ -38,6 +39,18 @@ class Utility {
         primaryColor: 0xFFFFFFFF,
       ),
     );
+  }
+
+  static void showLoader([String? message]) {
+    Get.dialog(
+      AppLoader(message: message),
+    );
+  }
+
+  static void hideLoader() {
+    if (Get.isDialogOpen ?? false) {
+      Get.back();
+    }
   }
 
   /// Show a message to the user.
