@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:portfolio/models/models.dart';
+import 'package:portfolio/utils/enums.dart';
 
 class AppCollections {
   const AppCollections._();
@@ -11,9 +12,18 @@ class AppCollections {
         toFirestore: (data, _) => data.toMap(),
       );
 
-  static final testimonials =
-      _firestore.collection('testimonials').where('visible', isEqualTo: true).orderBy('order').withConverter<TestimonialModel>(
-            fromFirestore: (snapshot, _) => TestimonialModel.fromMap(snapshot.data()!),
-            toFirestore: (data, _) => data.toMap(),
-          );
+  static final testimonials = _firestore
+      .collection('testimonials')
+      .where('visible', isEqualTo: true)
+      .where('status', isEqualTo: TestimonialStatus.approved.name)
+      .orderBy('order')
+      .withConverter<TestimonialModel>(
+        fromFirestore: (snapshot, _) => TestimonialModel.fromMap(snapshot.data()!),
+        toFirestore: (data, _) => data.toMap(),
+      );
+
+  static final contacts = _firestore.collection('requests').withConverter<ContactModel>(
+        fromFirestore: (snapshot, _) => ContactModel.fromMap(snapshot.data()!),
+        toFirestore: (data, _) => data.toMap(),
+      );
 }

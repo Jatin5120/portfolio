@@ -22,7 +22,7 @@ class _NavbarTablet extends StatelessWidget {
           ),
           Flexible(
             flex: 2,
-            child: HireMeButton(),
+            child: GetInTouchButton(),
           ),
         ],
       ),

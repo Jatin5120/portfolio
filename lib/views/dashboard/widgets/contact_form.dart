@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/controllers/controllers.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
+import 'package:portfolio/views/views.dart';
 import 'package:portfolio/widgets/widgets.dart';
 
 class ContactForm extends StatelessWidget {
@@ -53,55 +55,77 @@ class $ContactFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (isMobile) ...[
-          const InputField(
-            label: 'Name',
-            hint: 'Your Name',
-          ),
-          _gap,
-          const InputField(
-            label: 'Email',
-            hint: 'your.email@gmail.com',
-          ),
-        ] else
-          Row(
+    return GetBuilder<DashboardController>(
+      id: Contact.updateId,
+      builder: (controller) {
+        return Form(
+          key: controller.contactFormKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Flexible(
-                child: InputField(
+              if (isMobile) ...[
+                InputField(
                   label: 'Name',
                   hint: 'Your Name',
+                  controller: controller.nameController,
+                  validator: AppValidators.nameValidator,
                 ),
-              ),
-              Dimens.boxWidth16,
-              const Flexible(
-                child: InputField(
+                _gap,
+                InputField(
                   label: 'Email',
                   hint: 'your.email@gmail.com',
+                  controller: controller.emailController,
+                  validator: AppValidators.emailValidator,
                 ),
+              ] else
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      child: InputField(
+                        label: 'Name',
+                        hint: 'Your Name',
+                        controller: controller.nameController,
+                        validator: AppValidators.nameValidator,
+                      ),
+                    ),
+                    Dimens.boxWidth16,
+                    Flexible(
+                      child: InputField(
+                        label: 'Email',
+                        hint: 'your.email@gmail.com',
+                        controller: controller.emailController,
+                        validator: AppValidators.emailValidator,
+                      ),
+                    ),
+                  ],
+                ),
+              _gap,
+              InputField(
+                label: 'Subject',
+                hint: 'Looking to develop a cross-platform app',
+                controller: controller.subjectController,
+                validator: AppValidators.nameValidator,
+              ),
+              _gap,
+              InputField(
+                label: 'Message',
+                hint: 'I want to make a large scale cross-platform application',
+                minLines: 3,
+                maxLines: 3,
+                maxLength: 1000,
+                controller: controller.messageController,
+                validator: AppValidators.nameValidator,
+              ),
+              isMobile ? const SizedBox(height: 24) : const SizedBox(height: 32),
+              AppButton(
+                label: 'Submit',
+                onTap: controller.submitContactRequest,
               ),
             ],
           ),
-        _gap,
-        const InputField(
-          label: 'Subject',
-          hint: 'Looking to develop a cross-platform app',
-        ),
-        _gap,
-        const InputField(
-          label: 'Message',
-          hint: 'I want to make a large scale cross-platform application',
-          minLines: 3,
-          maxLines: 3,
-        ),
-        isMobile ? const SizedBox(height: 24) : const SizedBox(height: 32),
-        AppButton(
-          label: 'Submit',
-          onTap: () {},
-        ),
-      ],
+        );
+      },
     );
   }
 }

@@ -15,6 +15,8 @@ part 'tablet.dart';
 class Contact extends StatelessWidget {
   const Contact({super.key});
 
+  static const String updateId = 'contacts-view-update';
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveWrapper(

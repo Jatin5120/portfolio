@@ -55,7 +55,6 @@ class InputField extends StatelessWidget {
               color: Colors.grey,
             ),
             alignLabelWithHint: true,
-            counterText: '',
           ),
           style: context.textTheme.bodyLarge?.withBodyColor,
         ),

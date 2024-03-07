@@ -42,4 +42,14 @@ class DashboardService {
       return [];
     }
   }
+
+  Future<bool> requestContact(ContactModel contact) async {
+    try {
+      final model = await AppCollections.contacts.add(contact);
+      return model.id.isNotEmpty;
+    } catch (e, st) {
+      AppLog.error(e, st);
+      return false;
+    }
+  }
 }
