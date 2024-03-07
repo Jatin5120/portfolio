@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:portfolio/controllers/controllers.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
 import 'package:portfolio/views/views.dart';

@@ -20,20 +20,26 @@ class DashboardView extends StatelessWidget {
           Utility.setWebTitle('Jatin | Flutter Developer');
           Get.find<DashboardController>().precache(context);
         },
-        builder: (context) {
-          return const Scaffold(
-            appBar: PreferredSize(
+        builder: (controller) {
+          return Scaffold(
+            key: controller.dashboardKey,
+            appBar: const PreferredSize(
               preferredSize: Size.fromHeight(Dimens.navbarHeight),
               child: NavBar(),
             ),
+            endDrawer: context.responsiveState.isMobile ? const NavDrawer() : null,
+            floatingActionButton: context.responsiveState.isMobile ? const GetInTouchButtonFAB() : null,
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  Landing(),
-                  About(),
-                  Projects(),
-                  Testimonials(),
-                  Contact(),
+                  const Landing(),
+                  const About(),
+                  const Projects(),
+                  const Testimonials(),
+                  const Contact(),
+                  if (context.responsiveState.isMobile) ...[
+                    const SizedBox(height: 50),
+                  ],
                 ],
               ),
             ),

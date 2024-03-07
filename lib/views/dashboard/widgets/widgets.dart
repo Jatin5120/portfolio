@@ -4,6 +4,7 @@ export 'contact_card.dart';
 export 'contact_form.dart';
 export 'loading_projects.dart';
 export 'my_photo.dart';
+export 'nav_drawer.dart';
 export 'project_card.dart';
 export 'quote.dart';
 export 'testimonial_card.dart';
