@@ -39,6 +39,7 @@ dependencies:
     sdk: flutter
   get: ^4.6.6
   google_fonts: ^6.1.0
+  infinite_carousel: ^1.1.1
   rive: ^0.12.4
   url_launcher: ^6.2.4
 

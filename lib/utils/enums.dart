@@ -29,7 +29,7 @@ enum NavItem {
   const NavItem(this.label);
   final String label;
 
-  static List<NavItem> get visible => [work, about, contact];
+  static List<NavItem> get visible => [about, work, contact];
 }
 
 enum SocialItem {

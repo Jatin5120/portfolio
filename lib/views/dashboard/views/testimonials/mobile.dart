@@ -5,40 +5,50 @@ class _TestimonialsMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: context.responsiveState.pagePadding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          AppText(
-            StringConstants.projects,
-            style: context.textTheme.headlineLarge?.withTitleColor,
-          ),
-          Dimens.boxHeight24,
-          GetBuilder<DashboardController>(
-            id: Testimonials.updateId,
-            builder: (controller) {
-              if (controller.projects.isEmpty) {
-                return const LoadingProjects();
-              }
-              return ListView.separated(
-                itemCount: controller.projects.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (_, __) => Dimens.boxHeight16,
-                itemBuilder: (_, index) {
-                  final project = controller.projects[index];
-                  return ProjectCard(
-                    project,
-                    state: context.responsiveState,
-                  );
-                },
-              );
-            },
-          ),
-        ],
-      ),
+    return GetBuilder<DashboardController>(
+      id: Testimonials.updateId,
+      builder: (controller) {
+        if (controller.testimonials.isEmpty) {
+          return const SizedBox.shrink();
+        }
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: context.responsiveState.pagePadding,
+              child: Column(
+                children: [
+                  AppText(
+                    StringConstants.testimonials,
+                    style: context.textTheme.headlineLarge?.withTitleColor,
+                  ),
+                  Dimens.boxHeight16,
+                  AppText(
+                    StringConstants.testimonialDescription,
+                    style: context.textTheme.titleLarge?.withBodyColor,
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            Dimens.boxHeight24,
+            SizedBox(
+              height: context.testimonialHeight,
+              child: InfiniteCarousel.builder(
+                itemCount: controller.testimonials.length,
+                itemExtent: context.testimonialExtent,
+                center: true,
+                axisDirection: Axis.horizontal,
+                loop: true,
+                scrollBehavior: ScrollConfiguration.of(context).copyWith(
+                  dragDevices: {...PointerDeviceKind.values},
+                ),
+                itemBuilder: (_, index, __) => TestimonialCard(controller.testimonials[index]),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

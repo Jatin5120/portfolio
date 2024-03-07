@@ -30,8 +30,9 @@ class DashboardView extends StatelessWidget {
               child: Column(
                 children: [
                   Landing(),
-                  Projects(),
                   About(),
+                  Projects(),
+                  Testimonials(),
                   Contact(),
                 ],
               ),

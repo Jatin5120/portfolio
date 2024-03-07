@@ -18,13 +18,15 @@ class StringConstants {
 
   static const String projects = 'Projects';
 
-  static const String testimonials = 'Client Stories';
+  static const String testimonials = 'Testimonials';
 
   static const String quickLinks = 'Quick links to get in touch with me';
 
   static const String technicalQuery = 'Do you have a technical or development question? Simply leave a message.';
 
-  static const String addYourTestimonial = 'Share your experience and inspire others on our testimonial page.';
+  static const String addYourTestimonial = 'Share your experience and inspire others on my testimonial page.';
+
+  static const String testimonialDescription = 'People I\'ve worked with have said some nice things...';
 
   static const String emailTitle = 'Feel free to email me at';
   static const String whatsappTitle = 'Let\'s chat over WhatsApp';

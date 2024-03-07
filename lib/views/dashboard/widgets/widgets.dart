@@ -6,3 +6,4 @@ export 'loading_projects.dart';
 export 'my_photo.dart';
 export 'project_card.dart';
 export 'quote.dart';
+export 'testimonial_card.dart';
