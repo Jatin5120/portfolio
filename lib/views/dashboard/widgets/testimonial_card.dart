@@ -15,6 +15,7 @@ class TestimonialCard extends StatelessWidget {
     return Padding(
       padding: context.responsiveState.isMobile ? context.responsiveState.pagePadding : context.testimonialPadding,
       child: Stack(
+        alignment: Alignment.topCenter,
         children: [
           const Align(
             alignment: Alignment.bottomLeft,

@@ -32,62 +32,75 @@ class TestimonialView extends StatelessWidget {
                 constraints: const BoxConstraints(
                   maxWidth: 800,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AppText(
-                      StringConstants.testimonials,
-                      style: context.textTheme.headlineMedium?.withTitleColor,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 8),
-                    AppText(
-                      StringConstants.addYourTestimonial,
-                      style: context.textTheme.titleLarge?.withBodyColor,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 40),
-                    if (context.responsiveState == ResponsiveState.mobile) ...[
-                      const InputField(
-                        label: 'Name',
-                        hint: 'Your Name',
+                child: Form(
+                  key: controller.formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppText(
+                        StringConstants.testimonials,
+                        style: context.textTheme.headlineMedium?.withTitleColor,
+                        textAlign: TextAlign.center,
                       ),
+                      const SizedBox(height: 8),
+                      AppText(
+                        StringConstants.addYourTestimonial,
+                        style: context.textTheme.titleLarge?.withBodyColor,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 40),
+                      if (context.responsiveState == ResponsiveState.mobile) ...[
+                        InputField(
+                          label: 'Name',
+                          hint: 'Your Name',
+                          controller: controller.nameController,
+                          validator: AppValidators.nameValidator,
+                        ),
+                        const SizedBox(height: 16),
+                        InputField(
+                          label: 'Designation/Relation',
+                          hint: 'CEO@XYZ / Best Friend',
+                          controller: controller.designationController,
+                          validator: AppValidators.nameValidator,
+                        ),
+                      ] else
+                        Row(
+                          children: [
+                            Flexible(
+                              child: InputField(
+                                label: 'Name',
+                                hint: 'Your Name',
+                                controller: controller.nameController,
+                                validator: AppValidators.nameValidator,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Flexible(
+                              child: InputField(
+                                label: 'Designation/Relation',
+                                hint: 'CEO@XYZ / Best Friend',
+                                controller: controller.designationController,
+                                validator: AppValidators.nameValidator,
+                              ),
+                            ),
+                          ],
+                        ),
                       const SizedBox(height: 16),
-                      const InputField(
-                        label: 'Designation/Relation',
-                        hint: 'CEO@XYZ / Best Friend',
+                      InputField(
+                        label: 'Feedback',
+                        hint: 'Share a snapshot of your experience with me.',
+                        controller: controller.messageController,
+                        validator: AppValidators.nameValidator,
+                        minLines: 3,
+                        maxLines: 5,
                       ),
-                    ] else
-                      const Row(
-                        children: [
-                          Flexible(
-                            child: InputField(
-                              label: 'Name',
-                              hint: 'Your Name',
-                            ),
-                          ),
-                          SizedBox(width: 16),
-                          Flexible(
-                            child: InputField(
-                              label: 'Designation/Relation',
-                              hint: 'CEO@XYZ / Best Friend',
-                            ),
-                          ),
-                        ],
+                      const SizedBox(height: 80),
+                      AppButton(
+                        label: 'Submit',
+                        onTap: controller.requestTestimonial,
                       ),
-                    const SizedBox(height: 16),
-                    const InputField(
-                      label: 'Feedback',
-                      hint: 'Share a snapshot of your experience with me.',
-                      minLines: 3,
-                      maxLines: 5,
-                    ),
-                    const SizedBox(height: 80),
-                    AppButton(
-                      label: 'Submit',
-                      onTap: () {},
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
