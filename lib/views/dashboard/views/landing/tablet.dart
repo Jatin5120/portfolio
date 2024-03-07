@@ -1,7 +1,7 @@
-part of 'landing_view.dart';
+part of 'landing.dart';
 
-class _LandingViewTablet extends StatelessWidget {
-  const _LandingViewTablet();
+class _LandingTablet extends StatelessWidget {
+  const _LandingTablet();
 
   @override
   Widget build(BuildContext context) {

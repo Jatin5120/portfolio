@@ -1,6 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio/controllers/controllers.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
@@ -12,17 +14,17 @@ part 'desktop_large.dart';
 part 'mobile.dart';
 part 'tablet.dart';
 
-class ContactView extends StatelessWidget {
-  const ContactView({super.key});
+class Landing extends StatelessWidget {
+  const Landing({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveWrapper(
-      key: Get.find<DashboardController>().contactKey,
-      mobile: const _ContactViewMobile(),
-      tablet: const _ContactViewTablet(),
-      desktop: const _ContactViewDesktop(),
-      desktopLarge: const _ContactViewDesktopLarge(),
+      key: Get.find<DashboardController>().landingKey,
+      mobile: const _LandingMobile(),
+      tablet: const _LandingTablet(),
+      desktop: const _LandingDesktop(),
+      desktopLarge: const _LandingDesktopLarge(),
     );
   }
 }

@@ -1,7 +1,7 @@
-part of 'about_view.dart';
+part of 'about.dart';
 
-class _AboutViewMobile extends StatelessWidget {
-  const _AboutViewMobile();
+class _AboutMobile extends StatelessWidget {
+  const _AboutMobile();
 
   @override
   Widget build(BuildContext context) {

@@ -109,6 +109,6 @@ class DashboardController extends GetxController {
 
   void getProjects() async {
     projects = await _service.getProjects();
-    update([ProjectsView.updateId]);
+    update([Projects.updateId]);
   }
 }

@@ -1,7 +1,7 @@
-part of 'contact_view.dart';
+part of 'contact.dart';
 
-class _ContactViewDesktop extends StatelessWidget {
-  const _ContactViewDesktop();
+class _ContactDesktop extends StatelessWidget {
+  const _ContactDesktop();
 
   @override
   Widget build(BuildContext context) {

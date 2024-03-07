@@ -13,8 +13,8 @@ part 'desktop_large.dart';
 part 'mobile.dart';
 part 'tablet.dart';
 
-class AboutView extends StatelessWidget {
-  const AboutView({super.key});
+class About extends StatelessWidget {
+  const About({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +31,10 @@ class AboutView extends StatelessWidget {
         ),
         ResponsiveWrapper(
           key: Get.find<DashboardController>().aboutKey,
-          mobile: const _AboutViewMobile(),
-          tablet: const _AboutViewTablet(),
-          desktop: const _AboutViewDesktop(),
-          desktopLarge: const _AboutViewDesktopLarge(),
+          mobile: const _AboutMobile(),
+          tablet: const _AboutTablet(),
+          desktop: const _AboutDesktop(),
+          desktopLarge: const _AboutDesktopLarge(),
         ),
       ],
     );

@@ -1,7 +1,7 @@
-part of 'projects_view.dart';
+part of 'testimonials.dart';
 
-class _ProjectsViewTablet extends StatelessWidget {
-  const _ProjectsViewTablet();
+class _TestimonialsMobile extends StatelessWidget {
+  const _TestimonialsMobile();
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +16,19 @@ class _ProjectsViewTablet extends StatelessWidget {
           ),
           Dimens.boxHeight24,
           GetBuilder<DashboardController>(
-            id: ProjectsView.updateId,
+            id: Testimonials.updateId,
             builder: (controller) {
               if (controller.projects.isEmpty) {
                 return const LoadingProjects();
               }
-              return GridView.builder(
+              return ListView.separated(
                 itemCount: controller.projects.length,
                 shrinkWrap: true,
+                scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 400,
-                  childAspectRatio: 1.4,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                ),
+                separatorBuilder: (_, __) => Dimens.boxHeight16,
                 itemBuilder: (_, index) {
-                  final project = controller.projects[index % controller.projects.length];
+                  final project = controller.projects[index];
                   return ProjectCard(
                     project,
                     state: context.responsiveState,

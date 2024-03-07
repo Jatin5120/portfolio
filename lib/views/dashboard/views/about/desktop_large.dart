@@ -1,15 +1,15 @@
-part of 'about_view.dart';
+part of 'about.dart';
 
-class _AboutViewDesktop extends StatelessWidget {
-  const _AboutViewDesktop();
+class _AboutDesktopLarge extends StatelessWidget {
+  const _AboutDesktopLarge();
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
-      height: MediaQuery.of(context).size.height - Dimens.navbarHeight,
+      height: context.height - Dimens.navbarHeight,
       child: Padding(
-        padding: ResponsiveState.desktop.pagePadding,
+        padding: ResponsiveState.desktopLarge.pagePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -21,7 +21,7 @@ class _AboutViewDesktop extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    flex: 3,
+                    flex: 2,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -47,6 +47,7 @@ class _AboutViewDesktop extends StatelessWidget {
                             Flexible(
                               child: LinkedinButton(),
                             ),
+                            Spacer(),
                           ],
                         ),
                         const Spacer(),
@@ -55,7 +56,6 @@ class _AboutViewDesktop extends StatelessWidget {
                   ),
                   Dimens.boxWidth32,
                   Expanded(
-                    flex: 2,
                     child: Image.asset(
                       AssetConstants.cartoonFull,
                     ),
