@@ -12,15 +12,13 @@ class AppCollections {
         toFirestore: (data, _) => data.toMap(),
       );
 
-  static final testimonials = _firestore
-      .collection('testimonials')
-      .where('visible', isEqualTo: true)
-      .where('status', isEqualTo: TestimonialStatus.approved.name)
-      .orderBy('order')
-      .withConverter<TestimonialModel>(
+  static final testimonials = _firestore.collection('testimonials').withConverter<TestimonialModel>(
         fromFirestore: (snapshot, _) => TestimonialModel.fromMap(snapshot.data()!),
         toFirestore: (data, _) => data.toMap(),
       );
+
+  static final getTestimonials =
+      testimonials.where('visible', isEqualTo: true).where('status', isEqualTo: TestimonialStatus.approved.name).orderBy('order');
 
   static final contacts = _firestore.collection('requests').withConverter<ContactModel>(
         fromFirestore: (snapshot, _) => ContactModel.fromMap(snapshot.data()!),

@@ -31,7 +31,7 @@ class DashboardService {
 
   Future<List<TestimonialModel>> getTestimonials() async {
     try {
-      final data = await AppCollections.testimonials.get();
+      final data = await AppCollections.getTestimonials.get();
       final testimonials = data.docs.map((e) => e.data());
       return testimonials.toList();
     } catch (e, st) {
