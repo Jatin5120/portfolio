@@ -14,6 +14,8 @@ class DashboardController extends GetxController {
   DashboardController(this._service);
   final DashboardService _service;
 
+  final dashboardKey = GlobalKey<ScaffoldState>();
+
   final landingKey = GlobalKey();
   final aboutKey = GlobalKey();
   final projectsKey = GlobalKey();
@@ -73,6 +75,14 @@ class DashboardController extends GetxController {
     update([DashAnimation.updateId]);
   }
 
+  void toggleDrawer(bool shouldOpen) {
+    if (shouldOpen) {
+      dashboardKey.currentState!.openEndDrawer();
+    } else {
+      dashboardKey.currentState!.closeEndDrawer();
+    }
+  }
+
   void onHireMe() {
     onNavClicked(NavItem.contact);
   }
@@ -101,6 +111,7 @@ class DashboardController extends GetxController {
       return;
     }
     selectedNavItem = item;
+    toggleDrawer(false);
     Scrollable.ensureVisible(
       item.sectionKey.currentContext!,
       duration: AppConstants.scrollDuration,

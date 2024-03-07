@@ -7,14 +7,17 @@ class _NavbarMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: ResponsiveState.mobile.navbarPadding,
-      child: const Row(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AppLogo(),
-          Spacer(),
-          AppIcon(
-            AssetConstants.menu,
-            color: AppColors.primary,
+          const AppLogo(),
+          const Spacer(),
+          TapHandler(
+            onTap: () => Get.find<DashboardController>().toggleDrawer(true),
+            child: const AppIcon(
+              AssetConstants.menu,
+              color: AppColors.primary,
+            ),
           ),
         ],
       ),
