@@ -85,6 +85,10 @@ class _DesktopCard extends StatelessWidget {
 
   final ProjectsModel project;
 
+  Duration get _duration => AppConstants.animationDuration;
+
+  Curve get _curve => Curves.easeInOut;
+
   @override
   Widget build(BuildContext context) {
     return ObxValue<RxBool>(
@@ -94,34 +98,41 @@ class _DesktopCard extends StatelessWidget {
         onHover: (value) {
           isHovering.value = value;
         },
-        child: AnimatedContainer(
-          duration: AppConstants.animationDuration,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            image: DecorationImage(
-              image: NetworkImage(project.images.first),
-              fit: BoxFit.cover,
-            ),
-          ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
           clipBehavior: Clip.antiAlias,
           child: Stack(
             children: [
-              if (isHovering.value) ...[
-                Positioned.fill(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.black45,
-                    ),
+              Positioned.fill(
+                child: AnimatedScale(
+                  key: const ValueKey('project-image'),
+                  scale: isHovering.value ? 1.2 : 1.0,
+                  duration: _duration,
+                  curve: _curve,
+                  child: Image.network(
+                    project.images.first,
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ],
+              ),
+              Positioned.fill(
+                child: AnimatedOpacity(
+                  key: const ValueKey('black-gradient'),
+                  duration: _duration,
+                  curve: _curve,
+                  opacity: isHovering.value ? 1 : 0,
+                  child: const ColoredBox(
+                    color: Colors.black54,
+                  ),
+                ),
+              ),
               AnimatedPositioned(
                 key: const ValueKey('hover-button'),
-                duration: AppConstants.animationDuration,
+                duration: _duration,
                 bottom: isHovering.value ? 20 : -150,
                 left: 20,
                 right: 20,
-                curve: Curves.easeInOut,
+                curve: _curve,
                 child: Column(
                   children: [
                     AppText(

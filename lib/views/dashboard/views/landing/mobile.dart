@@ -1,7 +1,7 @@
-part of 'landing_view.dart';
+part of 'landing.dart';
 
-class _LandingViewMobile extends StatelessWidget {
-  const _LandingViewMobile();
+class _LandingMobile extends StatelessWidget {
+  const _LandingMobile();
 
   @override
   Widget build(BuildContext context) {

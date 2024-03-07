@@ -29,10 +29,11 @@ class DashboardView extends StatelessWidget {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  LandingView(),
-                  ProjectsView(),
-                  AboutView(),
-                  ContactView(),
+                  Landing(),
+                  About(),
+                  Projects(),
+                  Testimonials(),
+                  Contact(),
                 ],
               ),
             ),

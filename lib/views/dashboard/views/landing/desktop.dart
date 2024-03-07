@@ -1,7 +1,7 @@
-part of 'landing_view.dart';
+part of 'landing.dart';
 
-class _LandingViewDesktopLarge extends StatelessWidget {
-  const _LandingViewDesktopLarge();
+class _LandingDesktop extends StatelessWidget {
+  const _LandingDesktop();
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,7 @@ class _LandingViewDesktopLarge extends StatelessWidget {
       width: double.maxFinite,
       height: context.height - Dimens.navbarHeight,
       child: Padding(
-        padding: ResponsiveState.desktopLarge.pagePadding,
+        padding: ResponsiveState.desktop.pagePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -17,7 +17,7 @@ class _LandingViewDesktopLarge extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 6,
+                    flex: 5,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -45,15 +45,12 @@ class _LandingViewDesktopLarge extends StatelessWidget {
                         Row(
                           children: [
                             const Flexible(
-                              flex: 2,
                               child: MyWorkButton(),
                             ),
                             Dimens.boxWidth16,
                             const Flexible(
-                              flex: 2,
                               child: HireMeButton(),
                             ),
-                            const Spacer(),
                           ],
                         ),
                       ],
@@ -62,9 +59,7 @@ class _LandingViewDesktopLarge extends StatelessWidget {
                   const Spacer(),
                   const Expanded(
                     flex: 5,
-                    child: Center(
-                      child: DashAnimation(),
-                    ),
+                    child: DashAnimation(),
                   ),
                 ],
               ),

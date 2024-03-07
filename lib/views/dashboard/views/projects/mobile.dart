@@ -1,7 +1,7 @@
-part of 'projects_view.dart';
+part of 'projects.dart';
 
-class _ProjectsViewMobile extends StatelessWidget {
-  const _ProjectsViewMobile();
+class _ProjectsMobile extends StatelessWidget {
+  const _ProjectsMobile();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class _ProjectsViewMobile extends StatelessWidget {
           ),
           Dimens.boxHeight24,
           GetBuilder<DashboardController>(
-            id: ProjectsView.updateId,
+            id: Projects.updateId,
             builder: (controller) {
               if (controller.projects.isEmpty) {
                 return const LoadingProjects();

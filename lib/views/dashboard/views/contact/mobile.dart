@@ -1,7 +1,7 @@
-part of 'contact_view.dart';
+part of 'contact.dart';
 
-class _ContactViewMobile extends StatelessWidget {
-  const _ContactViewMobile();
+class _ContactMobile extends StatelessWidget {
+  const _ContactMobile();
 
   @override
   Widget build(BuildContext context) {

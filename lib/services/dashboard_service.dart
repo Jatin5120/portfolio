@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:portfolio/models/models.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
@@ -6,16 +6,12 @@ import 'package:portfolio/utils/utils.dart';
 class DashboardService {
   const DashboardService();
 
-  FirebaseFirestore get _firestore => FirebaseFirestore.instance;
-
   Future<List<ProjectsModel>> getProjects() async {
     try {
-      final projects = await _firestore.collection(AppCollections.projects).orderBy('order').get();
+      final data = await AppCollections.projects.get();
+      final projects = data.docs.map((e) => e.data());
 
-      final list = projects.docs.map((e) {
-        return ProjectsModel.fromMap(e.data());
-      }).toList();
-      for (final project in list) {
+      for (final project in projects) {
         final techs = await Future.wait(project.technologies.map((e) => e.reference.get()));
         for (var i = 0; i < techs.length; i++) {
           final tech = techs[i];
@@ -26,8 +22,22 @@ class DashboardService {
           project.technologies[i] = TechnologyModel.fromMap(data);
         }
       }
-      return list;
+      return projects.toList();
     } catch (e, st) {
+      AppLog.error(e, st);
+      return [];
+    }
+  }
+
+  Future<List<TestimonialModel>> getTestimonials() async {
+    try {
+      final data = await AppCollections.testimonials.get();
+      final testimonials = data.docs.map((e) => e.data());
+      return testimonials.toList();
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(e);
+      }
       AppLog.error(e, st);
       return [];
     }

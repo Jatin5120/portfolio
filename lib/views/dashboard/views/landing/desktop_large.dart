@@ -1,7 +1,7 @@
-part of 'landing_view.dart';
+part of 'landing.dart';
 
-class _LandingViewDesktop extends StatelessWidget {
-  const _LandingViewDesktop();
+class _LandingDesktopLarge extends StatelessWidget {
+  const _LandingDesktopLarge();
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,7 @@ class _LandingViewDesktop extends StatelessWidget {
       width: double.maxFinite,
       height: context.height - Dimens.navbarHeight,
       child: Padding(
-        padding: ResponsiveState.desktop.pagePadding,
+        padding: ResponsiveState.desktopLarge.pagePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -17,7 +17,7 @@ class _LandingViewDesktop extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 5,
+                    flex: 6,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -45,12 +45,15 @@ class _LandingViewDesktop extends StatelessWidget {
                         Row(
                           children: [
                             const Flexible(
+                              flex: 2,
                               child: MyWorkButton(),
                             ),
                             Dimens.boxWidth16,
                             const Flexible(
+                              flex: 2,
                               child: HireMeButton(),
                             ),
+                            const Spacer(),
                           ],
                         ),
                       ],
@@ -59,7 +62,9 @@ class _LandingViewDesktop extends StatelessWidget {
                   const Spacer(),
                   const Expanded(
                     flex: 5,
-                    child: DashAnimation(),
+                    child: Center(
+                      child: DashAnimation(),
+                    ),
                   ),
                 ],
               ),

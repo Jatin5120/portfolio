@@ -1,61 +1,51 @@
-part of 'about_view.dart';
+part of 'about.dart';
 
-class _AboutViewDesktopLarge extends StatelessWidget {
-  const _AboutViewDesktopLarge();
+class _AboutTablet extends StatelessWidget {
+  const _AboutTablet();
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
-      height: context.height - Dimens.navbarHeight,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: context.width,
+        minHeight: context.height - Dimens.navbarHeight,
+        maxHeight: max(750, context.height - Dimens.navbarHeight),
+      ),
       child: Padding(
-        padding: ResponsiveState.desktopLarge.pagePadding,
+        padding: ResponsiveState.tablet.pagePadding,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const AboutImageRow(),
+            const AboutImageRow(small: true),
             Dimens.boxHeight32,
-            Expanded(
+            Flexible(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         AppText(
                           'Who am I?',
-                          style: context.textTheme.headlineLarge?.withTitleColor,
+                          style: context.textTheme.headlineMedium?.withTitleColor,
                         ),
                         Dimens.boxHeight8,
                         const SkillRow(),
                         Dimens.boxHeight16,
                         AppText(
                           StringConstants.aboutMe,
-                          style: context.textTheme.titleLarge?.withBodyColor,
+                          style: context.textTheme.titleMedium?.withBodyColor,
                         ),
-                        const Spacer(flex: 2),
-                        const Row(
-                          children: [
-                            Flexible(
-                              child: GithubButton(),
-                            ),
-                            SizedBox(width: 16),
-                            Flexible(
-                              child: LinkedinButton(),
-                            ),
-                            Spacer(),
-                          ],
-                        ),
-                        const Spacer(),
                       ],
                     ),
                   ),
                   Dimens.boxWidth32,
                   Expanded(
+                    flex: 2,
                     child: Image.asset(
                       AssetConstants.cartoonFull,
                     ),
@@ -63,6 +53,18 @@ class _AboutViewDesktopLarge extends StatelessWidget {
                 ],
               ),
             ),
+            const Row(
+              children: [
+                Flexible(
+                  child: GithubButton(),
+                ),
+                SizedBox(width: 16),
+                Flexible(
+                  child: LinkedinButton(),
+                ),
+              ],
+            ),
+            Dimens.boxHeight20,
           ],
         ),
       ),

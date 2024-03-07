@@ -1,24 +1,21 @@
-part of 'about_view.dart';
+part of 'about.dart';
 
-class _AboutViewTablet extends StatelessWidget {
-  const _AboutViewTablet();
+class _AboutDesktop extends StatelessWidget {
+  const _AboutDesktop();
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: context.width,
-        minHeight: context.height - Dimens.navbarHeight,
-        maxHeight: max(750, context.height - Dimens.navbarHeight),
-      ),
+    return SizedBox(
+      width: double.maxFinite,
+      height: MediaQuery.of(context).size.height - Dimens.navbarHeight,
       child: Padding(
-        padding: ResponsiveState.tablet.pagePadding,
+        padding: ResponsiveState.desktop.pagePadding,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AboutImageRow(small: true),
+            const AboutImageRow(),
             Dimens.boxHeight32,
-            Flexible(
+            Expanded(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,15 +28,28 @@ class _AboutViewTablet extends StatelessWidget {
                       children: [
                         AppText(
                           'Who am I?',
-                          style: context.textTheme.headlineMedium?.withTitleColor,
+                          style: context.textTheme.headlineLarge?.withTitleColor,
                         ),
                         Dimens.boxHeight8,
                         const SkillRow(),
                         Dimens.boxHeight16,
                         AppText(
                           StringConstants.aboutMe,
-                          style: context.textTheme.titleMedium?.withBodyColor,
+                          style: context.textTheme.titleLarge?.withBodyColor,
                         ),
+                        const Spacer(flex: 2),
+                        const Row(
+                          children: [
+                            Flexible(
+                              child: GithubButton(),
+                            ),
+                            SizedBox(width: 16),
+                            Flexible(
+                              child: LinkedinButton(),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
                       ],
                     ),
                   ),
@@ -53,18 +63,6 @@ class _AboutViewTablet extends StatelessWidget {
                 ],
               ),
             ),
-            const Row(
-              children: [
-                Flexible(
-                  child: GithubButton(),
-                ),
-                SizedBox(width: 16),
-                Flexible(
-                  child: LinkedinButton(),
-                ),
-              ],
-            ),
-            Dimens.boxHeight20,
           ],
         ),
       ),

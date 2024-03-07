@@ -1,7 +1,7 @@
-part of 'contact_view.dart';
+part of 'contact.dart';
 
-class _ContactViewTablet extends StatelessWidget {
-  const _ContactViewTablet();
+class _ContactDesktopLarge extends StatelessWidget {
+  const _ContactDesktopLarge();
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class _ContactViewTablet extends StatelessWidget {
         minHeight: context.height - Dimens.navbarHeight,
       ),
       child: Padding(
-        padding: ResponsiveState.tablet.pagePadding,
+        padding: ResponsiveState.desktopLarge.pagePadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -23,24 +23,29 @@ class _ContactViewTablet extends StatelessWidget {
             AppText(
               StringConstants.quickLinks,
               style: context.textTheme.titleLarge?.withBodyColor,
-              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
-            ...ContactItem.values
-                .map((e) => ContactCard(
-                      e,
-                      state: ResponsiveState.tablet,
-                    ))
-                .separated(Dimens.boxHeight12),
-            const SizedBox(height: 24),
+            Dimens.boxHeight24,
+            Row(
+              children: ContactItem.values
+                  .map((e) => Expanded(
+                        child: ContactCard(
+                          e,
+                          state: ResponsiveState.desktopLarge,
+                        ),
+                      ))
+                  .separated(
+                    const SizedBox(width: 16),
+                  )
+                  .toList(),
+            ),
+            Dimens.boxHeight24,
             AppText(
               StringConstants.technicalQuery,
               style: context.textTheme.titleLarge?.withBodyColor,
-              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24),
-            const ContactForm(state: ResponsiveState.tablet),
-            const SizedBox(height: 16),
+            Dimens.boxHeight24,
+            const ContactForm(state: ResponsiveState.desktopLarge),
+            Dimens.boxHeight40,
             const SocialRow(center: true, showName: true),
           ],
         ),

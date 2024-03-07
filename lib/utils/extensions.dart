@@ -61,6 +61,38 @@ extension ContextExtension on BuildContext {
   }
 
   Size get referenceSize => responsiveState.referenceSize;
+
+  double get testimonialExtent {
+    switch (responsiveState) {
+      case ResponsiveState.mobile:
+        return width;
+      case ResponsiveState.tablet:
+        return width * 0.8;
+      case ResponsiveState.desktop:
+        return width * 0.7;
+      case ResponsiveState.desktopLarge:
+        return width * 0.6;
+    }
+  }
+
+  EdgeInsets get testimonialPadding {
+    final horizontal = switch (responsiveState) {
+      ResponsiveState.mobile => width * 0.01,
+      ResponsiveState.tablet => width * 0.02,
+      ResponsiveState.desktop => width * 0.06,
+      ResponsiveState.desktopLarge => width * 0.08,
+    };
+    return EdgeInsets.symmetric(horizontal: horizontal);
+  }
+
+  double get testimonialHeight {
+    return switch (responsiveState) {
+      ResponsiveState.mobile => 550,
+      ResponsiveState.tablet => 470,
+      ResponsiveState.desktop => 400,
+      ResponsiveState.desktopLarge => 390,
+    };
+  }
 }
 
 extension ResponsiveExtension on ResponsiveState {

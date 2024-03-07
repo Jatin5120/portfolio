@@ -15,8 +15,9 @@ class DashboardController extends GetxController {
   final DashboardService _service;
 
   final landingKey = GlobalKey();
-  final projectsKey = GlobalKey();
   final aboutKey = GlobalKey();
+  final projectsKey = GlobalKey();
+  final testimonialsKey = GlobalKey();
   final contactKey = GlobalKey();
 
   final Rx<NavItem> _selectedNavItem = NavItem.hero.obs;
@@ -31,11 +32,14 @@ class DashboardController extends GetxController {
 
   List<ProjectsModel> projects = [];
 
+  List<TestimonialModel> testimonials = [];
+
   @override
   void onInit() {
     super.onInit();
     changeDashState(DashState.idle);
     getProjects();
+    getTestimonials();
   }
 
   void precache(BuildContext context) {
@@ -109,6 +113,11 @@ class DashboardController extends GetxController {
 
   void getProjects() async {
     projects = await _service.getProjects();
-    update([ProjectsView.updateId]);
+    update([Projects.updateId]);
+  }
+
+  void getTestimonials() async {
+    testimonials = await _service.getTestimonials();
+    update([Testimonials.updateId]);
   }
 }
