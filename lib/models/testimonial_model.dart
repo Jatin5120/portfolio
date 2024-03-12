@@ -10,6 +10,7 @@ class TestimonialModel {
     this.status = TestimonialStatus.pending,
     this.order = 1,
     this.visible = true,
+    required this.avatar,
   });
 
   factory TestimonialModel.fromMap(Map<String, dynamic> map) {
@@ -18,6 +19,7 @@ class TestimonialModel {
       designation: map['designation'] as String,
       message: map['message'] as String,
       status: TestimonialStatus.fromName(map['status'] as String? ?? ''),
+      avatar: AvatarItem.fromIndex(map['avatar'] as int? ?? 1),
     );
   }
 
@@ -29,6 +31,7 @@ class TestimonialModel {
   final TestimonialStatus status;
   final int order;
   final bool visible;
+  final AvatarItem avatar;
 
   TestimonialModel copyWith({
     String? name,
@@ -37,6 +40,7 @@ class TestimonialModel {
     TestimonialStatus? status,
     int? order,
     bool? visible,
+    AvatarItem? avatar,
   }) {
     return TestimonialModel(
       name: name ?? this.name,
@@ -45,6 +49,7 @@ class TestimonialModel {
       status: status ?? this.status,
       order: order ?? this.order,
       visible: visible ?? this.visible,
+      avatar: avatar ?? this.avatar,
     );
   }
 
@@ -56,6 +61,7 @@ class TestimonialModel {
       'status': status.name,
       'order': order,
       'visible': visible,
+      'avatar': avatar.index,
     };
   }
 
@@ -63,7 +69,7 @@ class TestimonialModel {
 
   @override
   String toString() =>
-      'TestimonialModel(name: $name, designation: $designation, message: $message, status: $status, order: $order, visible: $visible)';
+      'TestimonialModel(name: $name, designation: $designation, message: $message, status: $status, order: $order, visible: $visible, avatar: $avatar)';
 
   @override
   bool operator ==(covariant TestimonialModel other) {
@@ -74,9 +80,10 @@ class TestimonialModel {
         other.message == message &&
         other.status == status &&
         other.order == order &&
-        other.visible == visible;
+        other.visible == visible &&
+        other.avatar == avatar;
   }
 
   @override
-  int get hashCode => name.hashCode ^ designation.hashCode ^ message.hashCode ^ status.hashCode ^ order.hashCode ^ visible.hashCode;
+  int get hashCode => name.hashCode ^ designation.hashCode ^ message.hashCode ^ status.hashCode ^ order.hashCode ^ visible.hashCode ^ avatar.hashCode;
 }

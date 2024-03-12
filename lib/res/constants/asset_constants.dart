@@ -25,4 +25,6 @@ class AssetConstants {
   static const String twitter = 'assets/icons/twitter.svg';
   static const String whatsapp = 'assets/icons/whatsapp.svg';
   static const String medium = 'assets/icons/medium.svg';
+
+  static const String avatarFolder = 'assets/images/avatars';
 }
