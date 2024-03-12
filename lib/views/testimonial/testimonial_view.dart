@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:portfolio/controllers/controllers.dart';
 import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
+import 'package:portfolio/views/views.dart';
 import 'package:portfolio/widgets/widgets.dart';
 
 class TestimonialView extends StatelessWidget {
@@ -93,8 +94,19 @@ class TestimonialView extends StatelessWidget {
                         validator: AppValidators.nameValidator,
                         minLines: 3,
                         maxLines: 5,
+                        maxLength: 500,
                       ),
-                      const SizedBox(height: 80),
+                      const SizedBox(height: 40),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: AppText(
+                          'Your avatar',
+                          style: context.textTheme.bodyLarge?.withTitleColor,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      const AvatarRow(),
+                      const SizedBox(height: 40),
                       AppButton(
                         label: 'Submit',
                         onTap: controller.requestTestimonial,

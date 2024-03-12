@@ -1,5 +1,6 @@
 export 'app_logo.dart';
 export 'app_text.dart';
+export 'avatar.dart';
 export 'button.dart';
 export 'dash_animation.dart';
 export 'icon.dart';

@@ -13,6 +13,10 @@ class TestimonialController extends GetxController {
   final designationController = TextEditingController();
   final messageController = TextEditingController();
 
+  final Rx<AvatarItem> _selectedAvatar = AvatarItem.avatar1.obs;
+  AvatarItem get selectedAvatar => _selectedAvatar.value;
+  set selectedAvatar(AvatarItem value) => _selectedAvatar.value = value;
+
   void requestTestimonial() async {
     if (!formKey.currentState!.validate()) {
       return;
@@ -23,6 +27,7 @@ class TestimonialController extends GetxController {
       designation: designationController.text.trim(),
       message: messageController.text.trim(),
       status: TestimonialStatus.pending,
+      avatar: selectedAvatar,
     );
     final requested = await _service.requestTestimonial(testimonial);
     Utility.hideLoader();
