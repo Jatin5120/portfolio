@@ -31,7 +31,7 @@ class _ContactMobile extends StatelessWidget {
                       e,
                       state: ResponsiveState.mobile,
                     ))
-                .separated(const SizedBox(height: 8)),
+                .separated(const SizedBox(height: 12)),
             const SizedBox(height: 16),
             AppText(
               StringConstants.technicalQuery,
