@@ -7,17 +7,21 @@ class AppIcon extends StatelessWidget {
     super.key,
     this.color,
     this.network = false,
+    this.size,
   });
 
   final String path;
   final Color? color;
   final bool network;
+  final double? size;
 
   @override
   Widget build(BuildContext context) {
     if (network) {
       return SvgPicture.network(
         path,
+        height: size,
+        width: size,
         colorFilter: color != null
             ? ColorFilter.mode(
                 color!,
@@ -28,6 +32,8 @@ class AppIcon extends StatelessWidget {
     }
     return SvgPicture.asset(
       path,
+      height: size,
+      width: size,
       colorFilter: color != null
           ? ColorFilter.mode(
               color!,

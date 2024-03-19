@@ -12,7 +12,7 @@ class AssetConstants {
 
   static const String dashAnimation = 'assets/animations/dash.riv';
 
-  static const String cartoonDp = 'assets/images/cartoon_dp.webp';
+  static const String dp = 'assets/images/dp.webp';
   static const String cartoonFull = 'assets/images/cartoon_full.webp';
   static const String contact = 'assets/images/contact.webp';
   static const String dotBg = 'assets/images/dot_bg.svg';
@@ -25,6 +25,10 @@ class AssetConstants {
   static const String twitter = 'assets/icons/twitter.svg';
   static const String whatsapp = 'assets/icons/whatsapp.svg';
   static const String medium = 'assets/icons/medium.svg';
+
+  static const String playStore = 'assets/icons/play_store.svg';
+  static const String appStore = 'assets/icons/app_store.svg';
+  static const String web = 'assets/icons/web.svg';
 
   static const String avatarFolder = 'assets/images/avatars';
 }
