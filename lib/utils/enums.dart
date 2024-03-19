@@ -122,9 +122,9 @@ enum ContactItem {
 }
 
 enum LinkType {
-  playstore(1),
-  appstore(2),
-  web(3);
+  playstore(1, AssetConstants.playStore),
+  appstore(2, AssetConstants.appStore),
+  web(3, AssetConstants.web);
 
   factory LinkType.fromValue(int data) =>
       <int, LinkType>{
@@ -134,8 +134,9 @@ enum LinkType {
       }[data] ??
       LinkType.web;
 
-  const LinkType(this.value);
+  const LinkType(this.value, this.path);
   final int value;
+  final String path;
 }
 
 enum TestimonialStatus {

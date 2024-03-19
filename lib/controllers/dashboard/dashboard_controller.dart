@@ -52,7 +52,7 @@ class DashboardController extends GetxController {
   }
 
   void precache(BuildContext context) {
-    precacheImage(const AssetImage(AssetConstants.cartoonDp), context);
+    precacheImage(const AssetImage(AssetConstants.dp), context);
     precacheImage(const AssetImage(AssetConstants.cartoonFull), context);
     precacheImage(const AssetImage(AssetConstants.contact), context);
   }

@@ -22,7 +22,7 @@ class ProfileImage extends StatelessWidget {
             AppConstants.profileImageSize(small),
           ),
           image: const DecorationImage(
-            image: AssetImage(AssetConstants.cartoonDp),
+            image: AssetImage(AssetConstants.dp),
           ),
         ),
       ),

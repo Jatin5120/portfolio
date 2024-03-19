@@ -34,7 +34,7 @@ class _MobileCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.cardDark,
-        borderRadius: BorderRadius.circular(Dimens.twentyFour),
+        borderRadius: BorderRadius.circular(Dimens.sixteen),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -44,7 +44,7 @@ class _MobileCard extends StatelessWidget {
             aspectRatio: 1.5,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimens.twentyFour),
+                borderRadius: BorderRadius.circular(Dimens.sixteen),
                 image: DecorationImage(
                   image: NetworkImage(project.images.first),
                   fit: BoxFit.cover,
@@ -71,6 +71,8 @@ class _MobileCard extends StatelessWidget {
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                 ),
+                Dimens.boxHeight8,
+                _LinksRow(project),
               ],
             ),
           ),
@@ -134,6 +136,7 @@ class _DesktopCard extends StatelessWidget {
                 right: 20,
                 curve: _curve,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     AppText(
                       key: const ValueKey('project-name'),
@@ -150,12 +153,8 @@ class _DesktopCard extends StatelessWidget {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    // Dimens.boxHeight4,
-                    // AppButton(
-                    //   key: const ValueKey('detail-button'),
-                    //   label: 'Details',
-                    //   onTap: () {},
-                    // ),
+                    Dimens.boxHeight8,
+                    _LinksRow(project),
                   ],
                 ),
               ),
@@ -164,6 +163,36 @@ class _DesktopCard extends StatelessWidget {
         ),
       ),
       false.obs,
+    );
+  }
+}
+
+class _LinksRow extends StatelessWidget {
+  const _LinksRow(this.project);
+
+  final ProjectsModel project;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: project.links
+          .map(
+            (e) => Padding(
+              padding: const EdgeInsets.all(2),
+              child: TapHandler(
+                onTap: () {
+                  Utility.launchURL(e.url);
+                },
+                child: AppIcon(
+                  e.type.path,
+                  size: 24,
+                ),
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 }
