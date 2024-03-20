@@ -22,7 +22,7 @@ class _ProjectsMobile extends StatelessWidget {
                 return const LoadingProjects();
               }
               return ListView.separated(
-                itemCount: controller.projects.length,
+                itemCount: controller.showAllProjects ? controller.projects.length : controller.projects.take(4).length,
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
@@ -36,6 +36,20 @@ class _ProjectsMobile extends StatelessWidget {
                 },
               );
             },
+          ),
+          GetBuilder<DashboardController>(
+            id: Projects.updateId,
+            builder: (controller) => !controller.showAllProjects
+                ? Column(
+                    children: [
+                      const SizedBox(height: 24),
+                      AppButton(
+                        label: 'Show All',
+                        onTap: controller.toggleShowAllProjects,
+                      ),
+                    ],
+                  )
+                : const SizedBox.shrink(),
           ),
         ],
       ),

@@ -18,6 +18,7 @@ class AssetConstants {
   static const String dotBg = 'assets/images/dot_bg.svg';
 
   static const String arrowRight = 'assets/icons/arrow_right.svg';
+  static const String arrowLeft = 'assets/icons/arrow_left.svg';
   static const String github = 'assets/icons/github.svg';
   static const String instagram = 'assets/icons/instagram.svg';
   static const String linkedin = 'assets/icons/linkedin.svg';
@@ -29,6 +30,9 @@ class AssetConstants {
   static const String playStore = 'assets/icons/play_store.svg';
   static const String appStore = 'assets/icons/app_store.svg';
   static const String web = 'assets/icons/web.svg';
+
+  static const String testimonialBg = 'assets/images/testimonial_bg.svg';
+  static const String testimonialBgMobile = 'assets/images/testimonial_bg_mobile.svg';
 
   static const String avatarFolder = 'assets/images/avatars';
 }

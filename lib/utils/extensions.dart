@@ -75,15 +75,16 @@ extension ContextExtension on BuildContext {
     }
   }
 
-  EdgeInsets get testimonialPadding {
-    final horizontal = switch (responsiveState) {
-      ResponsiveState.mobile => width * 0.01,
-      ResponsiveState.tablet => width * 0.02,
-      ResponsiveState.desktop => width * 0.06,
-      ResponsiveState.desktopLarge => width * 0.08,
-    };
-    return EdgeInsets.symmetric(horizontal: horizontal);
-  }
+  EdgeInsets get testimonialPadding => EdgeInsets.symmetric(
+        horizontal: responsiveState.isMobile ? responsiveState.horizontalPadding : (width - testimonialWidth) * 0.5,
+      );
+
+  double get testimonialWidth => switch (responsiveState) {
+        ResponsiveState.mobile => 400,
+        ResponsiveState.tablet => 600,
+        ResponsiveState.desktop => 800,
+        ResponsiveState.desktopLarge => 1000,
+      };
 
   double get testimonialHeight {
     return switch (responsiveState) {
@@ -111,6 +112,8 @@ extension ResponsiveExtension on ResponsiveState {
   }
 
   bool get isDesktop => this == ResponsiveState.desktop || this == ResponsiveState.desktopLarge;
+
+  bool get isTablet => this == ResponsiveState.tablet;
 
   bool get isMobile => this == ResponsiveState.mobile;
 
