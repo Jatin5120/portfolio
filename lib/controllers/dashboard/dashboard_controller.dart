@@ -37,11 +37,17 @@ class DashboardController extends GetxController {
   NavItem? get hoveredNavItem => _hoveredNavItem.value;
   set hoveredNavItem(NavItem? value) => _hoveredNavItem.value = value;
 
+  final RxBool _showAllProjects = true.obs;
+  bool get showAllProjects => _showAllProjects.value;
+  set showAllProjects(bool value) => _showAllProjects.value = value;
+
   late RiveAnimationController riveController;
 
   List<ProjectsModel> projects = [];
 
   List<TestimonialModel> testimonials = [];
+
+  late PageController testimonialController;
 
   @override
   void onInit() {
@@ -133,12 +139,33 @@ class DashboardController extends GetxController {
 
   void getProjects() async {
     projects = await _service.getProjects();
+    showAllProjects = projects.length <= 4;
+    update([Projects.updateId]);
+  }
+
+  void toggleShowAllProjects() {
+    showAllProjects = !showAllProjects;
     update([Projects.updateId]);
   }
 
   void getTestimonials() async {
     testimonials = await _service.getTestimonials();
+    testimonialController = PageController(initialPage: testimonials.length * 2);
     update([Testimonials.updateId]);
+  }
+
+  void previousTestimonial() {
+    testimonialController.previousPage(
+      duration: AppConstants.scrollDuration,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void nextTestimonial() {
+    testimonialController.nextPage(
+      duration: AppConstants.scrollDuration,
+      curve: Curves.easeInOut,
+    );
   }
 
   void submitContactRequest() async {

@@ -1,18 +1,18 @@
 <svg width="180" height="36" viewBox="0 0 180 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="6" cy="6" r="6" fill="#444444"/>
-<circle cx="30" cy="6" r="6" fill="#444444"/>
-<circle cx="54" cy="6" r="6" fill="#444444"/>
-<circle cx="78" cy="6" r="6" fill="#444444"/>
-<circle cx="102" cy="6" r="6" fill="#444444"/>
-<circle cx="126" cy="6" r="6" fill="#444444"/>
-<circle cx="150" cy="6" r="6" fill="#444444"/>
-<circle cx="174" cy="6" r="6" fill="#444444"/>
-<circle cx="6" cy="30" r="6" fill="#444444"/>
-<circle cx="30" cy="30" r="6" fill="#444444"/>
-<circle cx="54" cy="30" r="6" fill="#444444"/>
-<circle cx="78" cy="30" r="6" fill="#444444"/>
-<circle cx="102" cy="30" r="6" fill="#444444"/>
-<circle cx="126" cy="30" r="6" fill="#444444"/>
-<circle cx="150" cy="30" r="6" fill="#444444"/>
-<circle cx="174" cy="30" r="6" fill="#444444"/>
+<circle cx="6" cy="6" r="6" fill="#DEDEDE"/>
+<circle cx="30" cy="6" r="6" fill="#DEDEDE"/>
+<circle cx="54" cy="6" r="6" fill="#DEDEDE"/>
+<circle cx="78" cy="6" r="6" fill="#DEDEDE"/>
+<circle cx="102" cy="6" r="6" fill="#DEDEDE"/>
+<circle cx="126" cy="6" r="6" fill="#DEDEDE"/>
+<circle cx="150" cy="6" r="6" fill="#DEDEDE"/>
+<circle cx="174" cy="6" r="6" fill="#DEDEDE"/>
+<circle cx="6" cy="30" r="6" fill="#DEDEDE"/>
+<circle cx="30" cy="30" r="6" fill="#DEDEDE"/>
+<circle cx="54" cy="30" r="6" fill="#DEDEDE"/>
+<circle cx="78" cy="30" r="6" fill="#DEDEDE"/>
+<circle cx="102" cy="30" r="6" fill="#DEDEDE"/>
+<circle cx="126" cy="30" r="6" fill="#DEDEDE"/>
+<circle cx="150" cy="30" r="6" fill="#DEDEDE"/>
+<circle cx="174" cy="30" r="6" fill="#DEDEDE"/>
 </svg>
