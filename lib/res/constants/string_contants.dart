@@ -28,6 +28,10 @@ class StringConstants {
 
   static const String testimonialDescription = 'People I\'ve worked with have said some nice things...';
 
+  static const String thankYou = 'Thank you!';
+
+  static const String testimonialWillBeVisible = 'Your testimonial will soon be showcased on our main page. Much appreciated!';
+
   static const String emailTitle = 'Feel free to email me at';
   static const String whatsappTitle = 'Let\'s chat over WhatsApp';
   static const String linkedinTitle = 'Connect on LinkedIn';
