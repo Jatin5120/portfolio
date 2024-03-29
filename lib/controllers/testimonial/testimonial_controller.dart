@@ -13,6 +13,10 @@ class TestimonialController extends GetxController {
   final designationController = TextEditingController();
   final messageController = TextEditingController();
 
+  final RxBool _showThankyou = false.obs;
+  bool get showThankyou => _showThankyou.value;
+  set showThankyou(bool value) => _showThankyou.value = value;
+
   final Rx<AvatarItem> _selectedAvatar = AvatarItem.avatar1.obs;
   AvatarItem get selectedAvatar => _selectedAvatar.value;
   set selectedAvatar(AvatarItem value) => _selectedAvatar.value = value;
@@ -33,9 +37,10 @@ class TestimonialController extends GetxController {
     Utility.hideLoader();
     if (requested) {
       formKey.currentState!.reset();
-      nameController.clear();
-      designationController.clear();
-      messageController.clear();
+      showThankyou = true;
+      Future.delayed(const Duration(seconds: 5), () {
+        showThankyou = false;
+      });
     }
   }
 }
