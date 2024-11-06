@@ -178,6 +178,7 @@ class _LinksRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: project.links
+          .where((e) => e.enabled)
           .map(
             (e) => Padding(
               padding: const EdgeInsets.all(2),

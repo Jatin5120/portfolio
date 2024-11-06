@@ -7,7 +7,7 @@ class DashboardBinding implements Bindings {
   void dependencies() {
     Get.put<DashboardController>(
       DashboardController(
-        const DashboardService(),
+        DashboardService(),
       ),
     );
   }

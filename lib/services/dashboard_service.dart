@@ -4,10 +4,16 @@ import 'package:portfolio/res/res.dart';
 import 'package:portfolio/utils/utils.dart';
 
 class DashboardService {
-  const DashboardService();
+  DashboardService();
+
+  List<ProjectsModel> _cachedProjects = [];
 
   Future<List<ProjectsModel>> getProjects() async {
     try {
+      if (_cachedProjects.isNotEmpty) {
+        return _cachedProjects;
+      }
+
       final data = await AppCollections.projects.get();
       final projects = data.docs.map((e) => e.data());
 
@@ -22,7 +28,8 @@ class DashboardService {
           project.technologies[i] = TechnologyModel.fromMap(data);
         }
       }
-      return projects.toList();
+      _cachedProjects = [...projects];
+      return _cachedProjects;
     } catch (e, st) {
       AppLog.error(e, st);
       return [];

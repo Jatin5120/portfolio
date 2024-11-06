@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:get/get.dart';
@@ -15,9 +16,12 @@ void main() async {
 
 Future<void> _setup() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
+  await Future.wait([
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]),
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge),
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+  ]);
 }
 
 class MyApp extends StatelessWidget {
@@ -43,6 +47,9 @@ class MyApp extends StatelessWidget {
           initialRoute: AppPages.initial,
           getPages: AppPages.pages,
           unknownRoute: AppPages.dashboard,
+          opaqueRoute: true,
+          enableLog: false,
+          transitionDuration: AppConstants.animationDuration,
         ),
       ),
     );

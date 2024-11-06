@@ -12,6 +12,8 @@ class AppPages {
         name: DashboardView.route,
         page: DashboardView.new,
         binding: DashboardBinding(),
+        participatesInRootNavigator: true,
+        preventDuplicates: true,
       );
 
   static List<GetPage> pages = [
@@ -23,6 +25,8 @@ class AppPages {
         DashboardBinding(),
         TestimonialBinding(),
       ],
+      participatesInRootNavigator: true,
+      preventDuplicates: true,
     ),
   ];
 }

@@ -30,23 +30,23 @@ class AppButton extends StatelessWidget {
   final ButtonType _type;
   final void Function(bool)? onHover;
 
-  static MaterialStateProperty<TextStyle?> _textStyle(BuildContext context) => MaterialStateProperty.all(
+  static WidgetStateProperty<TextStyle?> _textStyle(BuildContext context) => WidgetStateProperty.all(
         context.textTheme.bodyMedium?.copyWith(
           fontWeight: FontWeight.w600,
         ),
       );
 
-  static MaterialStateProperty<OutlinedBorder?> _shape() => MaterialStateProperty.all(
+  static WidgetStateProperty<OutlinedBorder?> _shape() => WidgetStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
       );
 
-  static MaterialStateProperty<double?> _elevation() => MaterialStateProperty.resolveWith(
+  static WidgetStateProperty<double?> _elevation() => WidgetStateProperty.resolveWith(
         (states) => [
-          MaterialState.hovered,
-          MaterialState.focused,
-          MaterialState.pressed,
+          WidgetState.hovered,
+          WidgetState.focused,
+          WidgetState.pressed,
         ].any((e) => states.contains(e))
             ? 4
             : 0,
@@ -92,7 +92,7 @@ class _Primary extends StatelessWidget {
         style: ButtonStyle(
           shape: AppButton._shape(),
           elevation: AppButton._elevation(),
-          backgroundColor: MaterialStateColor.resolveWith(
+          backgroundColor: WidgetStateColor.resolveWith(
             (states) {
               if (states.isDisabled) {
                 return AppColors.cardDark;
@@ -100,7 +100,7 @@ class _Primary extends StatelessWidget {
               return AppColors.primary;
             },
           ),
-          foregroundColor: MaterialStateColor.resolveWith(
+          foregroundColor: WidgetStateColor.resolveWith(
             (states) {
               if (states.isDisabled) {
                 return AppColors.backgroundLight;
@@ -135,12 +135,12 @@ class _Secondary extends StatelessWidget {
         style: ButtonStyle(
           shape: AppButton._shape(),
           elevation: AppButton._elevation(),
-          backgroundColor: MaterialStateColor.resolveWith(
+          backgroundColor: WidgetStateColor.resolveWith(
             (states) {
               return AppColors.cardDark;
             },
           ),
-          foregroundColor: MaterialStateColor.resolveWith(
+          foregroundColor: WidgetStateColor.resolveWith(
             (states) {
               if (states.isDisabled) {
                 return AppColors.bodyDark;
@@ -175,7 +175,7 @@ class _Outlined extends StatelessWidget {
         style: ButtonStyle(
           shape: AppButton._shape(),
           elevation: AppButton._elevation(),
-          backgroundColor: MaterialStateColor.resolveWith(
+          backgroundColor: WidgetStateColor.resolveWith(
             (states) {
               if (states.isDisabled) {
                 return AppColors.cardDark;
@@ -183,7 +183,7 @@ class _Outlined extends StatelessWidget {
               return Colors.transparent;
             },
           ),
-          foregroundColor: MaterialStateColor.resolveWith(
+          foregroundColor: WidgetStateColor.resolveWith(
             (states) {
               if (states.isDisabled) {
                 return AppColors.bodyDark;
@@ -191,7 +191,7 @@ class _Outlined extends StatelessWidget {
               return AppColors.primary;
             },
           ),
-          side: MaterialStateProperty.resolveWith(
+          side: WidgetStateProperty.resolveWith(
             (states) {
               if (states.isDisabled) {
                 return BorderSide.none;

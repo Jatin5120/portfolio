@@ -137,12 +137,12 @@ extension ResponsiveExtension on ResponsiveState {
   }
 }
 
-extension MaterialStateExtension on Set<MaterialState> {
-  bool get isDisabled => any((e) => [MaterialState.disabled].contains(e));
+extension MaterialStateExtension on Set<WidgetState> {
+  bool get isDisabled => any((e) => [WidgetState.disabled].contains(e));
 
-  bool get isClicked => any((e) => [MaterialState.pressed, MaterialState.selected].contains(e));
+  bool get isClicked => any((e) => [WidgetState.pressed, WidgetState.selected].contains(e));
 
-  bool get isHovered => any((e) => [MaterialState.hovered].contains(e));
+  bool get isHovered => any((e) => [WidgetState.hovered].contains(e));
 }
 
 extension StyleExtension on TextStyle {
