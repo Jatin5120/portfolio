@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  /* ===== FONTS ===== */
+  --font-heading: "Cabinet Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-signature: "Ms Madi", cursive;
+
+  /* ===== TYPE SCALE ===== */
+  --text-base: 1rem; /* Overridden to 1.125rem (18px) on desktop via @layer base media query */
+
+  /* ===== COLORS ===== */
+
+  /* Brand orange */
+  --color-primary: #ffab00;
+  --color-primary-hover: #ff9500;
+  --color-primary-active: #e68a00;
+  --color-on-primary: #0c0c0e;
+
+  /* Backgrounds */
+  --color-page: #0a0a0a;
+  --color-card: #161a22;
+  --color-elevated: #1f2937;
+  --color-hover: #1a1d24;
+
+  /* Text */
+  --color-heading: #f3f4f6;
+  --color-secondary: #9ca3af;
+  --color-tertiary: #6b7280;
+  --color-accent: #ffab00;
+
+  /* Borders */
+  --color-subtle: #1f2937;
+  --color-border: #374151;
+
+  /* Feedback */
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+}
+
+@layer base {
+  :root {
+    /* Shadow / glow tokens (used in Framer Motion inline styles) */
+    --shadow-glow-sm: 0 0 10px rgba(255, 171, 0, 0.3);
+    --shadow-glow-md: 0 0 20px rgba(255, 171, 0, 0.4);
+    --shadow-glow-lg: 0 0 30px rgba(255, 171, 0, 0.5);
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0a0a0a;
+    color: #f3f4f6;
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --text-base: 1.125rem; /* 18px — spec requires 16px mobile, 18px desktop */
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Skeleton shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #161a22 0%, #1f2937 50%, #161a22 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}

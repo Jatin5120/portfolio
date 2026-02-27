@@ -13,7 +13,7 @@
 **Current Title**: Mobile Lead (Leadership Role)
 **Location**: Bangalore Urban, Karnataka, India (Relocated from Punjab)
 **Email**: contact.dev.jatin@gmail.com
-**Phone**: +91 6283401360
+**Phone / WhatsApp**: +91 6283401360
 **LinkedIn**: linkedin.com/in/jatin5120
 **Portfolio**: (Building new React portfolio)
 
@@ -315,7 +315,7 @@ Flutter Developer → Software Developer → Senior Flutter Developer → **Mobi
 - **Instagram**: instagram.com/jatin5120_
 - **Medium**: jatin5120.medium.com
 - **Email**: contact.dev.jatin@gmail.com
-- **Phone**: +91 6283401360
+- **Phone / WhatsApp**: +91 6283401360
 
 ### Published Packages
 - Chat Package: https://pub.dev/packages/chat_package
