@@ -25,6 +25,7 @@ const SAMPLE_PROJECT: Project = {
   status: 'launching-soon',
   ctaText: 'View Project',
   ctaLink: '#',
+  category: 'ai',
 }
 
 const SAMPLE_PROJECT_LIVE: Project = {
@@ -37,6 +38,7 @@ const SAMPLE_PROJECT_LIVE: Project = {
   status: 'live',
   ctaText: 'View Project',
   ctaLink: '#',
+  category: 'ai',
 }
 
 const SAMPLE_PROJECT_NO_BADGE: Project = {
@@ -48,6 +50,7 @@ const SAMPLE_PROJECT_NO_BADGE: Project = {
   techStack: ['Flutter', 'Dart', 'Firebase', 'REST APIs'],
   ctaText: 'View Project',
   ctaLink: '#',
+  category: 'apps',
 }
 
 // ─── Playground helpers ───────────────────────────────────────────────────────

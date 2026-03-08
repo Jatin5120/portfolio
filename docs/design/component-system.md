@@ -1937,6 +1937,201 @@ hover:h-64 hover:mt-4
 
 ---
 
+## WorkExperience + TechTag Pills
+
+**Decision #2 (Finalized 2026-03-08)**
+
+Each work experience entry gets a row of `TechTag` pill badges below the description. Neutral variant only — NOT orange. Max 5 tags per role.
+
+### TechTag Pill
+
+```tsx
+// Neutral, monospace, small — not orange
+<span className="
+  inline-flex items-center
+  bg-elevated text-secondary border border-subtle
+  font-mono text-xs
+  px-2.5 py-1 rounded-full
+  select-none
+">
+  Flutter
+</span>
+```
+
+**Design rules:**
+- `bg-elevated` (#1F2937) — slightly lighter than card, creates depth
+- `text-secondary` (#9CA3AF) — neutral gray, NOT orange
+- `border-subtle` — subtle 1px border
+- `font-mono` — JetBrains Mono, reinforces technical detail
+- `text-xs` (12px) — small, supporting info, not dominant
+- `rounded-full` — pill shape
+- Max 5 tags per entry
+
+### WorkExperienceEntry Component
+
+```tsx
+// WorkExperienceEntry.tsx
+<div className="group py-6 border-b border-subtle last:border-0">
+  {/* Header row */}
+  <div className="flex items-start justify-between gap-4 mb-1">
+    <div>
+      <h3 className="font-heading font-semibold text-lg text-primary">
+        {role}
+      </h3>
+      <p className="text-secondary text-sm mt-0.5">
+        {company} · {location}
+      </p>
+    </div>
+    <span className="text-tertiary text-sm font-mono shrink-0 mt-0.5">
+      {duration}
+    </span>
+  </div>
+
+  {/* Description */}
+  <p className="text-secondary text-sm leading-relaxed mt-3 mb-4">
+    {description}
+  </p>
+
+  {/* TechTag pills (max 5) */}
+  <div className="flex flex-wrap gap-2">
+    {skills.slice(0, 5).map((skill) => (
+      <span key={skill} className="
+        inline-flex items-center
+        bg-elevated text-secondary border border-subtle
+        font-mono text-xs
+        px-2.5 py-1 rounded-full
+      ">
+        {skill}
+      </span>
+    ))}
+  </div>
+</div>
+```
+
+**Orange restraint**: TechTags are deliberately NOT orange. Orange is reserved for interactive states (hover borders, CTA buttons). Static tags stay neutral.
+
+---
+
+## FilterTabs (Project Category Filter)
+
+**Decision #6 (Finalized 2026-03-08)**
+
+Filter tabs above the project grid. Categories: `All · Apps · Packages · AI`. Framer Motion `layoutId` sliding orange pill indicator.
+
+### Design Spec
+
+- Active tab: orange text (`text-accent`) + sliding orange pill indicator beneath it
+- Inactive tabs: `text-tertiary`, hover `text-secondary`
+- NO filled orange background on active tab (pill indicator only)
+- `layoutId="filter-indicator"` — Framer Motion animates the pill between tabs
+- `AnimatePresence mode="popLayout"` on the card grid for card exit/enter
+
+### Component
+
+```tsx
+// FilterTabs.tsx
+import { motion } from 'framer-motion'
+
+const TABS = [
+  { id: 'all', label: 'All' },
+  { id: 'apps', label: 'Apps' },
+  { id: 'packages', label: 'Packages' },
+  { id: 'ai', label: 'AI' },
+]
+
+export function FilterTabs({ active, onChange }) {
+  return (
+    <div
+      role="tablist"
+      aria-label="Filter projects by category"
+      className="flex gap-1"
+      onKeyDown={(e) => {
+        const current = TABS.findIndex((t) => t.id === active)
+        if (e.key === 'ArrowRight') onChange(TABS[(current + 1) % TABS.length].id)
+        if (e.key === 'ArrowLeft') onChange(TABS[(current - 1 + TABS.length) % TABS.length].id)
+      }}
+    >
+      {TABS.map((tab) => (
+        <button
+          key={tab.id}
+          role="tab"
+          aria-pressed={active === tab.id}
+          onClick={() => onChange(tab.id)}
+          className={cn(
+            'relative px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page',
+            active === tab.id ? 'text-accent' : 'text-tertiary hover:text-secondary'
+          )}
+        >
+          {tab.label}
+          {active === tab.id && (
+            <motion.span
+              layoutId="filter-indicator"
+              className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full"
+              transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+            />
+          )}
+        </button>
+      ))}
+    </div>
+  )
+}
+```
+
+**Key decisions:**
+- `layoutId="filter-indicator"` — Framer Motion slides the underline pill between tabs (approved by visual-director: "communicates state change = purposeful motion")
+- `role="tablist"` + `aria-pressed` — proper ARIA for filter behavior
+- `ArrowLeft/Right` keyboard navigation
+- `AnimatePresence mode="popLayout"` on card grid (cards animate out before new ones enter, no layout jitter)
+
+---
+
+## Section Heading Underline (Scroll-reveal)
+
+**Decision #5 Modified (Finalized 2026-03-08)**
+
+Section headings (`<h2>`) get a decorative underline that animates in (`scaleX: 0 → 1`) as the section scrolls into view. Triggered once via `useInView`.
+
+### Design Spec
+
+- Height: `0.12em` — fine line, not chonky
+- Color: `bg-primary/70` — 70% orange, NOT full `#FFAB00` (differentiates from NavLink interactive underline which uses full orange)
+- Origin: `transform-origin: left` — grows left-to-right
+- Trigger: Framer Motion `useInView` with `once: true`
+- NOT hover-triggered — purely on scroll entry (avoids false interactive affordance on `<h2>`)
+
+### Usage
+
+```tsx
+// SectionHeading.tsx
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+
+export function SectionHeading({ children }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-10% 0px' })
+
+  return (
+    <h2 ref={ref} className="relative inline-block font-heading font-bold text-primary">
+      {children}
+      <motion.span
+        className="absolute -bottom-1 left-0 right-0 h-[0.12em] rounded-full origin-left"
+        style={{ backgroundColor: 'var(--color-primary)', opacity: 0.7 }}
+        initial={{ scaleX: 0 }}
+        animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      />
+    </h2>
+  )
+}
+```
+
+**Why `primary/70` and not full orange:**
+- Full orange (#FFAB00) is reserved for interactive hover states (NavLink underline, filter tabs, card borders)
+- At 70% opacity, the heading underline reads as decorative context — it's a marker, not a CTA
+- Preserves orange's interactive signal value throughout the page
+
+---
+
 ## Related Documents
 
 - [Brand Strategy](/Users/jatin/Documents/Projects/portfolio/docs/brand/brand-strategy.md) - Independent Craftsman positioning
@@ -1946,9 +2141,14 @@ hover:h-64 hover:mt-4
 
 ---
 
-**Last Updated**: 2026-01-27
-**Version**: 1.2.0
+**Last Updated**: 2026-03-08
+**Version**: 1.3.0
 **Status**: ✅ Ready for Implementation
+
+**Added in v1.3.0:**
+- WorkExperience + TechTag Pills spec (Decision #2)
+- FilterTabs component spec (Decision #6)
+- Section Heading Underline scroll-reveal spec (Decision #5 Modified)
 
 **Quick Reference (Semantic Tokens):**
 - **Use Layer 2 tokens**: bg-page, bg-card, text-primary, text-secondary, bg-primary

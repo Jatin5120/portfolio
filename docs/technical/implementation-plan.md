@@ -2,9 +2,9 @@
 
 **Project**: React Portfolio
 **Created**: 2026-02-20
-**Last Updated**: 2026-02-20
-**Version**: 1.0.0
-**Status**: Active
+**Last Updated**: 2026-03-08
+**Version**: 2.0.0
+**Status**: Active — Phase 2 In Progress
 
 ---
 
@@ -14,88 +14,74 @@ Four phases from project init to production deploy. Each phase produces working,
 
 ---
 
-## Phase 1 — Foundation
+## Phase 1 — Foundation ✅ COMPLETE
 
 **Goal**: Runnable project with design system in place. No real content yet.
 
-### 1.1 — Project Initialization
+### 1.1 — Project Initialization ✅
 
-- [ ] Scaffold with Vite: `npm create vite@latest portfolio -- --template react-ts`
-- [ ] Install core dependencies:
-  ```bash
-  npm install framer-motion
-  npm install -D tailwindcss @tailwindcss/vite
-  ```
-- [ ] Install utility:
-  ```bash
-  npm install clsx tailwind-merge   # for cn() helper
-  ```
-- [ ] Configure Tailwind v4 with Vite plugin
-- [ ] Set up `tsconfig.json` with path aliases (`@/` → `src/`)
-- [ ] Configure Vite with path alias to match tsconfig
+- [x] Scaffold with Vite: React 19 + TypeScript + Vite 6
+- [x] Install core dependencies: framer-motion, tailwindcss @tailwindcss/vite
+- [x] Install utility: clsx + tailwind-merge for cn() helper
+- [x] Configure Tailwind v4 with Vite plugin
+- [x] Set up `tsconfig.json` with path aliases (`@/` → `src/`)
+- [x] Configure Vite with path alias to match tsconfig
 
-### 1.2 — Design System in Code
+### 1.2 — Design System in Code ✅
 
-- [ ] Create `src/styles/globals.css`:
-  - CSS custom properties for Layer 1 (core palette) and Layer 2 (semantic tokens)
-  - `@font-face` or `<link>` tags for all four fonts
-  - Base reset: `box-sizing`, `scroll-behavior: smooth`, remove default margins
-  - Background set to `var(--bg-page)` on `body`
+- [x] `src/styles/globals.css` — @theme layer with all CSS tokens + glow vars
+- [x] Tailwind v4 configured via @theme (no tailwind.config.ts needed)
+- [x] `src/lib/utils.ts` — cn() helper
 
-- [ ] Configure `tailwind.config.ts`:
-  - Map all semantic color tokens to Tailwind classes
-  - Extend spacing scale (matches 8px grid from `docs/design/layout-system.md`)
-  - Add font families: `cabinet-grotesk`, `inter`, `jetbrains-mono`, `ms-madi`
-  - Add custom easing curves for animations
+### 1.3 — App Shell ✅
 
-- [ ] Create `src/lib/utils.ts` with `cn()` helper (clsx + tailwind-merge)
+- [x] `src/components/layout/Header/` — sticky nav with logo/name + section links
+- [x] `src/components/layout/Footer/` — signature in Ms Madi font + social icons
+- [x] UI primitives: Button, Badge, NavLink, ProjectCard components built and reviewed
+- [x] Component playground reviewed by design-critic (all critical/major issues resolved)
 
-### 1.3 — App Shell
-
-- [ ] `src/App.tsx` — skeleton with `<Header>`, empty section placeholders, `<Footer>`
-- [ ] `src/components/layout/Header/` — sticky nav with logo/name + section links
-- [ ] `src/components/layout/Footer/` — signature in Ms Madi font + social icons
-- [ ] `index.html` — all meta tags (title, description, OG, Twitter card)
-
-**Milestone**: `npm run dev` shows dark page with header, footer, correct fonts, and correct colors.
+**Milestone**: ✅ `npm run dev` shows dark page with header, footer, correct fonts, and correct colors.
 
 ---
 
-## Phase 2 — Core Sections (Static)
+## Phase 2 — Core Sections (Static + Motion) 🔄 IN PROGRESS
 
-**Goal**: All sections built with real content but no animations yet. Looks right, doesn't move.
+**Goal**: All sections built with real content and animations. Full page working.
 
-### 2.1 — Data Layer
+### 2.1 — Data Layer ✅
 
-- [ ] Create `src/types/index.ts` with TypeScript interfaces:
-  ```typescript
-  interface Project { id, title, tagline, description, techStack, status, link, image }
-  interface AboutNode { id, content, year?, position, size }
-  interface Testimonial { id, name, role, company, quote, avatar? }
-  ```
-- [ ] `src/data/projects.ts` — all projects from `docs/content/projects-section-copy.md`
-- [ ] `src/data/about-nodes.ts` — 8 personal nodes from `docs/content/about-section-copy-v4-final.md`
-- Note: No testimonials data file needed — decision is zero testimonials (see `docs/content/testimonials-strategy.md`)
+- [x] `src/types/index.ts` — Project, WorkExperience, AboutNode interfaces + ProjectCategory type
+- [x] `src/data/projects.ts` — 9 projects with `category: ProjectCategory` field
+- [x] `src/data/work-experience.ts` — 4 companies with `skills: string[]` (max 5 per role, TechTag pills)
+- [x] `src/data/about-nodes.ts` — 8 personal nodes, all approved
+- Note: No testimonials data — decision is zero testimonials
 
-### 2.2 — UI Primitives
+### 2.2 — UI Primitives ✅
 
-Build these before sections — sections will use them:
+- [x] `src/components/ui/Button/` — primary, secondary, ghost variants + all states
+- [x] `src/components/ui/Badge/` — live, launching-soon, tech-stack variants
+- [x] `src/components/ui/NavLink/` — nav link with hover underline
+- [x] `src/components/ui/ProjectCard/` — image, tagline, title, description, tech badges, CTA
+- [ ] `src/components/ui/SectionHeading/` — scroll-reveal underline (Decision #5 Modified)
+- [ ] `src/components/ui/TechTag/` — neutral monospace pill for WorkExperience (Decision #2)
+- [ ] `src/components/ui/FilterTabs/` — All·Apps·Packages·AI with layoutId pill (Decision #6)
 
-- [ ] `src/components/ui/Button/` — primary, secondary, ghost variants + all states
-- [ ] `src/components/ui/Badge/` — live, launching-soon, tech-stack variants
-- [ ] `src/components/ui/ProjectCard/` — image, tagline, title, description, tech badges, CTA
-- [ ] `src/components/ui/SectionHeading/` — consistent section title style
+### 2.3 — Sections
 
-### 2.3 — Sections (Static)
+Build in order (top to bottom of page), run in parallel where possible:
 
-Build in this order (top to bottom of page):
+- [ ] **Hero** — inline photo (100px), Option E copy ("Hey, I'm Jatin — Mobile Lead..."), Cmd+K CTO easter egg, stagger entrance, scroll indicator. Reference: `docs/content/hero-section-copy.md`
+- [ ] **Work** — WorkExperience timeline entries, TechTag pills per role, scroll-reveal heading. Reference: `docs/content/professional-data.md`
+- [ ] **Projects** — FilterTabs (All·Apps·Packages·AI), card grid, AnimatePresence popLayout, keyboard nav. Reference: `docs/content/projects-section-copy.md`
+- [ ] **About** — Timeline Scatter: 8 nodes around centered profile photo, connection lines, hover expand. Reference: `docs/content/about-section-copy-v4-final.md`
+- [ ] **Contact** — Email-only (A3: "Let's build something"), mailto link, LinkedIn/Twitter/GitHub. Reference: `docs/content/contact-section-copy.md`
 
-- [ ] **Hero** — layout, typography, CTA buttons, "Currently Exploring" badge. No easter egg yet.
-- [ ] **Projects** — project cards grid/list, "Show All" toggle
-- [ ] **About** — static positioning of 8 nodes (no scatter animation yet)
-- [ ] **Contact** — contact form/CTA (implement chosen approach from `docs/technical/tech-stack.md`)
+**Finalized Design Decisions Applied:**
+- **#2 TechTag pills**: `bg-elevated text-secondary border-subtle font-mono text-xs rounded-full` — NOT orange
+- **#5 Section heading underline**: `scaleX 0→1` on scroll-in, `h-[0.12em]`, `bg-primary/70`, `once: true`
+- **#6 FilterTabs**: `layoutId="filter-indicator"` pill, `AnimatePresence mode="popLayout"`, `role="tablist"` + ArrowKey nav
 
-**Milestone**: Full page visible with real content, all sections readable and correctly styled on mobile + desktop.
+**Milestone**: Full page with real content + animations. Accessible. Tested on mobile + desktop.
 
 ---
 
@@ -206,13 +192,16 @@ Sections are built top-to-bottom because:
 
 ---
 
-## Decisions Still Open
+## Decisions Resolved
 
-| Decision | Status | Where Documented |
-|----------|--------|-----------------|
-| Contact form approach | TBD | `docs/technical/tech-stack.md` |
+| Decision | Status | Resolution |
+|----------|--------|------------|
+| Contact form approach | ✅ RESOLVED | Email-only (A3: "Let's build something"). No form needed. |
+| Hero easter egg trigger | ✅ RESOLVED | Cmd+K (or Ctrl+K). Hint text fades after 3s. CTO pseudo-code mode. |
+| Project filter categories | ✅ RESOLVED | `All · Apps · Packages · AI` — no Web tab. |
+| TechTag color | ✅ RESOLVED | Neutral only (`bg-elevated text-secondary`), NOT orange. |
+| Section heading underline | ✅ RESOLVED | Scroll-reveal `scaleX 0→1`, NOT hover. `0.12em`, `primary/70`. |
 | Custom domain | TBD | — |
-| Hero easter egg trigger mechanism | TBD at implementation | `docs/content/hero-easter-egg-approaches.md` |
 
 ---
 

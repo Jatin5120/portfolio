@@ -1,3 +1,5 @@
+export type ProjectCategory = 'apps' | 'packages' | 'ai'
+
 export interface Project {
   id: string
   title: string
@@ -8,6 +10,17 @@ export interface Project {
   status?: 'live' | 'launching-soon'
   ctaText: string
   ctaLink: string
+  category: ProjectCategory
+}
+
+export interface WorkExperience {
+  id: string
+  company: string
+  role: string
+  duration: string
+  location: string
+  description: string
+  skills: string[]
 }
 
 export interface AboutNode {
