@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { MotionConfig } from 'framer-motion'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/sections/Hero'
@@ -36,6 +37,7 @@ export default function App() {
   }, [])
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="bg-page min-h-screen">
       <Header activeSection={activeSection} />
 
@@ -49,5 +51,6 @@ export default function App() {
 
       <Footer />
     </div>
+    </MotionConfig>
   )
 }
