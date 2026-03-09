@@ -96,6 +96,12 @@
   }
 }
 
+/* Blinking cursor (used in CTO mode code block) */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 .skeleton-shimmer {
   background: linear-gradient(90deg, #161a22 0%, #1f2937 50%, #161a22 100%);
   background-size: 200% 100%;

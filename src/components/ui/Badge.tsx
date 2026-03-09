@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 // ─── Status Badges ────────────────────────────────────────────────────────────
@@ -48,12 +49,39 @@ export function TechTag({ children, className }: TechTagProps) {
 }
 
 // ─── Available Badge (nav) ────────────────────────────────────────────────────
+// VU-meter strip — hardware panel aesthetic, not a software pill
+// Three LED bars at staggered heights animate like a status indicator
 
 export function AvailableBadge() {
   return (
-    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-elevated text-accent border border-primary/20">
-      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-      Available
-    </span>
+    <div
+      className="inline-flex items-center gap-2 px-2.5 rounded-sm bg-elevated border border-primary/15"
+      style={{
+        height: 28,
+        boxShadow: 'inset 0 1px 0 rgba(255,171,0,0.08), 0 0 0 1px rgba(255,171,0,0.12)',
+      }}
+      role="status"
+      aria-label="Currently open for work"
+    >
+      <div className="flex items-end gap-[3px]" style={{ height: 12 }} aria-hidden="true">
+        {([0, 1, 2] as const).map((i) => (
+          <motion.span
+            key={i}
+            className="w-[3px] rounded-full bg-accent"
+            style={{ height: `${(i + 1) * 33}%` }}
+            animate={{ opacity: [0.2, 0.8, 1, 0.8, 0.2] }}
+            transition={{
+              duration: 1.2,
+              repeat: Infinity,
+              delay: i * 0.22,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
+      <span className="font-mono text-[10px] tracking-[0.2em] text-accent leading-none">
+        OPEN
+      </span>
+    </div>
   )
 }

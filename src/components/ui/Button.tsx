@@ -22,8 +22,8 @@ const variantStyles: Record<ButtonVariant, string> = {
     'disabled:opacity-50 disabled:cursor-not-allowed',
   ].join(' '),
   secondary: [
-    'bg-transparent text-accent border-2 border-primary font-semibold font-body',
-    'hover:bg-primary hover:text-on-primary',
+    'bg-transparent text-accent border-2 border-border font-semibold font-body',
+    'hover:bg-primary hover:text-on-primary hover:border-primary',
     'active:bg-primary-active active:border-primary-active',
     'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page',
     'disabled:opacity-50 disabled:cursor-not-allowed',

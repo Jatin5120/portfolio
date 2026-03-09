@@ -1,23 +1,16 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
-const EASE = [0.16, 1, 0.3, 1] as const
+const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number]
 
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: EASE, delay },
-  }),
-}
-
+// Default ↔ Technical switch animation — "enter" renamed to "visible"
+// for consistency with every other variant in the codebase.
 const switchVariants = {
   exit: { opacity: 0, y: -10, transition: { duration: 0.3, ease: EASE } },
-  enter: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: EASE } },
   hidden: { opacity: 0, y: 10 },
 }
 
@@ -32,7 +25,6 @@ function ProfilePhoto() {
       style={{
         width: 'clamp(72px, 8vw, 100px)',
         height: 'clamp(72px, 8vw, 100px)',
-        // Pull slightly above the baseline so the photo sits mid-cap
         verticalAlign: 'middle',
         boxShadow: 'var(--shadow-glow-sm)',
       }}
@@ -47,9 +39,11 @@ function ProfilePhoto() {
           J
         </span>
       ) : (
+        // aria-hidden="true" on parent makes the alt redundant for AT —
+        // use alt="" to mark explicitly decorative.
         <img
           src="/profile.jpg"
-          alt="Jatin"
+          alt=""
           className="w-full h-full object-cover"
           onError={() => setErrored(true)}
         />
@@ -59,13 +53,18 @@ function ProfilePhoto() {
 }
 
 // ─── Default (human-readable) headline view ───────────────────────────────────
+//
+// Sub-line and CTAs are plain elements — NOT motion wrappers with fadeUpVariants.
+// The parent motion.div already handles the entrance / exit animation via
+// switchVariants; adding per-child variants here would re-run the entrance
+// every time the user toggles CTO mode (AnimatePresence unmounts/remounts).
 
 function DefaultView() {
   return (
     <motion.div
       key="default"
       initial="hidden"
-      animate="enter"
+      animate="visible"
       exit="exit"
       variants={switchVariants}
     >
@@ -77,41 +76,26 @@ function DefaultView() {
         Hey, I'm{' '}
         <ProfilePhoto />
         Jatin —{' '}
-        <span className="text-accent">Mobile Lead</span> building cross&#8209;platform{' '}
-        experiences that feel smooth, scale well, and actually solve problems.
+        <span className="text-accent">Mobile Lead</span>.{' '}
+        I ship products, not just features.
       </h1>
 
       {/* Sub-line */}
-      <motion.p
-        className="mt-6 text-secondary font-body text-lg"
-        custom={0.1}
-        variants={fadeUpVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        Currently at{' '}
+      <p className="mt-8 text-secondary font-body text-lg">
+        Shipping two products simultaneously at{' '}
         <span className="text-heading font-medium">Foyer</span>.{' '}
-        Building{' '}
-        <span className="text-heading font-medium">Thine</span>{' '}
-        +{' '}
-        <span className="text-heading font-medium">Merlin AI</span>.
-      </motion.p>
+        One required solving a problem Apple doesn't document.
+      </p>
 
       {/* CTAs */}
-      <motion.div
-        className="mt-10 flex flex-wrap gap-4"
-        custom={0.2}
-        variants={fadeUpVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <Button variant="primary" size="large" href="#projects">
+      <div className="mt-12 flex flex-wrap gap-4">
+        <Button variant="primary" size="large" href="#work">
           View Work
         </Button>
         <Button variant="secondary" size="large" href="#contact">
-          Get in Touch
+          Let's Talk
         </Button>
-      </motion.div>
+      </div>
     </motion.div>
   )
 }
@@ -125,7 +109,7 @@ const CODE_LINES: Array<{ type: 'comment' | 'key' | 'value' | 'symbol' | 'blank'
   { type: 'value', text: 'Jatin' },
   { type: 'symbol', text: ' {' },
   { type: 'key', text: '  value_proposition: ' },
-  { type: 'value', text: '"I ship products, not just features"' },
+  { type: 'value', text: '"full-stack mobile ownership — strategy to App Store, no handoffs required"' },
   { type: 'blank', text: '' },
   { type: 'key', text: '  bridges {' },
   { type: 'key', text: '    platforms: ' },
@@ -163,13 +147,13 @@ const CODE_LINES: Array<{ type: 'comment' | 'key' | 'value' | 'symbol' | 'blank'
   { type: 'blank', text: '' },
   { type: 'key', text: '  delivers {' },
   { type: 'key', text: '    speed: ' },
-  { type: 'value', text: "'Ships cross-platform without compromising quality'" },
+  { type: 'value', text: "'Two apps live simultaneously — zero dropped balls'" },
   { type: 'symbol', text: ',' },
-  { type: 'key', text: '    scale: ' },
-  { type: 'value', text: "'Architectures that reduce maintenance costs'" },
+  { type: 'key', text: '    cost: ' },
+  { type: 'value', text: "'One engineer. Full cross-platform team output.'" },
   { type: 'symbol', text: ',' },
   { type: 'key', text: '    autonomy: ' },
-  { type: 'value', text: "'Owns mobile strategy end-to-end'" },
+  { type: 'value', text: "'Strategy to App Store — no handoffs, no gaps'" },
   { type: 'symbol', text: ',' },
   { type: 'symbol', text: '  }' },
   { type: 'blank', text: '' },
@@ -190,41 +174,36 @@ const CODE_LINES: Array<{ type: 'comment' | 'key' | 'value' | 'symbol' | 'blank'
   { type: 'symbol', text: '}' },
 ]
 
-// Renders a single code line with appropriate color per token type
+// Renders a single code token with appropriate color
 function CodeLine({ line }: { line: (typeof CODE_LINES)[number] }) {
-  if (line.type === 'blank') return <br />
-
   const colorClass = {
     comment: 'text-tertiary',
     key: 'text-secondary',
     value: 'text-accent',
     symbol: 'text-secondary',
+    blank: '',
   }[line.type]
 
   return <span className={`font-mono text-sm leading-relaxed ${colorClass}`}>{line.text}</span>
 }
 
-// Reconstructs the full block by grouping consecutive lines into <div> rows
+// Each CODE_LINES entry is its own row.
+// Use <span className="block"> instead of <div> — div inside pre is invalid HTML.
 function CodeBlock() {
-  // Group lines into rows — each item in CODE_LINES is its own render unit,
-  // but consecutive non-blank tokens on the same "logical line" need to be
-  // on the same DOM row. The source array already has one token per array
-  // entry; blank entries act as spacers.
-  // Strategy: wrap each entry in a block-level element (pre keeps whitespace).
   return (
     <pre
       className="overflow-x-auto text-left leading-7 whitespace-pre-wrap break-words"
       aria-label="Technical profile in pseudo-code"
     >
       {CODE_LINES.map((line, i) => {
-        if (line.type === 'blank') return <div key={i} className="h-3" />
+        if (line.type === 'blank') return <span key={i} className="block h-3" />
         return (
-          <div key={i}>
+          <span key={i} className="block">
             <CodeLine line={line} />
-          </div>
+          </span>
         )
       })}
-      {/* Blinking cursor */}
+      {/* Blinking cursor — keyframe defined in globals.css */}
       <span
         className="inline-block w-2 h-4 bg-accent align-middle ml-0.5"
         style={{ animation: 'blink-cursor 1.1s step-end infinite' }}
@@ -239,13 +218,13 @@ function TechnicalView() {
     <motion.div
       key="technical"
       initial="hidden"
-      animate="enter"
+      animate="visible"
       exit="exit"
       variants={switchVariants}
     >
       {/* Label */}
       <p className="font-mono text-xs text-tertiary uppercase tracking-widest mb-4">
-        // CTO Mode
+        // tl_dr.jatin
       </p>
 
       {/* Code block card */}
@@ -258,7 +237,8 @@ function TechnicalView() {
 
       {/* Dismiss hint */}
       <p className="mt-4 font-mono text-xs text-tertiary">
-        Press <kbd className="px-1.5 py-0.5 rounded bg-elevated text-secondary font-mono text-xs border border-border">Esc</kbd>{' '}
+        // press{' '}
+        <kbd className="px-1.5 py-0.5 rounded bg-elevated text-secondary font-mono text-xs border border-border">Esc</kbd>{' '}
         or{' '}
         <kbd className="px-1.5 py-0.5 rounded bg-elevated text-secondary font-mono text-xs border border-border">Cmd+K</kbd>{' '}
         to exit
@@ -271,24 +251,12 @@ function TechnicalView() {
 
 export function Hero() {
   const [isTechnical, setIsTechnical] = useState(false)
-  const [showHint, setShowHint] = useState(true)
-  const hintTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Fade out the keyboard hint after 3 s
-  useEffect(() => {
-    hintTimerRef.current = setTimeout(() => setShowHint(false), 3000)
-    return () => {
-      if (hintTimerRef.current) clearTimeout(hintTimerRef.current)
-    }
-  }, [])
-
-  // Keyboard listener: Cmd+K (Mac) / Ctrl+K (Win/Linux) toggles; Esc exits
+  // Keyboard listener: Cmd+K or Ctrl+K toggles; Esc exits.
+  // navigator.platform is deprecated — use e.metaKey || e.ctrlKey directly.
   useEffect(() => {
     function handleKey(e: KeyboardEvent) {
-      const isMac = navigator.platform.toUpperCase().includes('MAC')
-      const modKey = isMac ? e.metaKey : e.ctrlKey
-
-      if (modKey && e.key.toLowerCase() === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault()
         setIsTechnical((v) => !v)
       }
@@ -303,67 +271,101 @@ export function Hero() {
   }, [isTechnical])
 
   return (
-    <>
-      {/* Blinking cursor keyframe — injected once in the DOM */}
-      <style>{`
-        @keyframes blink-cursor {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-      `}</style>
+    <section
+      id="hero"
+      aria-label="Introduction"
+      className="min-h-screen flex flex-col justify-center relative px-6 lg:px-16 overflow-hidden"
+    >
+      {/* ── Ambient orange glow — upper-right corner, decorative ── */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 right-0 w-[50vw] h-[50vw] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at top right, rgba(255,171,0,0.07) 0%, transparent 65%)',
+        }}
+      />
 
-      <section
-        id="hero"
-        aria-label="Introduction"
-        className="min-h-screen flex flex-col justify-center relative px-6 lg:px-16"
-      >
-        <div className="max-w-5xl mx-auto w-full py-32 lg:py-40">
+      <div className="max-w-5xl mx-auto w-full py-32 lg:py-40">
 
-          {/* ── Entrance wrapper — stagger the whole block on mount ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE }}
-          >
-            {/* ── Animated switch between default ↔ technical ── */}
-            <AnimatePresence mode="wait" initial={false}>
-              {isTechnical ? <TechnicalView /> : <DefaultView />}
-            </AnimatePresence>
-          </motion.div>
-
-          {/* ── Keyboard hint (fades out after 3 s, hidden in technical mode) ── */}
-          <AnimatePresence>
-            {showHint && !isTechnical && (
-              <motion.p
-                className="mt-8 font-mono text-xs text-tertiary select-none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-              >
-                Press{' '}
-                <kbd className="px-1.5 py-0.5 rounded bg-elevated text-tertiary font-mono text-xs border border-border">
-                  Cmd+K
-                </kbd>{' '}
-                for CTO mode
-              </motion.p>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* ── Mobile { } toggle button (bottom-right of section) ── */}
-        <motion.button
-          className="md:hidden fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center font-mono text-sm text-accent"
-          onClick={() => setIsTechnical((v) => !v)}
-          whileHover={{ scale: 1.05, boxShadow: 'var(--shadow-glow-sm)' }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ duration: 0.2 }}
-          aria-label={isTechnical ? 'Exit CTO mode' : 'Enter CTO mode'}
-          style={{ boxShadow: isTechnical ? 'var(--shadow-glow-sm)' : undefined }}
+        {/* ── Entrance wrapper — fades in from below on mount ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: EASE }}
         >
-          {isTechnical ? '×' : '{ }'}
-        </motion.button>
-      </section>
-    </>
+          {/* ── Animated switch between default ↔ technical ── */}
+          <AnimatePresence mode="wait" initial={false}>
+            {isTechnical ? <TechnicalView /> : <DefaultView />}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* ── Keyboard hint — persistent, hidden in technical mode ── */}
+        <AnimatePresence>
+          {!isTechnical && (
+            <motion.p
+              className="mt-8 font-mono text-xs select-none"
+              style={{ color: 'rgba(107,114,128,0.6)' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, delay: 0.8 }}
+            >
+              In a hurry?{' '}
+              <kbd className="px-1.5 py-0.5 rounded bg-elevated text-tertiary font-mono text-xs border border-border">
+                Cmd+K
+              </kbd>
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* ── Scroll depth cue — bouncing chevron, hidden in technical mode ── */}
+      <AnimatePresence>
+        {!isTechnical && (
+          <motion.div
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 2, duration: 0.6 }}
+            aria-hidden="true"
+          >
+            <motion.div
+              animate={{ y: [0, 6, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <svg
+                width="20"
+                height="12"
+                viewBox="0 0 20 12"
+                fill="none"
+                className="text-tertiary opacity-50"
+              >
+                <path
+                  d="M1 1L10 10L19 1"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Mobile { } toggle button — z-30 keeps it below header's z-40 overlay ── */}
+      <motion.button
+        className="md:hidden fixed bottom-6 right-6 z-30 w-12 h-12 rounded-full bg-card border border-border flex items-center justify-center font-mono text-sm text-accent"
+        onClick={() => setIsTechnical((v) => !v)}
+        whileHover={{ scale: 1.05, boxShadow: 'var(--shadow-glow-sm)' }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 0.2 }}
+        aria-label={isTechnical ? 'Exit tl;dr mode' : 'Enter tl;dr mode'}
+        style={{ boxShadow: isTechnical ? 'var(--shadow-glow-sm)' : undefined }}
+      >
+        {isTechnical ? '×' : '{ }'}
+      </motion.button>
+    </section>
   )
 }
