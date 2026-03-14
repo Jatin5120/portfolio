@@ -321,14 +321,14 @@ function NavigationSection() {
     <PGSection title="05 — Navigation Links">
       <PGCard title="Nav links — hover to see underline slide in">
         <PGRow label="Default (inactive)">
-          <NavLink href="#" index={1}>Work</NavLink>
-          <NavLink href="#" index={2}>About</NavLink>
-          <NavLink href="#" index={3}>Contact</NavLink>
+          <NavLink href="#" index="01">Work</NavLink>
+          <NavLink href="#" index="02">About</NavLink>
+          <NavLink href="#" index="03">Contact</NavLink>
         </PGRow>
         <PGRow label="Active (current page)">
-          <NavLink href="#" index={1} isActive>Work</NavLink>
-          <NavLink href="#" index={2}>About</NavLink>
-          <NavLink href="#" index={3}>Contact</NavLink>
+          <NavLink href="#" index="01" isActive>Work</NavLink>
+          <NavLink href="#" index="02">About</NavLink>
+          <NavLink href="#" index="03">Contact</NavLink>
         </PGRow>
       </PGCard>
 

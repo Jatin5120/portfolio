@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { MotionConfig } from 'framer-motion'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -8,32 +8,28 @@ import { Projects } from '@/sections/Projects'
 import { About } from '@/sections/About'
 import { Contact } from '@/sections/Contact'
 
-// Track which section is in view for the nav active state
-const SECTION_IDS = ['hero', 'work', 'projects', 'about', 'contact']
+// Only nav-linked sections — in page order
+const NAV_SECTION_IDS = ['work', 'projects', 'about', 'contact']
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('hero')
-  const observerRef = useRef<IntersectionObserver | null>(null)
+  const [activeSection, setActiveSection] = useState('')
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
-          }
-        })
-      },
-      { rootMargin: '-40% 0px -55% 0px', threshold: 0 },
-    )
+    const handleScroll = () => {
+      const threshold = window.innerHeight * 0.4
+      let current = ''
+      for (const id of NAV_SECTION_IDS) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= threshold) {
+          current = id
+        }
+      }
+      setActiveSection(current)
+    }
 
-    const observer = observerRef.current
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-
-    return () => observer.disconnect()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (

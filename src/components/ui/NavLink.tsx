@@ -1,55 +1,127 @@
-import { motion } from 'framer-motion'
+import { motion, useAnimation } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 
 interface NavLinkProps {
   href: string
-  children: React.ReactNode
+  children: string
   isActive?: boolean
-  index: number
+  isAnyActive?: boolean
+  index?: string
 }
 
-export function NavLink({ href, children, isActive = false, index }: NavLinkProps) {
+const SPRING = { type: 'spring' as const, stiffness: 400, damping: 30 }
+
+export function NavLink({ href, children, isActive = false, isAnyActive = false, index }: NavLinkProps) {
+  const [dotMounted, setDotMounted] = useState(false)
+  const [dotExiting, setDotExiting] = useState(false)
+  const exitControls = useAnimation()
+  const prevIsActiveRef = useRef(isActive)
+
+  // Effect 1: react to isActive changes → set mount/exit flags
+  useEffect(() => {
+    const wasActive = prevIsActiveRef.current
+    prevIsActiveRef.current = isActive
+
+    if (isActive && !wasActive) {
+      // Becoming active — mount dot, entry animation via initial → animate
+      setDotExiting(false)
+      setDotMounted(true)
+    } else if (!isActive && wasActive) {
+      if (isAnyActive) {
+        // Switching to another link — unmount immediately so layoutId can FLIP
+        setDotMounted(false)
+        setDotExiting(false)
+      } else {
+        // Returning to Hero — set flag; Effect 2 runs the animation after commit
+        setDotExiting(true)
+      }
+    }
+  }, [isActive, isAnyActive])
+
+  // Effect 2: fires after React commits dotExiting=true (so animate=exitControls is live)
+  useEffect(() => {
+    if (!dotExiting) return
+    exitControls
+      .start({
+        y: 8,
+        opacity: 0,
+        transition: {
+          y: { type: 'spring' as const, stiffness: 500, damping: 28, mass: 0.6 },
+          opacity: { duration: 0.12, ease: 'easeIn' as const },
+        },
+      })
+      .then(() => {
+        setDotMounted(false)
+        setDotExiting(false)
+      })
+  }, [dotExiting, exitControls])
+
   return (
-    <a
+    <motion.a
       href={href}
       className={cn(
-        'relative flex items-baseline gap-2 pb-2.5 group',
-        'outline-none focus-visible:ring-2 focus-visible:ring-primary',
-        'focus-visible:ring-offset-2 focus-visible:ring-offset-page rounded-sm',
+        'relative flex items-center',
+        'rounded-sm outline-none select-none',
+        'focus-visible:ring-2 focus-visible:ring-primary',
+        'focus-visible:ring-offset-2 focus-visible:ring-offset-page',
       )}
+      whileHover="hover"
       aria-current={isActive ? 'page' : undefined}
     >
-      {/* Index number — JetBrains Mono, ignites before the label */}
-      <span
-        className={cn(
-          'font-mono text-[10px] tracking-widest leading-none tabular-nums select-none',
-          'transition-colors duration-150',
-          isActive ? 'text-accent' : 'text-tertiary group-hover:text-accent',
-        )}
-      >
-        0{index}
-      </span>
-
-      {/* Label */}
-      <span
-        className={cn(
-          'font-body text-sm font-semibold tracking-wide',
-          'transition-colors duration-200',
-          isActive ? 'text-heading' : 'text-secondary group-hover:text-heading',
-        )}
-      >
-        {children}
-      </span>
-
-      {/* Shared sliding marker — springs magnetically between active links */}
-      {isActive && (
-        <motion.div
-          layoutId="nav-active-bar"
-          className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary rounded-full"
-          style={{ boxShadow: '0 0 8px rgba(255, 171, 0, 0.65)' }}
-          transition={{ type: 'spring', stiffness: 500, damping: 40 }}
-        />
+      {/* Index — desktop only, fires orange on parent hover */}
+      {index && (
+        <motion.span
+          className="font-mono mr-2 hidden lg:inline-block leading-none"
+          style={{ fontSize: '9px', letterSpacing: '0.08em' }}
+          animate={{
+            color: isActive ? 'var(--color-primary)' : 'var(--color-tertiary)',
+            opacity: isActive ? 1 : 0.65,
+          }}
+          variants={{
+            hover: {
+              color: 'var(--color-primary)',
+              opacity: 1,
+              transition: { duration: 0.12, ease: 'linear' as const },
+            },
+          }}
+          transition={{ duration: 0.12, ease: 'linear' as const }}
+          aria-hidden="true"
+        >
+          {index}
+        </motion.span>
       )}
-    </a>
+
+      {/* Label — dot anchors here */}
+      <span className="relative inline-flex items-center">
+        {dotMounted && (
+          <motion.span
+            className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary"
+            layoutId="nav-active-dot"
+            initial={{ y: 8, opacity: 0 }}
+            animate={dotExiting ? exitControls : { y: 0, opacity: 1 }}
+            transition={{
+              layout: SPRING,
+              y: { type: 'spring' as const, stiffness: 500, damping: 28, mass: 0.6 },
+              opacity: { duration: 0.12, ease: 'easeOut' as const },
+            }}
+          />
+        )}
+        <motion.span
+          className="font-heading font-medium"
+          style={{ fontSize: '13px', letterSpacing: '-0.01em', color: 'var(--color-heading)' }}
+          animate={{ opacity: isActive ? 1 : 0.85 }}
+          variants={{
+            hover: {
+              opacity: 1,
+              transition: { duration: 0.12, ease: 'linear' as const },
+            },
+          }}
+          transition={{ duration: 0.12, ease: 'linear' as const }}
+        >
+          {children}
+        </motion.span>
+      </span>
+    </motion.a>
   )
 }

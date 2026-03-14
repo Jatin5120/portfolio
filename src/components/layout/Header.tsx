@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence, LayoutGroup, useMotionValue, useSpring, useScroll, useReducedMotion } from 'framer-motion'
+import { motion, AnimatePresence, LayoutGroup, useMotionValue, useSpring, useScroll } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { NavLink } from '@/components/ui/NavLink'
 
 const NAV_LINKS = [
-  { label: 'Work', href: '#work' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Work', href: '#work', index: '01' },
+  { label: 'Projects', href: '#projects', index: '02' },
+  { label: 'About', href: '#about', index: '03' },
+  { label: 'Contact', href: '#contact', index: '04' },
 ]
 
 // ── Load animation variants ───────────────────────────────────────────────────
@@ -82,7 +83,7 @@ function BangaloreClock() {
 
   return (
     <span className="font-mono text-[10px] tracking-widest text-tertiary leading-none tabular-nums">
-      BLR{' '}
+      Bangalore{' '}
       <span className="text-secondary">{hh}</span>
       <span style={{ opacity: colonVisible ? 1 : 0, transition: 'none' }}>:</span>
       <span className="text-secondary">{mm}</span>
@@ -105,11 +106,8 @@ export function Header({ activeSection, forceScrolled = false }: HeaderProps) {
   const rawOpacity = useMotionValue(forceScrolled ? 1 : 0.4)
   const navOpacity = useSpring(rawOpacity, { stiffness: 100, damping: 20 })
 
-  const prefersReducedMotion = useReducedMotion()
-
   // Scroll progress for the orange line (0 → 1 as page is consumed)
   const { scrollYProgress } = useScroll()
-  const progressScaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
   useEffect(() => {
     if (forceScrolled) return
@@ -173,7 +171,7 @@ export function Header({ activeSection, forceScrolled = false }: HeaderProps) {
             backdropFilter:
               scrolled || mobileOpen ? 'blur(12px)' : 'blur(0px)',
           }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
         />
 
         <nav className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -186,39 +184,31 @@ export function Header({ activeSection, forceScrolled = false }: HeaderProps) {
               <motion.div variants={itemVariants}>
                 <motion.a
                   href="#"
-                  className="relative overflow-hidden outline-none rounded-sm
+                  className="relative overflow-hidden block rounded-sm outline-none
                              focus-visible:ring-2 focus-visible:ring-primary
                              focus-visible:ring-offset-2 focus-visible:ring-offset-page"
-                  style={{ lineHeight: 1, display: 'block' }}
+                  style={{ lineHeight: 1 }}
                   initial="rest"
-                  whileHover="hover"
                   animate="rest"
+                  whileHover="hover"
+                  aria-label="Jatin — return to top"
                 >
-                  {/* White layer — base, always visible behind */}
-                  <span className="font-heading font-bold text-2xl leading-none tracking-tight text-heading"
-                    style={{ display: 'block', position: 'relative', zIndex: 1 }}>
+                  {/* White layer — always visible base */}
+                  <span
+                    className="font-heading text-heading"
+                    style={{ fontSize: '20px', fontWeight: 700, letterSpacing: '-0.01em', display: 'block', position: 'relative', zIndex: 1 }}
+                  >
                     Jatin
                   </span>
-                  {/* Orange layer — clips in from bottom to top on hover */}
+                  {/* Orange layer — clips in from bottom on hover */}
                   <motion.span
-                    className="absolute inset-0 font-heading font-bold text-2xl leading-none tracking-tight text-accent"
-                    style={{ zIndex: 2 }}
+                    className="absolute inset-0 font-heading text-accent"
+                    style={{ fontSize: '20px', fontWeight: 700, letterSpacing: '-0.01em', zIndex: 2 }}
                     variants={{
-                      rest: {
-                        clipPath: 'inset(100% 0 0 0)',
-                        transition: {
-                          duration: prefersReducedMotion ? 0 : 0.18,
-                          ease: LOAD_EASE,
-                        },
-                      },
-                      hover: {
-                        clipPath: 'inset(0% 0 0 0)',
-                        transition: {
-                          duration: prefersReducedMotion ? 0 : 0.22,
-                          ease: LOAD_EASE,
-                        },
-                      },
+                      rest: { clipPath: 'inset(100% 0 0 0)', transition: { duration: 0.2, ease: [0.55, 0, 1, 0.45] as [number, number, number, number] } },
+                      hover: { clipPath: 'inset(0% 0 0 0)', transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } },
                     }}
+                    aria-hidden="true"
                   >
                     Jatin
                   </motion.span>
@@ -226,21 +216,18 @@ export function Header({ activeSection, forceScrolled = false }: HeaderProps) {
               </motion.div>
             </motion.div>
 
-            {/* Bangalore clock — sibling of orchestrator in the flex row,
-                appears to the right of the logo on scroll */}
-            <AnimatePresence>
-              {scrolled && (
-                <motion.div
-                  className="ml-3 pl-3 border-l border-subtle"
-                  initial={{ opacity: 0, x: -6 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -6 }}
-                  transition={{ duration: 0.3, ease: LOAD_EASE }}
-                >
-                  <BangaloreClock />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Bangalore clock — always in DOM to prevent layout shift on scroll;
+                opacity-only fade avoids reflow that was shifting the logo */}
+            <motion.div
+              className="flex items-center"
+              animate={{ opacity: scrolled ? 1 : 0 }}
+              transition={{ duration: 0.3, ease: LOAD_EASE }}
+              aria-hidden={!scrolled}
+              style={{ pointerEvents: scrolled ? 'auto' : 'none' }}
+            >
+              <span className="w-px h-4 self-center bg-subtle mx-3" />
+              <BangaloreClock />
+            </motion.div>
           </motion.div>
 
           {/* ── Desktop nav links ── */}
@@ -255,12 +242,13 @@ export function Header({ activeSection, forceScrolled = false }: HeaderProps) {
               className="flex items-center gap-8"
             >
               <LayoutGroup>
-                {NAV_LINKS.map((link, i) => (
+                {NAV_LINKS.map((link) => (
                   <motion.div key={link.label} variants={itemVariants}>
                     <NavLink
                       href={link.href}
-                      index={i + 1}
+                      index={link.index}
                       isActive={activeSection === link.href.replace('#', '')}
+                      isAnyActive={activeSection !== ''}
                     >
                       {link.label}
                     </NavLink>
@@ -307,8 +295,8 @@ export function Header({ activeSection, forceScrolled = false }: HeaderProps) {
         <motion.div
           className="absolute bottom-0 left-0 right-0 h-px origin-left pointer-events-none"
           style={{
-            backgroundColor: 'rgba(255, 171, 0, 0.45)',
-            scaleX: progressScaleX,
+            backgroundColor: 'rgba(255, 171, 0, 0.2)',
+            scaleX: scrollYProgress,
           }}
         />
       </motion.header>

@@ -70,8 +70,7 @@ function DefaultView() {
     >
       {/* Greeting + inline photo */}
       <h1
-        className="font-heading font-bold text-heading leading-tight"
-        style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}
+        className="font-heading font-bold text-heading text-3xl lg:text-4xl leading-tight tracking-tight"
       >
         Hey, I'm{' '}
         <ProfilePhoto />
@@ -81,7 +80,7 @@ function DefaultView() {
       </h1>
 
       {/* Sub-line */}
-      <p className="mt-8 text-secondary font-body text-lg">
+      <p className="mt-8 text-secondary font-body text-lg leading-relaxed">
         Shipping two products simultaneously at{' '}
         <span className="text-heading font-medium">Foyer</span>.{' '}
         One required solving a problem Apple doesn't document.
@@ -192,7 +191,7 @@ function CodeLine({ line }: { line: (typeof CODE_LINES)[number] }) {
 function CodeBlock() {
   return (
     <pre
-      className="overflow-x-auto text-left leading-7 whitespace-pre-wrap break-words"
+      className="overflow-x-auto text-left whitespace-pre-wrap break-words"
       aria-label="Technical profile in pseudo-code"
     >
       {CODE_LINES.map((line, i) => {
