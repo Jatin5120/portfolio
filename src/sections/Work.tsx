@@ -2,8 +2,7 @@ import { motion } from 'framer-motion'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { TechTag } from '@/components/ui/TechTag'
 import { workExperience } from '@/data/work-experience'
-
-const EASE_OUT = [0.16, 1, 0.3, 1] as [number, number, number, number]
+import { EASE_OUT_EXPO } from '@/lib/motion'
 
 const containerVariants = {
   hidden: {},
@@ -12,7 +11,7 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE_OUT } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE_OUT_EXPO } },
 }
 
 export function Work() {

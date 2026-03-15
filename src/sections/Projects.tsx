@@ -8,9 +8,7 @@ import type { ProjectCategory } from '@/types'
 
 type FilterValue = 'all' | ProjectCategory
 
-// ─── Animation helpers ────────────────────────────────────────────────────────
-const EASE_OUT = [0.16, 1, 0.3, 1] as [number, number, number, number]
-const EASE_IN = [0.4, 0, 1, 1] as [number, number, number, number]
+import { EASE_OUT_EXPO, EASE_IN } from '@/lib/motion'
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 
@@ -30,7 +28,7 @@ const childVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: EASE_OUT },
+    transition: { duration: 0.5, ease: EASE_OUT_EXPO },
   },
 }
 
@@ -42,7 +40,7 @@ const cardEnter = {
 const cardAnimate = {
   opacity: 1,
   y: 0,
-  transition: { duration: 0.3, ease: EASE_OUT },
+  transition: { duration: 0.3, ease: EASE_OUT_EXPO },
 }
 
 const cardExit = {

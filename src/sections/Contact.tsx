@@ -1,13 +1,12 @@
 import { motion } from 'framer-motion'
 import { SectionHeading } from '@/components/ui/SectionHeading'
+import { EASE_OUT_EXPO } from '@/lib/motion'
 
 const SOCIAL_LINKS = [
   { label: 'LinkedIn', href: 'https://linkedin.com/in/jatin5120' },
   { label: 'Twitter', href: 'https://twitter.com/jatin5120' },
   { label: 'GitHub', href: 'https://github.com/jatin5120' },
 ]
-
-const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number]
 
 const containerVariants = {
   hidden: {},
@@ -16,7 +15,7 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE_OUT_EXPO } },
 }
 
 export function Contact() {

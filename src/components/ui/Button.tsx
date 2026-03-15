@@ -16,13 +16,14 @@ interface ButtonProps {
 const variantStyles: Record<ButtonVariant, string> = {
   primary: [
     'bg-primary text-on-primary font-semibold font-body',
-    'hover:bg-primary-hover',
+    'shadow-[0_0_20px_rgba(255,171,0,0.15)]',
+    'hover:bg-primary-hover hover:shadow-[0_0_30px_rgba(255,171,0,0.25)]',
     'active:bg-primary-active',
     'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page',
     'disabled:opacity-50 disabled:cursor-not-allowed',
   ].join(' '),
   secondary: [
-    'bg-transparent text-accent border-2 border-border font-semibold font-body',
+    'bg-transparent text-accent border-2 border-primary/30 font-semibold font-body',
     'hover:bg-primary hover:text-on-primary hover:border-primary',
     'active:bg-primary-active active:border-primary-active',
     'focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page',

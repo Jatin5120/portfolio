@@ -66,6 +66,9 @@
     --shadow-glow-sm: 0 0 10px rgba(255, 171, 0, 0.3);
     --shadow-glow-md: 0 0 20px rgba(255, 171, 0, 0.4);
     --shadow-glow-lg: 0 0 30px rgba(255, 171, 0, 0.5);
+
+    /* Primary color RGB channels (for rgba/rgb usage in gradients/glows) */
+    --color-primary-rgb: 255 171 0;
   }
 
   *,
@@ -130,7 +133,7 @@
 }
 
 .skeleton-shimmer {
-  background: linear-gradient(90deg, #161a22 0%, #1f2937 50%, #161a22 100%);
+  background: linear-gradient(90deg, var(--color-card) 0%, var(--color-elevated) 50%, var(--color-card) 100%);
   background-size: 200% 100%;
   animation: shimmer 1.5s ease-in-out infinite;
 }

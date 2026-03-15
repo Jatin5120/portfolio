@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, LayoutGroup, useMotionValue, useSpring, useScroll } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { NavLink } from '@/components/ui/NavLink'
+import { EASE_OUT, EASE_OUT_EXPO } from '@/lib/motion'
 
 const NAV_LINKS = [
   { label: 'Work', href: '#work', index: '01' },
@@ -21,7 +22,8 @@ const NAV_LINKS = [
 // The ghost nav spring is never touched by the load animation.
 // After the load animation completes, inner items stay at opacity 1 permanently.
 
-const LOAD_EASE = [0.4, 0, 0.2, 1] as [number, number, number, number]
+// LOAD_EASE is now imported as EASE_OUT from @/lib/motion
+const LOAD_EASE = EASE_OUT
 
 // Per-element entrance: fades in from -7px above.
 const itemVariants = {
@@ -58,6 +60,10 @@ const hamburgerVariants = {
 }
 
 // Live Bangalore clock — updates every second, colon blinks
+const prefersReduced =
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
 function BangaloreClock() {
   const [time, setTime] = useState('')
   const [colonVisible, setColonVisible] = useState(true)
@@ -82,11 +88,16 @@ function BangaloreClock() {
   const [hh, mm] = time.split(':')
 
   return (
-    <span className="font-mono text-[10px] tracking-widest text-tertiary leading-none tabular-nums">
-      Bangalore{' '}
-      <span className="text-secondary">{hh}</span>
-      <span style={{ opacity: colonVisible ? 1 : 0, transition: 'none' }}>:</span>
-      <span className="text-secondary">{mm}</span>
+    <span
+      className="font-mono text-[10px] tracking-widest text-tertiary leading-none tabular-nums"
+      aria-label={`Current time in Bangalore: ${hh}:${mm}`}
+    >
+      <span aria-hidden="true">
+        Bangalore{' '}
+        <span className="text-secondary">{hh}</span>
+        <span style={{ opacity: prefersReduced || colonVisible ? 1 : 0, transition: 'none' }}>:</span>
+        <span className="text-secondary">{mm}</span>
+      </span>
     </span>
   )
 }
@@ -166,12 +177,12 @@ export function Header({ activeSection, forceScrolled = false }: HeaderProps) {
           animate={{
             backgroundColor:
               scrolled || mobileOpen
-                ? 'rgba(10, 10, 10, 0.92)'
+                ? 'rgba(10, 10, 10, 0.75)'
                 : 'rgba(10, 10, 10, 0)',
             backdropFilter:
-              scrolled || mobileOpen ? 'blur(12px)' : 'blur(0px)',
+              scrolled || mobileOpen ? 'blur(16px)' : 'blur(0px)',
           }}
-          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
+          transition={{ duration: 0.4, ease: EASE_OUT_EXPO }}
         />
 
         <nav className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -216,12 +227,19 @@ export function Header({ activeSection, forceScrolled = false }: HeaderProps) {
               </motion.div>
             </motion.div>
 
-            {/* Bangalore clock — always in DOM to prevent layout shift on scroll;
-                opacity-only fade avoids reflow that was shifting the logo */}
+            {/* Bangalore clock — always in DOM for layout stability.
+                x + opacity create the slide-in feel without reflow. */}
             <motion.div
               className="flex items-center"
-              animate={{ opacity: scrolled ? 1 : 0 }}
-              transition={{ duration: 0.3, ease: LOAD_EASE }}
+              animate={{
+                opacity: scrolled ? 1 : 0,
+                x: scrolled ? 0 : -8,
+              }}
+              transition={{
+                duration: 0.35,
+                ease: EASE_OUT_EXPO,
+                delay: scrolled ? 0.15 : 0,
+              }}
               aria-hidden={!scrolled}
               style={{ pointerEvents: scrolled ? 'auto' : 'none' }}
             >
