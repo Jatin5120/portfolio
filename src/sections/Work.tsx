@@ -15,6 +15,16 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE_OUT_EXPO } },
 }
 
+const metricsContainerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.15 } },
+}
+
+const metricVariants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE_OUT_EXPO } },
+}
+
 // ─── Work Section ────────────────────────────────────────────────────────────
 
 export function Work() {
@@ -41,71 +51,86 @@ export function Work() {
           </h2>
         </motion.div>
 
-        {/* ── Foyer — current role, no card ──────────────────────────── */}
-        <motion.div variants={itemVariants} className="mb-14 lg:mb-20">
-          {/* Company name — the visual anchor */}
-          <div className="flex items-baseline justify-between gap-4 mb-1">
-            <div className="flex items-center gap-3">
-              <span className="inline-block w-1.5 h-1.5 rounded-sm bg-primary shrink-0" aria-hidden="true" />
-              <h3 className="font-heading font-bold text-4xl lg:text-5xl text-heading tracking-tight leading-none">
+        {/* ── Foyer — current role, two-column layout ─────────────────── */}
+        <motion.div
+          variants={itemVariants}
+          className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-x-16 mb-16 lg:mb-20"
+        >
+          {/* Left column — narrative */}
+          <div>
+            {/* Company name + pulse */}
+            <div className="flex items-center gap-3 mb-2">
+              <span className="relative flex items-center justify-center shrink-0" aria-hidden="true">
+                <span className="absolute w-3.5 h-3.5 rounded-full bg-primary/30 animate-ping" style={{ animationDuration: '2s' }} />
+                <span className="relative w-2 h-2 rounded-full bg-primary" />
+              </span>
+              <h3 className="font-heading font-bold text-2xl lg:text-3xl text-heading tracking-tighter leading-none">
                 {foyer.company}
               </h3>
             </div>
-            <span className="font-mono text-xs text-primary/60 whitespace-nowrap hidden sm:block">
-              {foyer.duration}
-            </span>
-          </div>
 
-          {/* Role + mobile date */}
-          <div className="flex items-baseline justify-between gap-4 mt-2 mb-6">
-            <p className="text-secondary text-lg font-body">
+            {/* Role + location + date */}
+            <p className="text-secondary text-base font-body mb-5">
               {foyer.role}
               {foyer.location && (
                 <span className="text-tertiary"> · {foyer.location}</span>
               )}
+              <span className="font-mono text-xs text-tertiary ml-3">
+                {foyer.duration}
+              </span>
             </p>
-            <span className="font-mono text-xs text-primary/60 whitespace-nowrap sm:hidden">
-              {foyer.duration}
-            </span>
+
+            {/* Tagline */}
+            {foyer.tagline && (
+              <p className="font-heading font-semibold text-lg lg:text-xl text-heading/85 tracking-tight leading-snug mb-5">
+                {foyer.tagline}
+              </p>
+            )}
+
+            {/* Description */}
+            <p className="text-secondary text-[15px] leading-[1.8] max-w-[60ch] mb-8">
+              {foyer.description}
+            </p>
+
+            {/* Skills */}
+            <div className="flex flex-wrap gap-2">
+              {foyer.skills.map((skill) => (
+                <TechTag key={skill}>{skill}</TechTag>
+              ))}
+            </div>
           </div>
 
-          {/* Tagline */}
-          {foyer.tagline && (
-            <p className="font-heading font-semibold text-xl lg:text-2xl text-heading/85 tracking-tight leading-snug mb-5">
-              {foyer.tagline}
-            </p>
-          )}
-
-          {/* Description */}
-          <p className="text-secondary text-[15px] leading-[1.8] max-w-[60ch] mb-6">
-            {foyer.description}
-          </p>
-
-          {/* Metrics — inline, no panel */}
+          {/* Right column — metrics (proof points) */}
           {foyer.metrics && foyer.metrics.length > 0 && (
-            <div className="flex flex-wrap gap-8 lg:gap-12 mb-6">
+            <motion.div
+              variants={prefersReduced ? undefined : metricsContainerVariants}
+              className="flex flex-row lg:flex-col gap-8 lg:gap-7 lg:items-end lg:pt-1 mt-8 lg:mt-0"
+            >
               {foyer.metrics.map((m) => (
-                <div key={m.label}>
+                <motion.div
+                  key={m.label}
+                  variants={prefersReduced ? undefined : metricVariants}
+                  className="lg:text-right"
+                >
                   <span className="font-mono font-bold text-2xl lg:text-3xl text-primary leading-none block">
                     {m.value}
                   </span>
-                  <p className="text-secondary text-xs mt-1">{m.label}</p>
-                </div>
+                  <p className="text-tertiary text-xs mt-1.5">{m.label}</p>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
-
-          {/* Skills */}
-          <div className="flex flex-wrap gap-2">
-            {foyer.skills.map((skill) => (
-              <TechTag key={skill}>{skill}</TechTag>
-            ))}
-          </div>
         </motion.div>
 
-        {/* ── Separator ──────────────────────────────────────────────── */}
+        {/* ── Separator — gradient with orange tint ────────────────────── */}
         <motion.div variants={itemVariants}>
-          <div className="h-px bg-subtle/50" aria-hidden="true" />
+          <div
+            className="h-px"
+            aria-hidden="true"
+            style={{
+              background: 'linear-gradient(to right, rgb(255 171 0 / 0.15) 0%, rgb(55 65 81 / 0.5) 30%, transparent 100%)',
+            }}
+          />
         </motion.div>
 
         {/* ── Past roles — editorial rows ─────────────────────────────── */}
