@@ -244,9 +244,10 @@ export function About() {
     <section
       id="about"
       aria-label="About"
-      className="py-24 lg:py-32 px-6 lg:px-16 max-w-5xl mx-auto"
+      className="py-24 lg:py-32 px-6 lg:px-16 xl:px-24"
       ref={sectionRef}
     >
+      <div className="max-w-6xl mx-auto">
       {/* Section header */}
       <div className="mb-16">
         <p className="font-mono text-xs text-tertiary uppercase tracking-widest mb-4">
@@ -338,6 +339,7 @@ export function About() {
             ))}
           </div>
         </motion.div>
+      </div>
       </div>
     </section>
   )

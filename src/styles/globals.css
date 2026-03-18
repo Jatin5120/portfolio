@@ -69,6 +69,10 @@
 
     /* Primary color RGB channels (for rgba/rgb usage in gradients/glows) */
     --color-primary-rgb: 255 171 0;
+
+    /* Muted card surfaces (for secondary content like past work roles) */
+    --color-card-muted: rgb(22 26 34 / 0.6);
+    --color-border-muted: rgb(55 65 81 / 0.5);
   }
 
   *,

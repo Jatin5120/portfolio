@@ -63,14 +63,14 @@ export function Projects() {
     <section
       id="projects"
       aria-label="Projects"
-      className="py-24 lg:py-32 px-6 lg:px-16 max-w-5xl mx-auto"
+      className="py-24 lg:py-32 px-6 lg:px-16 xl:px-24"
     >
       <motion.div
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-10% 0px' }}
-        className="flex flex-col gap-10"
+        className="max-w-6xl mx-auto flex flex-col gap-10"
       >
         {/* Header block */}
         <motion.div variants={childVariants} className="space-y-4">

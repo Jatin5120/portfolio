@@ -23,14 +23,14 @@ export function Contact() {
     <section
       id="contact"
       aria-label="Contact"
-      className="py-24 lg:py-32 px-6 lg:px-16 max-w-5xl mx-auto"
+      className="py-24 lg:py-32 px-6 lg:px-16 xl:px-24"
     >
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-10% 0px' }}
-        className="flex flex-col items-start gap-8"
+        className="max-w-6xl mx-auto flex flex-col items-start gap-8"
       >
         {/* Section label */}
         <motion.p variants={itemVariants} className="font-mono text-xs text-tertiary uppercase tracking-widest">

@@ -13,14 +13,21 @@ export interface Project {
   category: ProjectCategory
 }
 
+export interface WorkMetric {
+  value: string
+  label: string
+}
+
 export interface WorkExperience {
   id: string
   company: string
   role: string
   duration: string
-  location: string
+  location?: string
+  tagline?: string
   description: string
   skills: string[]
+  metrics?: WorkMetric[]
 }
 
 export interface AboutNode {
