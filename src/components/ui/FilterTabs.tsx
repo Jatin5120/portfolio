@@ -22,11 +22,6 @@ interface FilterTabsProps {
   className?: string
 }
 
-/**
- * Project category filter tabs.
- * Decision #6: layoutId sliding orange pill indicator, NOT filled bg on active.
- * Active tab: orange text + animated underline. Keyboard nav: ArrowLeft/Right.
- */
 export function FilterTabs({ active, onChange, className }: FilterTabsProps) {
   const handleKeyDown = (e: React.KeyboardEvent) => {
     const current = TABS.findIndex((t) => t.id === active)
@@ -44,7 +39,7 @@ export function FilterTabs({ active, onChange, className }: FilterTabsProps) {
     <div
       role="tablist"
       aria-label="Filter projects by category"
-      className={cn('flex gap-1', className)}
+      className={cn('flex gap-6 lg:gap-8', className)}
       onKeyDown={handleKeyDown}
     >
       {TABS.map((tab) => (
@@ -54,9 +49,9 @@ export function FilterTabs({ active, onChange, className }: FilterTabsProps) {
           aria-pressed={active === tab.id}
           onClick={() => onChange(tab.id)}
           className={cn(
-            'relative px-4 py-2 text-sm font-medium font-body rounded-md',
+            'relative py-2 font-mono text-xs uppercase tracking-widest',
             'transition-colors duration-200',
-            'outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page',
+            'outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-page rounded-sm',
             active === tab.id ? 'text-accent' : 'text-tertiary hover:text-secondary',
           )}
         >
@@ -65,7 +60,7 @@ export function FilterTabs({ active, onChange, className }: FilterTabsProps) {
             <motion.span
               layoutId="filter-indicator"
               aria-hidden="true"
-              className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full bg-primary"
+              className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-primary"
               transition={{ type: 'spring', stiffness: 500, damping: 35 }}
             />
           )}

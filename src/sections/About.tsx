@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { SectionHeading } from '@/components/ui/SectionHeading'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { aboutNodes } from '@/data/about-nodes'
+import { EASE_OUT_EXPO } from '@/lib/motion'
 import type { AboutNode } from '@/types'
 
-// ─── Node title map (emoji → human-readable title) ───────────────────────────
+// ─── Node title map ─────────────────────────────────────────────────────────
 const NODE_TITLES: Record<string, string> = {
   'node-1': 'Punjab → Bangalore',
   'node-2': 'Work Now, Rest Later',
@@ -16,43 +16,17 @@ const NODE_TITLES: Record<string, string> = {
   'node-8': 'Reset Button',
 }
 
-// ─── Desktop scatter positions ────────────────────────────────────────────────
-// Each value is { top?, bottom?, left?, right? } as percentage strings.
-// The profile photo sits at centre (top 50 / left 50 via transform).
+// ─── Desktop scatter positions (tuned for collision avoidance) ───────────────
 const DESKTOP_POSITIONS: Record<string, React.CSSProperties> = {
-  'node-1': { top: '5%',  left: '8%'  },
-  'node-2': { top: '5%',  left: '62%' },
-  'node-3': { top: '74%', left: '40%' },
-  'node-4': { top: '42%', left: '2%'  },
-  'node-5': { top: '76%', left: '12%' },
-  'node-6': { top: '42%', left: '76%' },
-  'node-7': { top: '18%', left: '36%' },
-  'node-8': { top: '22%', left: '62%' },
+  'node-1': { top: '4%',  left: '6%'  },
+  'node-2': { top: '4%',  left: '60%' },
+  'node-3': { top: '78%', left: '42%' },
+  'node-4': { top: '40%', left: '5%'  },
+  'node-5': { top: '72%', left: '10%' },
+  'node-6': { top: '40%', left: '74%' },
+  'node-7': { top: '16%', left: '32%' },
+  'node-8': { top: '22%', left: '64%' },
 }
-
-// ─── SVG connection lines (desktop only, very subtle) ────────────────────────
-// Pairs: [fromNodeId, toNodeId]
-// Approximate centre-point coordinates for each node in the 900 × 620 px
-// scatter canvas (these match the percentage positions above at that size).
-// node centre-x ≈ left% × 900  +  collapsed-card-half-width (~80px)
-// node centre-y ≈ top%  × 620  +  collapsed-card-half-height (~22px)
-const APPROX_CENTRES: Record<string, { x: number; y: number }> = {
-  'node-1': { x: 152, y: 53  },
-  'node-2': { x: 638, y: 53  },
-  'node-3': { x: 440, y: 481 },
-  'node-4': { x: 98,  y: 282 },
-  'node-5': { x: 188, y: 493 },
-  'node-6': { x: 764, y: 282 },
-  'node-7': { x: 404, y: 134 },
-  'node-8': { x: 638, y: 158 },
-}
-
-const CONNECTION_PAIRS: [string, string][] = [
-  ['node-1', 'node-6'],
-  ['node-2', 'node-8'],
-  ['node-4', 'node-5'],
-  ['node-5', 'node-7'],
-]
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -60,22 +34,50 @@ function ProfilePhoto({ size }: { size: 'sm' | 'lg' }) {
   const dim = size === 'lg' ? 120 : 96
   return (
     <div
-      className="rounded-full bg-elevated flex items-center justify-center flex-shrink-0"
+      className="rounded-full flex items-center justify-center flex-shrink-0 relative overflow-hidden"
       style={{
         width: dim,
         height: dim,
-        border: '4px solid var(--color-primary)',
+        background: 'radial-gradient(135deg, #1f2937 0%, #0f1318 100%)',
+        border: '2px solid rgba(255, 171, 0, 0.5)',
+        boxShadow: '0 0 0 4px rgba(255,171,0,0.08), 0 0 20px rgba(255,171,0,0.15)',
       }}
     >
+      {/* Subtle dot grid texture */}
+      <div
+        className="absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
+          backgroundSize: '8px 8px',
+        }}
+      />
       <span
-        className="font-heading font-bold text-accent"
-        style={{ fontSize: size === 'lg' ? 48 : 38 }}
+        className="font-heading font-bold text-accent relative z-10"
+        style={{ fontSize: size === 'lg' ? 44 : 34, letterSpacing: '-0.03em' }}
       >
         J
       </span>
     </div>
   )
 }
+
+// ─── Chevron SVG ────────────────────────────────────────────────────────────
+
+function ChevronIcon({ isExpanded }: { isExpanded: boolean }) {
+  return (
+    <motion.div
+      className="ml-auto flex-shrink-0 text-tertiary"
+      animate={{ rotate: isExpanded ? 180 : 0 }}
+      transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+    >
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+        <path d="M2 4L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </motion.div>
+  )
+}
+
+// ─── Node Card ──────────────────────────────────────────────────────────────
 
 interface NodeCardProps {
   node: AboutNode
@@ -85,75 +87,100 @@ interface NodeCardProps {
 
 function NodeCard({ node, isExpanded, onToggle }: NodeCardProps) {
   const title = NODE_TITLES[node.id] ?? node.id
+  const contentId = `${node.id}-content`
 
   return (
-    <motion.div
-      layout
-      onClick={onToggle}
-      className="cursor-pointer select-none"
-      style={{ maxWidth: isExpanded ? 280 : undefined }}
-      whileHover={{ scale: 1.02 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-    >
+    <div style={{ maxWidth: isExpanded ? 280 : 200 }}>
       <motion.div
         layout
-        className="rounded-xl border border-subtle overflow-hidden"
-        style={{ backgroundColor: 'var(--bg-card)' }}
-        animate={{
-          borderColor: isExpanded
-            ? 'rgba(255, 171, 0, 0.4)'
-            : 'var(--border-subtle)',
-          boxShadow: isExpanded
-            ? '0 0 16px rgba(255, 171, 0, 0.12)'
-            : 'none',
+        className="rounded-2xl overflow-hidden"
+        style={{
+          backgroundColor: 'rgba(22, 26, 34, 0.82)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
         }}
-        transition={{ duration: 0.2 }}
+        animate={{
+          boxShadow: isExpanded
+            ? '0 0 0 1px rgba(255,171,0,0.35), 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(255,171,0,0.10)'
+            : '0 0 0 1px rgba(255,255,255,0.06), 0 4px 16px rgba(0,0,0,0.3)',
+          backgroundColor: isExpanded
+            ? 'rgba(26, 30, 40, 0.92)'
+            : 'rgba(22, 26, 34, 0.82)',
+        }}
+        whileHover={isExpanded ? undefined : {
+          boxShadow: '0 0 0 1px rgba(255,171,0,0.18), 0 8px 24px rgba(0,0,0,0.45)',
+          backgroundColor: 'rgba(26, 30, 40, 0.90)',
+        }}
+        transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
       >
         {/* Collapsed header — always visible */}
-        <div className="flex items-center gap-2 px-4 py-3">
-          <span className="text-xl leading-none flex-shrink-0" role="img" aria-hidden="true">
+        <button
+          onClick={onToggle}
+          aria-expanded={isExpanded}
+          aria-controls={contentId}
+          className="w-full flex items-center gap-2.5 px-4 py-3 select-none text-left transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset rounded-2xl"
+          style={{
+            backgroundColor: isExpanded ? 'rgba(255,171,0,0.06)' : 'transparent',
+          }}
+        >
+          <span className="text-base leading-none flex-shrink-0 opacity-75" role="img" aria-hidden="true">
             {node.emoji}
           </span>
           <div className="min-w-0">
-            <p className="font-semibold text-sm text-heading leading-tight truncate">
+            <p className="font-medium text-sm text-heading leading-tight truncate">
               {title}
             </p>
             {node.year && (
-              <p className="font-mono text-xs text-tertiary mt-0.5">
+              <p className="font-mono text-xs text-tertiary mt-px">
                 {node.year}
               </p>
             )}
           </div>
-          {/* Expand/collapse chevron */}
-          <motion.span
-            className="ml-auto text-tertiary flex-shrink-0 text-xs"
-            animate={{ rotate: isExpanded ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            ▾
-          </motion.span>
-        </div>
+          <ChevronIcon isExpanded={isExpanded} />
+        </button>
 
         {/* Expanded content */}
         <AnimatePresence initial={false}>
           {isExpanded && (
             <motion.div
+              id={contentId}
               key="content"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{
+                height: 'auto',
+                opacity: 1,
+                transition: {
+                  height: { duration: 0.22, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+                  opacity: { duration: 0.18, delay: 0.12, ease: [0.4, 0, 0.2, 1] as [number, number, number, number] },
+                },
+              }}
+              exit={{
+                height: 0,
+                opacity: 0,
+                transition: {
+                  opacity: { duration: 0.08 },
+                  height: { duration: 0.18, ease: [0.4, 0, 1, 1] as [number, number, number, number] },
+                },
+              }}
               className="overflow-hidden"
             >
               <div className="px-4 pb-4">
-                <div
-                  className="h-px mb-3"
-                  style={{ backgroundColor: 'rgba(255,171,0,0.15)' }}
+                {/* Animated gradient divider */}
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.3, delay: 0.16, ease: EASE_OUT_EXPO }}
+                  style={{
+                    height: '1px',
+                    marginBottom: '12px',
+                    background: 'linear-gradient(90deg, rgba(255,171,0,0.5) 0%, rgba(255,171,0,0.05) 100%)',
+                    transformOrigin: 'left',
+                  }}
                 />
                 {node.content.split('\n\n').map((paragraph, i) => (
                   <p
                     key={i}
-                    className="text-secondary text-sm leading-relaxed mb-2 last:mb-0"
+                    className="text-secondary text-sm leading-[1.65] mb-3 last:mb-0"
                   >
                     {paragraph}
                   </p>
@@ -163,45 +190,38 @@ function NodeCard({ node, isExpanded, onToggle }: NodeCardProps) {
           )}
         </AnimatePresence>
       </motion.div>
-    </motion.div>
+    </div>
   )
 }
 
-// ─── Connection lines SVG (desktop only) ─────────────────────────────────────
+// ─── Bangalore map background (desktop only) ─────────────────────────────────
 
-function ConnectionLines() {
+function MapBackground() {
   return (
-    <svg
+    <div
       aria-hidden="true"
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      viewBox="0 0 900 620"
-      preserveAspectRatio="none"
+      className="absolute inset-0 w-screen left-1/2 -translate-x-1/2 pointer-events-none overflow-hidden"
       style={{ zIndex: 0 }}
     >
-      {CONNECTION_PAIRS.map(([fromId, toId]) => {
-        const from = APPROX_CENTRES[fromId]
-        const to = APPROX_CENTRES[toId]
-        if (!from || !to) return null
-        return (
-          <line
-            key={`${fromId}-${toId}`}
-            x1={from.x}
-            y1={from.y}
-            x2={to.x}
-            y2={to.y}
-            stroke="rgba(255,171,0,0.15)"
-            strokeWidth="1"
-            strokeDasharray="4 6"
-          />
-        )
-      })}
-    </svg>
+      <img
+        src="/bangalore-map.webp"
+        alt=""
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full object-cover max-w-none opacity-[0.3]"
+        style={{
+          maskImage: 'radial-gradient(ellipse 70% 70% at 50% 48%, black 20%, transparent 85%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 70% 70% at 50% 48%, black 20%, transparent 85%)',
+        }}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
   )
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function About() {
+  const prefersReduced = useReducedMotion()
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
 
@@ -216,27 +236,41 @@ export function About() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
+  // Close on Escape key
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setExpandedId(null)
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   function handleToggle(id: string) {
     setExpandedId(prev => (prev === id ? null : id))
   }
 
-  // Stagger animation variants
   const containerVariants = {
     hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
+    visible: { transition: { staggerChildren: 0.065, delayChildren: 0.2 } },
   }
 
   const nodeVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    hidden: { opacity: 0, y: 12, filter: 'blur(2px)' },
     visible: {
       opacity: 1,
       y: 0,
+      filter: 'blur(0px)',
+      transition: { duration: 0.5, ease: EASE_OUT_EXPO },
+    },
+  }
+
+  const photoVariants = {
+    hidden: { opacity: 0, scale: 0.88, filter: 'blur(4px)' },
+    visible: {
+      opacity: 1,
       scale: 1,
-      transition: { type: 'spring' as const, stiffness: 300, damping: 28 },
+      filter: 'blur(0px)',
+      transition: { duration: 0.65, ease: EASE_OUT_EXPO, delay: 0 },
     },
   }
 
@@ -244,36 +278,35 @@ export function About() {
     <section
       id="about"
       aria-label="About"
-      className="py-24 lg:py-32 px-6 lg:px-16 xl:px-24"
+      className="relative py-24 lg:py-32 px-6 lg:px-16 xl:px-24 overflow-hidden"
       ref={sectionRef}
     >
-      <div className="max-w-6xl mx-auto">
-      {/* Section header */}
-      <div className="mb-16">
-        <p className="font-mono text-xs text-tertiary uppercase tracking-widest mb-4">
-          About
-        </p>
-        <SectionHeading className="text-3xl lg:text-4xl">
-          Beyond the code
-        </SectionHeading>
+      {/* Full-bleed map background */}
+      <div className="hidden lg:block">
+        <MapBackground />
+      </div>
+
+      <div className="relative max-w-6xl mx-auto">
+      {/* Section heading */}
+      <div className="mb-10 lg:mb-14">
+        <h2 className="font-heading font-bold text-3xl lg:text-4xl text-heading">
+          Beyond the code.
+        </h2>
       </div>
 
       {/* ── Desktop: scatter layout ── */}
       <div className="hidden lg:block">
         <motion.div
           className="relative"
-          style={{ minHeight: 620 }}
+          style={{ minHeight: 700 }}
           variants={containerVariants}
-          initial="hidden"
+          initial={prefersReduced ? 'visible' : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, margin: '-10% 0px' }}
         >
-          {/* Subtle connection lines behind everything */}
-          <ConnectionLines />
-
           {/* Profile photo — centred absolutely */}
           <motion.div
-            variants={nodeVariants}
+            variants={photoVariants}
             className="absolute z-10"
             style={{
               top: '50%',
@@ -281,32 +314,56 @@ export function About() {
               transform: 'translate(-50%, -50%)',
             }}
           >
+            {/* Pulse ring */}
+            {!prefersReduced && (
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{ border: '1px solid rgba(255,171,0,0.25)' }}
+                animate={{ scale: [1, 1.18, 1], opacity: [0.6, 0, 0.6] }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 1.2 }}
+              />
+            )}
+            {/* Outer glow */}
             <div
-              className="rounded-full p-1"
+              className="absolute rounded-full pointer-events-none"
               style={{
-                background:
-                  'radial-gradient(circle, rgba(255,171,0,0.08) 0%, transparent 70%)',
+                inset: '-8px',
+                background: 'radial-gradient(circle, rgba(255,171,0,0.09) 0%, transparent 70%)',
               }}
-            >
-              <ProfilePhoto size="lg" />
-            </div>
+            />
+            <ProfilePhoto size="lg" />
           </motion.div>
 
           {/* Node cards */}
-          {aboutNodes.map(node => (
-            <motion.div
-              key={node.id}
-              variants={nodeVariants}
-              className="absolute z-10"
-              style={DESKTOP_POSITIONS[node.id]}
-            >
-              <NodeCard
-                node={node}
-                isExpanded={expandedId === node.id}
-                onToggle={() => handleToggle(node.id)}
-              />
-            </motion.div>
-          ))}
+          {aboutNodes.map(node => {
+            const isActive = expandedId === node.id
+            const hasExpanded = expandedId !== null
+
+            return (
+              <motion.div
+                key={node.id}
+                variants={nodeVariants}
+                className="absolute"
+                style={{
+                  ...DESKTOP_POSITIONS[node.id],
+                  zIndex: isActive ? 20 : 10,
+                }}
+                animate={{
+                  opacity: hasExpanded && !isActive ? 0.45 : 1,
+                  scale: hasExpanded && !isActive ? 0.97 : 1,
+                  filter: hasExpanded && !isActive ? 'saturate(0.6)' : 'saturate(1)',
+                }}
+                whileHover={isActive ? undefined : { y: -3 }}
+                transition={{ type: 'spring' as const, stiffness: 500, damping: 35 }}
+              >
+                <NodeCard
+                  node={node}
+                  isExpanded={isActive}
+                  onToggle={() => handleToggle(node.id)}
+                />
+              </motion.div>
+            )
+          })}
         </motion.div>
       </div>
 
@@ -314,20 +371,20 @@ export function About() {
       <div className="lg:hidden">
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={prefersReduced ? 'visible' : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, margin: '-10% 0px' }}
         >
           {/* Profile photo centred */}
           <motion.div
-            variants={nodeVariants}
+            variants={photoVariants}
             className="flex justify-center mb-10"
           >
             <ProfilePhoto size="sm" />
           </motion.div>
 
           {/* Vertical list of node cards */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             {aboutNodes.map(node => (
               <motion.div key={node.id} variants={nodeVariants}>
                 <NodeCard
